@@ -1,5 +1,7 @@
-from .serializers import *
+from .serializers import DiseaseLibrary, BoneChangeBoneProxySerializer, \
+    BoneSerializer, DiseaseCaseSerializer, DiseaseSerializer
 from django.db.models import Q
+from .models import DiseaseCase, BoneChangeBoneProxy, Bone
 from rest_framework.response import Response
 import requests
 from rest_framework import status
@@ -8,19 +10,15 @@ from rest_framework import filters
 from rest_framework import viewsets
 
 
-
 # Disease Case
-
 class DiseaseCaseViewset(viewsets.ModelViewSet):
     serializer_class = DiseaseCaseSerializer
     queryset = DiseaseCase.objects.all()
     filter_backends = [filters.SearchFilter]
-    search_fields = ['=disease',]
+    search_fields = ['=disease']
     http_method_names = ['get', 'post', 'head']
 
 
-
-# All diseases with Childs
 class DiseaseViewSet(viewsets.ReadOnlyModelViewSet):
     """
     This viewset automatically provides `list` and `retrieve` actions.
@@ -28,14 +26,13 @@ class DiseaseViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = DiseaseSerializer
     queryset = DiseaseLibrary.objects.all()
 
-    #filter_backends = [filters.SearchFilter]
-    #search_fields = ['name',]
+    # filter_backends = [filters.SearchFilter]
+    # search_fields = ['name',]
 
-    #filter_backends = [DjangoFilterBackend]
-    #filterset_fields = '__all__'
+    # filter_backends = [DjangoFilterBackend]
+    # filterset_fields = '__all__'
 
     def get_queryset(self):
-
         queryset = DiseaseLibrary.objects.all()
         search_bones = self.request.query_params.get('bone__name__in')
         search_technics = self.request.query_params.get('technic__name__in')
@@ -70,22 +67,12 @@ class DiseaseViewSet(viewsets.ReadOnlyModelViewSet):
             q = Q()
             for age in search_age:
                 print(age)
-                term = {age.lower():True}
+                term = {age.lower(): True}
                 q = q | Q(**term)
             queryset = queryset.filter(q)
 
         # return the filtered queryset
         return queryset
-
-
-
-    """
-    def get_queryset(self):
-
-        queryset = DiseaseLibrary.objects.all()
-        queryset = queryset.filter(Q(anomalies__bone__name__contains='Right') & Q(anomalies__technic__name__contains='Macroscopy'))
-        return queryset
-    """
 
 
 class BoneChangeBoneProxyViewSet(viewsets.ReadOnlyModelViewSet):
@@ -95,7 +82,6 @@ class BoneChangeBoneProxyViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = BoneChangeBoneProxySerializer
 
     def get_queryset(self):
-
         queryset = BoneChangeBoneProxy.objects.all()
         search_bone = self.request.query_params.get('bone__id__in')
 
@@ -106,7 +92,7 @@ class BoneChangeBoneProxyViewSet(viewsets.ReadOnlyModelViewSet):
             search_bone = search_bone.split(',')
             print(search_bone)
             q = Q()
-            q =  Q(bone__pk__in=search_bone)
+            q = Q(bone__pk__in=search_bone)
             queryset = queryset.filter(q)
         return queryset
 
@@ -115,7 +101,6 @@ class BoneChangeBoneProxyViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class ChangeSearchViewSet(viewsets.ViewSet):
-
     # http://localhost:8000/api/daard/bone-change-search/?q=Dwarfismus&bone_ids=27,24
     def list(self, request):
         # url parameter
@@ -134,8 +119,8 @@ class ChangeSearchViewSet(viewsets.ViewSet):
 
         # fill dict with technics
         # Todo: refactor model and for loops to be more pythonic
-        #all_technics = {disease["technic"]["name"]: {} for disease in bone_change_relations}
-        all_technics = {"Radiography":{},"Macroscopy":{},"Microscopy":{}}
+        # all_technics = {disease["technic"]["name"]: {} for disease in bone_change_relations}
+        all_technics = {"Radiography": {}, "Macroscopy": {}, "Microscopy": {}}
 
         # create dict of technics and bones
         for disease in bone_change_relations:
@@ -147,23 +132,16 @@ class ChangeSearchViewSet(viewsets.ViewSet):
                         "name": current_bone["name"],
                         "values": []
                     }
-
-
         # add bone changes to bones
         for disease in bone_change_relations:
             disease_as_dict = dict(disease)
             for current_bone in disease_as_dict["bone"]:
                 if str(current_bone["id"]) in search_bone:
                     all_technics[disease["technic"]["name"]][current_bone["name"]]["values"].append(disease["bone_change"])
-
-
-
-
         return Response(all_technics)
 
 
 class FormularConfig(viewsets.ViewSet):
-
     def list(self, request):
 
         # Read Bones from Model
@@ -177,7 +155,7 @@ class FormularConfig(viewsets.ViewSet):
 
         for bone in all_bones:
             bone = dict(bone)
-            bone["type"]="selectfield" if bone["options"] else "Label"
+            bone["type"] = "selectfield" if bone["options"] else "Label"
             bone_sections[bone["section"]].append(bone)
             bone_sections[bone["section"]].append(
                 {"name": f"{bone['name']}_amount",
@@ -192,7 +170,7 @@ class FormularConfig(viewsets.ViewSet):
                 key_values = []
                 for name, value in forms[step][objects]['values']: key_values.append({"name": name, "value": value})
                 forms[step][objects]['values'] = key_values
-                if step is not "general":
+                if step != "general":
                     all_forms[step] = forms[step]
 
         # all_forms["inventory"] = all_bones
@@ -205,12 +183,12 @@ class FormularConfig(viewsets.ViewSet):
 
         return Response(
             all_forms
-            #+ all_bones
+            # + all_bones
         )
+
 
 class SiteServiceAPI(viewsets.ViewSet):
     def list(self, request):
-
         q = self.request.query_params.get('q')
         task = self.request.query_params.get('task')
 

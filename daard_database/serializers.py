@@ -1,29 +1,26 @@
 
 from rest_framework import serializers
-from .models import *
+from .models import BoneChangeBoneProxy, DiseaseLibrary, DiseaseCase, Bone
 from django_filters import rest_framework as filters
 from slugify import slugify
 
-# All Disease
-
-
 
 class NewMedicineSerializer(serializers.ModelSerializer):
-    #name = serializers.CharField( read_only=True)
+    # name = serializers.CharField( read_only=True)
     class Meta:
         model = Bone
         fields = '__all__'
 
 
 class BoneChangeBoneProxySerializer(serializers.ModelSerializer):
-    #disease_library = serializers.CharField(source='disease_library.name', read_only=True)
+    # disease_library = serializers.CharField(source='disease_library.name', read_only=True)
     technic = serializers.CharField(source='technic.name', read_only=True)
     bone_change = serializers.CharField(source='bone_change.name', read_only=True)
-    bone = NewMedicineSerializer( read_only=True, many=True)
+    bone = NewMedicineSerializer(read_only=True, many=True)
 
     class Meta:
         model = BoneChangeBoneProxy
-        fields = ['technic','bone_change','bone',]
+        fields = ['technic', 'bone_change', 'bone']
 
 
 class DiseaseSerializer(serializers.ModelSerializer):
@@ -31,7 +28,7 @@ class DiseaseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DiseaseLibrary
-        fields = ['id','adults','subadults','name','anomalies']
+        fields = ['id', 'adults', 'subadults', 'name', 'anomalies']
         depth = 3
 
     def __init__(self, *args, **kwargs):
@@ -48,34 +45,33 @@ class DiseaseSerializer(serializers.ModelSerializer):
                 self.fields.pop(field_name)
 
 
-
 # Disease Case
-
 class DiseaseCaseSerializer(serializers.ModelSerializer):
     class Meta:
         model = DiseaseCase
-        #fields = '__all__'
-        filter_fields = ['name',]
-        search_fields = ['name', ]
-        exclude = ['is_approved', 'geoserver_id',]
+        # fields = '__all__'
+        filter_fields = ['name']
+        search_fields = ['name']
+        exclude = ['is_approved', 'geoserver_id']
         filter_backends = (filters.DjangoFilterBackend)
         title = "XXX"
 
-# All Bones nested with children
 
+# All Bones nested with children
 class ChildrenBoneSerializer(serializers.ModelSerializer):
 
     value = serializers.SerializerMethodField()
 
     class Meta:
         model = Bone
-        #exclude = ['lft', 'rght', 'id']
-        fields = ['name', 'value',]
+        # exclude = ['lft', 'rght', 'id']
+        fields = ['name', 'value']
 
     @classmethod
     def get_value(self, object):
         """getter method to add field retrieved_time"""
         return slugify(object.name)
+
 
 class BoneSerializer(serializers.ModelSerializer):
     options = ChildrenBoneSerializer(many=True)
@@ -92,25 +88,25 @@ class BoneSerializer(serializers.ModelSerializer):
         """getter method to add field retrieved_time"""
         return slugify(object.name)
 
-
     class Meta:
         model = Bone
-        #exclude = ['lft','rght',]
-        fields = ['name','label','options','section',]
-
+        # exclude = ['lft','rght',]
+        fields = ['name', 'label', 'options', 'section']
 
 
 # BONE PROXY
 class CustomBoneSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Bone
-        fields = ('id','name')
+        fields = ('id', 'name')
+
 
 class BoneChangeBoneProxySerializer(serializers.ModelSerializer):
     bone = CustomBoneSerializer(many=True)
+
     class Meta:
         model = BoneChangeBoneProxy
         depth = 1
-        #exclude = ('bone_change__id', )
+        # exclude = ('bone_change__id', )
         fields = '__all__'
-

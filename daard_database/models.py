@@ -5,21 +5,22 @@ from geoposition.fields import GeopositionField
 import uuid
 from jsonfield import JSONField
 
-# Deasese Database
 
 class DiseaseLibrary(models.Model):
     name = models.CharField(max_length=255)
-    subadults = models.BooleanField(default=False,blank=True)
+    subadults = models.BooleanField(default=False, blank=True)
     adults = models.BooleanField(default=False, blank=True)
 
     def __str__(self):
         return self.name
 
+
 class Technic(models.Model):
     name = models.CharField(max_length=255)
-    #c = models.CharField(choices=AGE_CLASS.values, null=True, blank=True, max_length=200)
+
     def __str__(self):
         return self.name
+
 
 class BoneChange(models.Model):
     name = models.CharField(max_length=255)
@@ -27,13 +28,14 @@ class BoneChange(models.Model):
     def __str__(self):
         return self.name
 
+
 class Bone(MPTTModel):
-    sections=(('cranial_district','Cranial district'),
-              ('axial_skeleton','Axial skeleton'),
-              ('right_upper_limb','Right upper limb'),
-              ('left_upper_limb','Left upper limb'),
-              ('right_lower_limb','Right lower limb'),
-              ('left_lower_limb','Left lower limb'))
+    sections = (('cranial_district', 'Cranial district'),
+                ('axial_skeleton', 'Axial skeleton'),
+                ('right_upper_limb', 'Right upper limb'),
+                ('left_upper_limb', 'Left upper limb'),
+                ('right_lower_limb', 'Right lower limb'),
+                ('left_lower_limb', 'Left lower limb'))
     section = models.CharField(max_length=255, choices=sections)
     name = models.CharField(max_length=255)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='options', db_index=True,
@@ -45,17 +47,20 @@ class Bone(MPTTModel):
     def __str__(self):
         return self.name
 
+
 class BoneChangeBoneProxy(models.Model):
     anomalies = models.ForeignKey('DiseaseLibrary', on_delete=models.CASCADE, related_name='anomalies')
     technic = models.ForeignKey('Technic', on_delete=models.CASCADE, related_name='technic_proxy')
     bone_change = models.ForeignKey('BoneChange', blank=True, null=True, on_delete=models.CASCADE, related_name='bone_change_proxy')
     bone = TreeManyToManyField('Bone', related_name='bone_proxy')
 
+
 class BoneRelation(models.Model):
     anomalies_case = models.ForeignKey('DiseaseCase', on_delete=models.CASCADE, related_name='anomalies_case')
     technic_case = models.ForeignKey('Technic', on_delete=models.CASCADE, related_name='technic_proxy_case')
     bone_change_case = models.ForeignKey('BoneChange', blank=True, null=True, on_delete=models.CASCADE, related_name='bone_change_proxy_case')
     bone_case = TreeManyToManyField('Bone', related_name='bone_proxy_case')
+
 
 class DiseaseCase(models.Model):
     # commons
@@ -71,7 +76,7 @@ class DiseaseCase(models.Model):
     age_freetext = models.CharField(max_length=200, blank=True)
     sex = models.CharField(max_length=200, choices=forms['disease']['sex']['values'])
 
-    #step 2
+    # step 2
     inventory = JSONField()
 
     # step 3
@@ -108,13 +113,3 @@ class DiseaseCase(models.Model):
 
     def __str__(self):
         return self.disease
-
-# The Config Model
-"""
-class FormConfig(models.Model):
-    form = models.CharField(max_length=255,blank=False, null=False)
-    values = models.TextField(blank=True, null=True, serialize=False)
-
-    def __str__(self):
-        return self.form
-"""

@@ -1,6 +1,6 @@
 forms = {
 
-    "general":{
+    "general": {
         "bone_amount": {
             "name": "bone_amount",
             "label": "BONE AMOUNT",
@@ -14,7 +14,6 @@ forms = {
                        ('unknown', 'UNKNOWN',)]
         }
     },
-
     # 1 step
     "disease": {
         "subadults": {
@@ -103,11 +102,11 @@ forms = {
 
     # step 2
     "inventory": {
-            "PLACEHOLDER": {
-                "name": "",
-                "values":""
-            }
-        },
+        "PLACEHOLDER": {
+            "name": "",
+            "values": ""
+        }
+    },
 
     # Step 3 should be dynamically generated
 
@@ -209,10 +208,10 @@ forms = {
             "type": "selectfield",
             "help_text": "Please choose exactly one value",
             "note": "visible if origin.objects.archaeological = checked;",
-            "values": [ ('single', 'Single',),
-                        ('double', 'Double',),
-                        ('multiple', 'Multiple',),
-                        ('unknown', 'UNKNOWN',)]
+            "values": [('single', 'Single',),
+                       ('double', 'Double',),
+                       ('multiple', 'Multiple',),
+                       ('unknown', 'UNKNOWN',)]
         },
         "storage_place": {
             "name": "storage_place",

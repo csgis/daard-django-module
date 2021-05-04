@@ -1,9 +1,8 @@
 from django.contrib import admin
-from .models import *
+from .models import DiseaseCase, DiseaseLibrary, BoneChange, Bone, Technic, BoneChangeBoneProxy, BoneRelation
 from mptt.admin import DraggableMPTTAdmin
-from django.forms import CheckboxSelectMultiple
 from import_export.admin import ImportExportModelAdmin
-from django.utils.safestring import mark_safe
+
 
 # the helper proxy registry, will not get registered itself
 class BoneChangeBoneProxy(admin.TabularInline):
@@ -15,6 +14,7 @@ class BoneChangeBoneProxy(admin.TabularInline):
     class Media:
         js = ['/static/js/daard_database.js']
     """
+
 
 class BoneRelation(admin.TabularInline):
     model = BoneRelation
@@ -30,35 +30,40 @@ class DiseaseAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     # add the extrascript for turning multiple selects into a checkbox table
 
     class Media:
-        js = ['//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js','/static/js/checkboxes.js']
-        #js = ['//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js']
+        js = ['//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js', '/static/js/checkboxes.js']
+        # js = ['//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js']
         css = {
             'all': ('/static/css/checkbox.css',)
         }
+
 
 # the ordinary models
 class TechnicAdmin(admin.ModelAdmin):
     model = Technic
     search_fields = ['name']
 
+
 class BoneAdmin(ImportExportModelAdmin, DraggableMPTTAdmin):
     model = Bone
     search_fields = ('name',)
     list_filter = ('section',)
-    list_display = ('indented_title','section',)
+    list_display = ('indented_title', 'section',)
+
 
 class BoneChangeAdmin(admin.ModelAdmin):
     model = BoneChange
     search_fields = ['name']
 
+
 class DiseaseCaseAdmin(admin.ModelAdmin):
     model = DiseaseCase
     list_display = ('disease', 'is_approved',)
     search_fields = ['disease']
-    #inlines = [BoneRelation]
+    # inlines = [BoneRelation]
+
     class Media:
-        js = ['//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js','/static/js/checkboxes.js']
-        #js = ['//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js']
+        js = ['//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js', '/static/js/checkboxes.js']
+        # js = ['//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js']
         css = {
             'all': ('/static/css/checkbox.css',)
         }
@@ -89,10 +94,11 @@ class DiseaseCaseAdmin(admin.ModelAdmin):
     )
     """
 
+
 # Register Objects
 admin.site.register(Technic, TechnicAdmin)
 admin.site.register(Bone, BoneAdmin)
 admin.site.register(BoneChange, BoneChangeAdmin)
 admin.site.register(DiseaseLibrary, DiseaseAdmin)
-#admin.site.register(FormConfig)
+# admin.site.register(FormConfig)
 admin.site.register(DiseaseCase, DiseaseCaseAdmin)
