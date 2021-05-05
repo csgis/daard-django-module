@@ -32,7 +32,7 @@ setup(
         'django-easy-select2==1.5.7',
         'django-bootstrap-select==0.1.3',
         'django-categories==1.8',
-        'django-mptt==0.11.0',
+        'django-mptt==0.12.0',
         'djangorestframework==3.11.2',
         'django-filter==2.4.0',
         'drf-spectacular==0.15.1',
