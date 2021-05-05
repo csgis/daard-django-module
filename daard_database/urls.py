@@ -20,8 +20,7 @@ daard_router.register('bone-change-search', views.ChangeSearchViewSet, basename=
 
 
 urlpatterns = [
-    path('api/daard/', include(daard_router.urls)),
-    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
-    #path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
-    path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    path('daard/api/', include(daard_router.urls)),
+    path('daard/api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('daard/api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]
