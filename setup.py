@@ -38,6 +38,7 @@ setup(
         'drf-spectacular==0.15.1',
         'django-geoposition-2==0.3.11',
         'django-nested-inline==0.4.2',
-        'Markdown==3.3.4'
+        'Markdown==3.3.4',
+        'django-import-export'
     ]
 )
