@@ -112,4 +112,4 @@ class DiseaseCase(models.Model):
     position = GeopositionField(null=True, blank=True)
 
     def __str__(self):
-        return self.disease
+        return self.disease__name
