@@ -17,6 +17,7 @@ class DiseaseCaseViewset(viewsets.ModelViewSet):
     filter_backends = [filters.SearchFilter]
     search_fields = ['=disease']
     http_method_names = ['get', 'post', 'head']
+    permission_classes = [IsAuthenticated]
 
 
 class DiseaseViewSet(viewsets.ReadOnlyModelViewSet):
