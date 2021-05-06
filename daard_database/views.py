@@ -8,6 +8,7 @@ from rest_framework import status
 from .choices import forms
 from rest_framework import filters
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 
 
 # Disease Case
