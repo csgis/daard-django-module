@@ -5,6 +5,7 @@ from django_filters import rest_framework as filters
 from slugify import slugify
 
 
+
 class NewMedicineSerializer(serializers.ModelSerializer):
     # name = serializers.CharField( read_only=True)
     class Meta:
@@ -47,6 +48,8 @@ class DiseaseSerializer(serializers.ModelSerializer):
 
 # Disease Case
 class DiseaseCaseSerializer(serializers.ModelSerializer):
+    owner = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
     class Meta:
         model = DiseaseCase
         # fields = '__all__'
@@ -54,7 +57,7 @@ class DiseaseCaseSerializer(serializers.ModelSerializer):
         search_fields = ['name']
         exclude = ['is_approved', 'geoserver_id']
         filter_backends = (filters.DjangoFilterBackend)
-        title = "XXX"
+
 
 
 # All Bones nested with children
