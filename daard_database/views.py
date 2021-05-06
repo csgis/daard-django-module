@@ -8,7 +8,7 @@ from rest_framework import status
 from .choices import forms
 from rest_framework import filters
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 
 # Disease Case
@@ -18,7 +18,7 @@ class DiseaseCaseViewset(viewsets.ModelViewSet):
     filter_backends = [filters.SearchFilter]
     search_fields = ['=disease']
     http_method_names = ['get', 'post', 'head']
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class DiseaseViewSet(viewsets.ReadOnlyModelViewSet):
