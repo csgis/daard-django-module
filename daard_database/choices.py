@@ -156,20 +156,12 @@ forms = {
             "note": "visible if origin.objects.archaeological or origin.objects.archaeological = checked; should store a link and set lat long hidden fields",
             "values": []
         },
-        "lat": {
-            "name": "lat",
-            "label": "lat",
+        "position": {
+            "name": "position",
+            "label": "position",
             "mandatory": False,
             "type": "hiddenfield",
-            "help_text": "The latitude",
-            "values": []
-        },
-        "long": {
-            "name": "long",
-            "label": "lat",
-            "mandatory": False,
-            "type": "hiddenfield",
-            "help_text": "The longitude",
+            "help_text": "The position as string 'lat,long'",
             "values": []
         },
         "archaeological_tombid": {

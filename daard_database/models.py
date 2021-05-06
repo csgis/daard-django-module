@@ -4,6 +4,7 @@ from .choices import forms
 from geoposition.fields import GeopositionField
 import uuid
 from jsonfield import JSONField
+from django.conf import settings
 
 
 class DiseaseLibrary(models.Model):
@@ -65,6 +66,12 @@ class BoneRelation(models.Model):
 class DiseaseCase(models.Model):
     # commons
     is_approved = models.BooleanField(default=False)
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        blank=True,
+        null=True,
+        related_name='daard_case_user',
+        on_delete=models.CASCADE)
     geoserver_id = models.UUIDField(primary_key=False, default=uuid.uuid4, blank=True)
 
     # step 1
@@ -104,12 +111,8 @@ class DiseaseCase(models.Model):
     published = models.BooleanField(default=False)
     publication = models.CharField(max_length=400, choices=forms['publication']['publication']['objects']['publication']['values'])
 
-    # contact
-    contact_firstname = models.CharField(max_length=400)
-    contact_lastname = models.CharField(max_length=400)
-    contact_institut = models.CharField(max_length=400)
-    contact_email = models.EmailField(max_length=400)
-    position = GeopositionField(null=True, blank=True)
+    # cposition
+    position = GeopositionField(null=False, blank=False)
 
     def __str__(self):
         return str(self.id)
