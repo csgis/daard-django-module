@@ -8,8 +8,8 @@ div.mcheckbox-container {
     max-height: 180px;
     min-width: 400px;
     overflow-y: scroll;
-    border-bottom: 1px solid #ccc;
-    border-top: 1px solid #ccc;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 table.mcheckbox-table td {

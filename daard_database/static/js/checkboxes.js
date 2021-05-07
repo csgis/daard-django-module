@@ -18,6 +18,11 @@ $(document).ready(function() {
 			}).appendTo(mcheckbox_container = $('<div/>', {
 				class: 'mcheckbox-container'
 			}));
+
+			var search_row = $(`<tr class="checkbox-row search-row">
+                <td class="first-check-col" colspan="2"><input class="daard_searchInput" placeholder="Type To Filter" type="text" style="width:310px; border: 2px solid #333;"></td>
+                </tr>`).appendTo(mcheckbox_table);
+
 			var old_option = ""
 			options.each(function(index, option) {
 				var value = $(option).attr('value'),
@@ -73,4 +78,42 @@ $(document).ready(function() {
 			}
 		}
 	});
+
+    $(document).on("keyup", ".daard_searchInput", function (event) {
+
+        //split the current value of searchInput
+        var data = this.value.split(" ");
+        //create a jquery object of the rows
+        c_table = $(this).closest('table');
+        console.log(c_table)
+        var jo = $(c_table).find("tr").not('.search-row');
+        if (this.value == "") {
+            jo.show();
+            return;
+        }
+        //hide all the rows
+        jo.hide();
+
+        //Recusively filter the jquery object to get results.
+        jo.filter(function (i, v) {
+            var $t = $(this);
+            for (var d = 0; d < data.length; ++d) {
+                if ($t.is(":contains('" + data[d] + "')")) {
+                    return true;
+                }
+            }
+            return false;
+        })
+        //show the rows that match.
+        .show();
+    }).focus(function () {
+        this.value = "";
+        $(this).css({
+            "color": "black"
+        });
+        $(this).unbind('focus');
+    }).css({
+        "color": "#C0C0C0"
+    });
+
 });
