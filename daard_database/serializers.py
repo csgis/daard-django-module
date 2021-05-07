@@ -49,6 +49,7 @@ class DiseaseSerializer(serializers.ModelSerializer):
 # Disease Case
 class DiseaseCaseSerializer(serializers.ModelSerializer):
     owner = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    disease = serializers.StringRelatedField()
 
     class Meta:
         model = DiseaseCase
