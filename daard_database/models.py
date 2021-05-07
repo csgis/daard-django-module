@@ -46,7 +46,8 @@ class Bone(MPTTModel):
         order_insertion_by = ['name']
 
     def __str__(self):
-        return self.name
+        choice = dict(self.sections)
+        return f'{self.name} ({choice[self.section]})'
 
 
 class BoneChangeBoneProxy(models.Model):

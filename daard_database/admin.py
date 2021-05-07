@@ -47,7 +47,8 @@ class BoneAdmin(ImportExportModelAdmin, DraggableMPTTAdmin):
     model = Bone
     search_fields = ('name',)
     list_filter = ('section',)
-    list_display = ('indented_title', 'section',)
+    # list_display = ('indented_title', 'section',)
+    list_display = ('indented_title',)
 
 
 class BoneChangeAdmin(admin.ModelAdmin):
