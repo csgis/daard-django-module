@@ -109,10 +109,10 @@ class DiseaseCase(models.Model):
     dna_analyses_link = models.CharField(max_length=400)
 
     published = models.BooleanField(default=False)
-    publication = models.CharField(max_length=400, choices=forms['publication']['publication']['objects']['publication']['values'])
+    publication_link = models.CharField(max_length=400, null=True)
 
-    # cposition
-    position = GeopositionField(null=False, blank=False)
+    # position
+    position = GeopositionField(null=False, blank=True)
 
     def __str__(self):
         return str(self.id)

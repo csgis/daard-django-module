@@ -335,14 +335,13 @@ forms = {
                     "help_text": "",
                     "values": ""
                 },
-                "publication": {
-                    "name": "publication",
+                "publication_link": {
+                    "name": "publication_link",
                     "mandatory": True,
-                    "type": "selectfield",
+                    "type": "inputfield",
                     "note": "only visible if PUBLICATION_CHECKBOX is checked",
-                    "help_text": "Please choose exactly one value",
-                    "values": [('published', 'Published',),
-                               ('unpublished', 'Unpublished',)]
+                    "help_text": "Link to reference",
+                    "values": []
                 },
             }
         }
