@@ -91,23 +91,23 @@ class DiseaseCase(models.Model):
     bone_relations = JSONField()
 
     # step 4
-    reference_images = models.CharField(max_length=600)
+    reference_images = models.CharField(max_length=600, blank=True, null=True)
     origin = models.CharField(max_length=400)
-    archaeological_site = models.CharField(max_length=400)
-    archaeological_tombid = models.CharField(max_length=400)
-    archaeological_individualid = models.CharField(max_length=400)
+    archaeological_site = models.CharField(max_length=400, blank=True, null=True)
+    archaeological_tombid = models.CharField(max_length=400, blank=True, null=True)
+    archaeological_individualid = models.CharField(max_length=400, blank=True, null=True)
     archaeological_funery_context = models.CharField(max_length=400, choices=forms['site']['archaeological_funery_context']['values'])
     archaeological_burial_type = models.CharField(max_length=400, choices=forms['site']['archaeological_burial_type']['values'])
     storage_place = models.CharField(max_length=400, choices=forms['site']['storage_place']['values'])
-    storage_place_freetext = models.CharField(max_length=400)
+    storage_place_freetext = models.CharField(max_length=400, blank=True, null=True)
     storage_condition = models.CharField(max_length=400, choices=forms['site']['storage_condition']['values'])
-    chronology = models.CharField(max_length=400)
+    chronology = models.CharField(max_length=400, blank=True, null=True)
     chronology_freetext = models.CharField(max_length=400, blank=True)
 
     # step 5
     dating_method = models.CharField(max_length=400, choices=forms['publication']['dating_method']['values'])
     dna_analyses = models.CharField(max_length=400, choices=forms['publication']['dna_analyses']['values'])
-    dna_analyses_link = models.CharField(max_length=400)
+    dna_analyses_link = models.CharField(max_length=400, blank=True, null=True)
 
     published = models.BooleanField(default=False)
     publication_link = models.CharField(max_length=400, null=True)
