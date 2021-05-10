@@ -212,18 +212,20 @@ class SiteServiceAPI(viewsets.ViewSet):
         external_api_response_json = external_api_response.json()
         if task == "site":
             site = external_api_response_json["result"][0]
+            prefName = site["prefName"]
 
             # set preName to english if present
-            all_names_in_langauges = {c_lang["language"]: (c_lang) for c_lang in site["names"]}
-            if "eng" in all_names_in_langauges:
-                prefName = all_names_in_langauges["eng"]
-            else:
-                prefName = site["prefName"]
+            if "name" in site.keys():
+                all_names_in_langauges = {c_lang["language"]: (c_lang) for c_lang in site["names"]}
+                if "eng" in all_names_in_langauges:
+                    prefName = all_names_in_langauges["eng"]
+                else:
+                    prefName = site["prefName"]
 
             return_arr = {"values": []}
             return_arr["values"].append({
                 "site": prefName,
-                "names": site["names"],
+                "names": site["names"] if "names" in site.keys() else [],
                 "position": site["prefLocation"]["coordinates"],
                 "gazId": site["gazId"],
                 "gaz_link": site["@id"],
