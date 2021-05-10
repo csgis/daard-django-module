@@ -129,9 +129,11 @@ class ChangeSearchViewSet(viewsets.ViewSet):
             disease_as_dict = dict(disease)
             for current_bone in disease_as_dict["bone"]:
                 if str(current_bone["id"]) in search_bone:
-                    all_technics[disease["technic"]["name"]][current_bone["name"]] = {
+                    all_technics[disease["technic"]["name"]][current_bone["id"]] = {
                         "id": current_bone["id"],
                         "name": current_bone["name"],
+                        "name_complete": f'{current_bone["name"]} ({current_bone["section"]})',
+                        "section": current_bone["section"],
                         "values": []
                     }
         # add bone changes to bones
@@ -139,7 +141,7 @@ class ChangeSearchViewSet(viewsets.ViewSet):
             disease_as_dict = dict(disease)
             for current_bone in disease_as_dict["bone"]:
                 if str(current_bone["id"]) in search_bone:
-                    all_technics[disease["technic"]["name"]][current_bone["name"]]["values"].append(disease["bone_change"])
+                    all_technics[disease["technic"]["name"]][current_bone["id"]]["values"].append(disease["bone_change"])
         return Response(all_technics)
 
 
@@ -157,10 +159,12 @@ class FormularConfig(viewsets.ViewSet):
 
         for bone in all_bones:
             bone = dict(bone)
+            bone["name_complete"] =  f"{bone['name']} ({bone['section']})"
             bone["type"] = "selectfield" if bone["options"] else "Label"
             bone_sections[bone["section"]].append(bone)
             bone_sections[bone["section"]].append(
                 {"name": f"{bone['name']}_amount",
+                 "id": bone["id"],
                  "type": "selectfield",
                  "values": forms['disease']['age_class']['values']
                  })

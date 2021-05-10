@@ -95,7 +95,7 @@ class BoneSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bone
         # exclude = ['lft','rght',]
-        fields = ['name', 'label', 'options', 'section']
+        fields = ['id','name', 'label', 'options', 'section']
 
 
 # BONE PROXY
@@ -103,7 +103,7 @@ class CustomBoneSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Bone
-        fields = ('id', 'name')
+        fields = ('id', 'name', 'section')
 
 
 class BoneChangeBoneProxySerializer(serializers.ModelSerializer):
