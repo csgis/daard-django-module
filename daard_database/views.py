@@ -213,6 +213,10 @@ class ChronologyServiceAPI(viewsets.ViewSet):
 
         if q is None:
             return Response({'body': '?q=<term> needed for search'}, status=status.HTTP_400_BAD_REQUEST)
-
-        resp = requests.get(f'https://chronontology.dainst.org/data/period?q={q}')
-        return Response(resp.json(), status=resp.status_code)
+        return_arr = {"values": []}
+        external_api_response = requests.get(f'https://chronontology.dainst.org/data/period?q={q}')
+        external_api_response_json = external_api_response.json()
+        for res in external_api_response_json["results"]:
+            english_terms = ", ".join(res["resource"]["names"]["en"])
+            return_arr["values"].append(english_terms)
+        return Response(return_arr, status=external_api_response.status_code)
