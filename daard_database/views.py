@@ -174,8 +174,12 @@ class FormularConfig(viewsets.ViewSet):
         for step in forms:
             for objects in forms[step]:
                 key_values = []
-                for name, value in forms[step][objects]['values']: key_values.append({"name": name, "value": value})
-                forms[step][objects]['values'] = key_values
+                if forms[step][objects]['values']:
+                    for item in forms[step][objects]['values']:
+                        name, value = item
+                        if item is tuple:
+                            key_values.append({"name": name, "value": value})
+                            forms[step][objects]['values'] = key_values
                 if step != "general":
                     all_forms[step] = forms[step]
 
