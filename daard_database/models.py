@@ -93,7 +93,10 @@ class DiseaseCase(models.Model):
     # step 4
     reference_images = models.CharField(max_length=600, blank=True, null=True)
     origin = models.CharField(max_length=400)
-    archaeological_site = models.CharField(max_length=400, blank=True, null=True)
+    site = models.CharField(max_length=800, blank=True, null=True)
+    gazId = models.CharField(max_length=200, blank=True, null=True)
+    gaz_link = models.CharField(max_length=400, blank=True, null=True)
+
     archaeological_tombid = models.CharField(max_length=400, blank=True, null=True)
     archaeological_individualid = models.CharField(max_length=400, blank=True, null=True)
     archaeological_funery_context = models.CharField(max_length=400, choices=forms['site']['archaeological_funery_context']['values'])

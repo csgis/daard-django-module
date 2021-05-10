@@ -222,7 +222,7 @@ class SiteServiceAPI(viewsets.ViewSet):
 
             return_arr = {"values": []}
             return_arr["values"].append({
-                "prefName": prefName,
+                "site": prefName,
                 "names": site["names"],
                 "position": site["prefLocation"]["coordinates"],
                 "gazId": site["gazId"],
