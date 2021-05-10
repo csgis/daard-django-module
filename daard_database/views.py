@@ -198,13 +198,37 @@ class SiteServiceAPI(viewsets.ViewSet):
             return Response({'body': '?q=<term> needed for search; &task=<suggestion|site> needed for search'},
                             status=status.HTTP_400_BAD_REQUEST)
 
-        resp = requests.get(f'https://gazetteer.dainst.org/suggestions?field=nameSuggestions&queryId=3&text={q}')
-        if task == "site":
-            resp = requests.get(
+        if task != "site":
+            external_api_response = requests.get(f'https://gazetteer.dainst.org/suggestions?field=nameSuggestions&queryId=2&lang=en&text={q}')
+        else:
+            external_api_response = requests.get(
                 f'https://gazetteer.dainst.org/search.json?q={q}&fq=_exists_:prefLocation.'
-                f'coordinates&limit=1000&type=&pretty=true')
+                f'coordinates&limit=1&type=&pretty=true')
 
-        return Response(resp.json(), status=resp.status_code)
+        external_api_response_json = external_api_response.json()
+        if task == "site":
+            site = external_api_response_json["result"][0]
+
+            # set preName to english if present
+            all_names_in_langauges = {c_lang["language"]: (c_lang) for c_lang in site["names"]}
+            if "eng" in all_names_in_langauges:
+                prefName = all_names_in_langauges["eng"]
+            else:
+                prefName = site["prefName"]
+
+            return_arr = {"value": []}
+            return_arr["value"].append({
+                "prefName": prefName,
+                "names": site["names"],
+                "position": site["prefLocation"]["coordinates"],
+                "gazId": site["gazId"],
+                "gaz_link": site["@id"],
+                "types": site["types"]
+            })
+
+            external_api_response_json = return_arr
+
+        return Response(external_api_response_json, status=external_api_response.status_code)
 
 
 class ChronologyServiceAPI(viewsets.ViewSet):
