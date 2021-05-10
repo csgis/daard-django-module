@@ -216,8 +216,8 @@ class SiteServiceAPI(viewsets.ViewSet):
             else:
                 prefName = site["prefName"]
 
-            return_arr = {"value": []}
-            return_arr["value"].append({
+            return_arr = {"values": []}
+            return_arr["values"].append({
                 "prefName": prefName,
                 "names": site["names"],
                 "position": site["prefLocation"]["coordinates"],
