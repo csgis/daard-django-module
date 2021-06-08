@@ -33,3 +33,10 @@ Quick start
 4. Start the development server and visit http://127.0.0.1:8000/admin/
 
 5. Visit http://127.0.0.1:8000/api/daard/ to visit the api
+
+# load initial data
+
+```
+./manage.py loaddata /usr/src/daard-database/fixtures/Bone.json 
+```
+
