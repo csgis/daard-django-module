@@ -1,0 +1,5 @@
+Your contribution {{ instance.disease }} has been edited or published.  \r\n
+
+Yours,
+
+DAI - Team DAARD
