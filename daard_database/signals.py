@@ -71,7 +71,7 @@ def delete_map_feature(sender,instance,**kwargs):
         # Update Map
         geoserver_payload = wfs_delete_tpl.format(
             layerName=layername,
-            uuid=instance.geoserver_id
+            uuid=instance.uuid
         )
         geoserver_response = http_client(geoserver_payload=geoserver_payload)
 
