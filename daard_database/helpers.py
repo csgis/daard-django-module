@@ -1,12 +1,12 @@
 def count_bones(instance):
     amount_of_bones = len(getattr(instance, "inventory", 0))
-    return(amount_of_bones)
+    return amount_of_bones
 
 def get_bone_names(instance):
     inventory = getattr(instance, "inventory", {})
     print(inventory)
     bone_names = ', '.join(x for x, y in inventory.items())
-    return(bone_names)
+    return bone_names
 
 def format_bone_relations(instance):
     inventory = getattr(instance, "inventory", {})
@@ -25,8 +25,7 @@ def format_bone_relations(instance):
     c_b_t_bc_rel = ''.join([f'({key}:\n{value})' for key, value in new_dict.items()])
     c_b_t_bc_rel = c_b_t_bc_rel.replace("<", "less than")
     c_b_t_bc_rel = c_b_t_bc_rel.replace(">", "more than")
-
-    return(c_b_t_bc_rel)
+    return  c_b_t_bc_rel
 
 def get_technics(instance):
     bone_relations = getattr(instance, "bone_relations", {})
@@ -36,4 +35,5 @@ def get_technics(instance):
         if (t is not None):
             technic.append(t)
     technic = set(technic)
-    return(', '.join(technic))
+    technic = ', '.join(technic)
+    return technic
