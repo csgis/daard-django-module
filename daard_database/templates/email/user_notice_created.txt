@@ -1,7 +1,7 @@
-Thank you for your contribution!  \r\n
-Your disease {{ instance.disease }} has been saved!  \r\n
-We will review your entry and contact you in case of questions.  \r\n \r\n
+Thank you for your contribution!
+Your disease {{ instance.disease }} has been saved!
+We will review your entry and contact you in case of questions.
 
-Yours,\r\n \r\n
+Yours,
 
 DAI - Team DAARD

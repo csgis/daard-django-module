@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 geoserver_url = f"{settings.GEOSERVER_WEB_UI_LOCATION}ows"
 geoserver_user = settings.OGC_SERVER_DEFAULT_USER
-geoserver_user_password = settings.OGC_SERVER_DEFAULT_USER
+geoserver_user_password = settings.OGC_SERVER_DEFAULT_PASSWORD
 layername = os.getenv('DAARD_LAYERNAME',"geonode:daard_database_dev") # TODO Set in vars
 
 def http_client(geoserver_payload):
@@ -51,18 +51,18 @@ def add_or_edit_map_feature(sender, instance, created, **kwargs):
         notify_daard_user(receiver=editor_recipients,
                           template='./email/admin_notice_created.txt',
                           instance=instance,
-                          title='thank you')
+                          title='A new entry has been created')
 
         notify_daard_user(receiver=owner_email,
                           template='./email/user_notice_created.txt',
                           instance=instance,
-                          title='thank you')
+                          title='Your DAARD Database entry')
     else:
         if instance.is_approved:
             notify_daard_user(receiver=owner_email,
                               template='./email/user_resource_published.txt',
                               instance=instance,
-                              title='thank you')
+                              title='Your entry has changed')
 
 
 
@@ -80,4 +80,4 @@ def delete_map_feature(sender,instance,**kwargs):
         notify_daard_user(receiver=receivers,
                           template='./email/user_resource_deleted.txt',
                           instance=instance,
-                          title='thank you')
+                          title='Your entry has been deleted')

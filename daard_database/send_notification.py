@@ -13,17 +13,9 @@ def notify_daard_user(receiver=[], template='', instance='', title=''):
     #msg_html = render_to_string('./email/admin_notice_created.txt', {'instance': instance.pk})
     msg_plain = render_to_string(template, {'instance': instance})
 
-    print (str(receiver))
-    print(template)
-    print(instance.__dict__)
-    print("D name is : ")
-    print(instance.disease)
-    print(title)
-
-
     try:
         send_mail(
-            'email title',
+            title,
             msg_plain,
             settings.DEFAULT_FROM_EMAIL,
             receiver
