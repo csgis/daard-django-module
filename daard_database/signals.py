@@ -36,7 +36,7 @@ def add_or_edit_map_feature(sender, instance, created, **kwargs):
     instance.c_bones = get_bone_names(instance)
     instance.c_b_t_bc_rel = format_bone_relations(instance)
     instance.c_technic = get_technics(instance)
-
+    instance.disease_name = str(instance.disease)
     instance.position = str(instance.position.longitude)+" "+str(instance.position.latitude)
     owner_email = [instance.owner.email, ]
 

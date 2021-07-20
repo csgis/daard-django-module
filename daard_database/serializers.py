@@ -56,7 +56,7 @@ class DiseaseCaseSerializer(serializers.ModelSerializer):
         # fields = '__all__'
         filter_fields = ['name']
         search_fields = ['name']
-        exclude = ['is_approved', 'geoserver_id']
+        exclude = ['is_approved', 'uuid']
         filter_backends = (filters.DjangoFilterBackend)
 
 

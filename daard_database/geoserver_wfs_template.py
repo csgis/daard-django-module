@@ -24,7 +24,7 @@ update_body = '''
         </wfs:Property>
         <wfs:Property>
           <wfs:Name>disease</wfs:Name>
-          <wfs:Value>{disease_id}</wfs:Value>
+          <wfs:Value>{disease_name}</wfs:Value>
         </wfs:Property>
         <wfs:Property>
           <wfs:Name>age_class</wfs:Name>
@@ -162,7 +162,7 @@ create_body = '''
         <geonode:uuid>{uuid}</geonode:uuid>
         <geonode:adults>{adults}</geonode:adults>
         <geonode:subadults>{subadults}</geonode:subadults>
-        <geonode:disease>{disease_id}</geonode:disease>
+        <geonode:disease>{disease_name}</geonode:disease>
         <geonode:age_class>{age_class}</geonode:age_class>
         <geonode:age>{age}</geonode:age>
         <geonode:age_freetext>{age_freetext}</geonode:age_freetext>
