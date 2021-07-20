@@ -73,7 +73,7 @@ class DiseaseCase(models.Model):
         null=True,
         related_name='daard_case_user',
         on_delete=models.CASCADE)
-    geoserver_id = models.UUIDField(primary_key=False, default=uuid.uuid4, blank=True)
+    uuid = models.UUIDField(primary_key=False, default=uuid.uuid4, blank=True)
 
     # step 1
     adults = models.BooleanField(default=False)

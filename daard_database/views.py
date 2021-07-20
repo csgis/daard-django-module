@@ -68,7 +68,6 @@ class DiseaseViewSet(viewsets.ReadOnlyModelViewSet):
 
             q = Q()
             for age in search_age:
-                print(age)
                 term = {age.lower(): True}
                 q = q | Q(**term)
             queryset = queryset.filter(q)
@@ -92,7 +91,6 @@ class BoneChangeBoneProxyViewSet(viewsets.ReadOnlyModelViewSet):
         if search_bone is not None:
             search_bone = search_bone.rstrip(',')
             search_bone = search_bone.split(',')
-            print(search_bone)
             q = Q()
             q = Q(bone__pk__in=search_bone)
             queryset = queryset.filter(q)
@@ -121,8 +119,8 @@ class ChangeSearchViewSet(viewsets.ViewSet):
 
         # fill dict with technics
         # Todo: refactor model and for loops to be more pythonic
-        # all_technics = {disease["technic"]["name"]: {} for disease in bone_change_relations}
-        all_technics = {"Radiography": {}, "Macroscopy": {}, "Microscopy": {}}
+        all_technics = {disease["technic"]["name"]: {} for disease in bone_change_relations}
+        # all_technics = {"Radiography": {}, "Macroscopy": {}, "Microscopy": {}}
 
         # create dict of technics and bones
         for disease in bone_change_relations:
@@ -136,6 +134,7 @@ class ChangeSearchViewSet(viewsets.ViewSet):
                         "section": current_bone["section"],
                         "values": []
                     }
+
         # add bone changes to bones
         for disease in bone_change_relations:
             disease_as_dict = dict(disease)

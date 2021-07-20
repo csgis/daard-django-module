@@ -1,0 +1,5 @@
+Your entry {{ instance.disease }} has been deleted.  \r\n
+
+Yours, \r\n
+
+DAI - Team DAARD

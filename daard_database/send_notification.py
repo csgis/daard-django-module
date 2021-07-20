@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 def notify_daard_user(receiver=[], template='', instance='', title=''):
 
-    #msg_html = render_to_string('./email/admin_notice.txt', {'instance': instance.pk})
+    #msg_html = render_to_string('./email/admin_notice_created.txt', {'instance': instance.pk})
     msg_plain = render_to_string(template, {'instance': instance})
 
     print (str(receiver))
