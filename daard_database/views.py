@@ -9,7 +9,10 @@ from .choices import forms
 from rest_framework import filters
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from django.views.generic import TemplateView
 
+class BonesImageView(TemplateView):
+    template_name = 'daard_bones.html'
 
 # Disease Case
 class DiseaseCaseViewset(viewsets.ModelViewSet):
