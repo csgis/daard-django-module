@@ -210,7 +210,7 @@ wfs_delete_tpl = header + '''<wfs:Delete typeName="{layerName}">
       <ogc:Filter>
          <ogc:Or>
             <ogc:PropertyIsEqualTo>
-               <ogc:PropertyName>geoserver_id</ogc:PropertyName>
+               <ogc:PropertyName>uuid</ogc:PropertyName>
                <ogc:Literal>{uuid}</ogc:Literal>
             </ogc:PropertyIsEqualTo>
          </ogc:Or>
