@@ -1,5 +1,5 @@
-Your entry {{ instance.disease }} has been deleted.  \r\n
+Your entry {{ instance.disease }} has been deleted.
 
-Yours, \r\n
+Yours,
 
 DAI - Team DAARD
