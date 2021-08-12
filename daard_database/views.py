@@ -168,7 +168,7 @@ class FormularConfig(viewsets.ViewSet):
                 {"name": f"{bone['name']}_amount",
                  "id": bone["id"],
                  "type": "selectfield",
-                 "values": [{"name": i[0], "value": i[1]} for i in forms['general']['bone_amount']['values']]
+                 "options": [{"name": i[0], "value": i[1]} for i in forms['general']['bone_amount']['values']]
                  })
 
         # build forms from choices.py
@@ -180,7 +180,8 @@ class FormularConfig(viewsets.ViewSet):
                 key_values = []
 
                 if "values" in forms[step][objects]:
-                    forms[step][objects]['values'] = [{"name": i[0], "value": i[1]} for i in forms[step][objects]['values']]
+                    forms[step][objects]['options'] = forms[step][objects].pop("values")
+                    forms[step][objects]['options'] = [{"name": i[0], "value": i[1]} for i in forms[step][objects]['options']]
                 if step != "general":
                     all_forms[step] = forms[step]
 
