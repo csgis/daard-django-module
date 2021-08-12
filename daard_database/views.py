@@ -10,6 +10,9 @@ from rest_framework import filters
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django.views.generic import TemplateView
+import logging
+logger = logging.getLogger("geonode")
+
 
 class BonesImageView(TemplateView):
     template_name = 'daard_bones.html'
@@ -31,11 +34,6 @@ class DiseaseViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = DiseaseSerializer
     queryset = DiseaseLibrary.objects.all()
 
-    # filter_backends = [filters.SearchFilter]
-    # search_fields = ['name',]
-
-    # filter_backends = [DjangoFilterBackend]
-    # filterset_fields = '__all__'
 
     def get_queryset(self):
         queryset = DiseaseLibrary.objects.all()
@@ -163,25 +161,26 @@ class FormularConfig(viewsets.ViewSet):
             bone = dict(bone)
             bone["name_complete"] =  f"{bone['name']} ({bone['section']})"
             bone["type"] = "selectfield" if bone["options"] else "Label"
+            bone["svgid"] = bone["svgid"] if bone["svgid"] else ""
             bone_sections[bone["section"]].append(bone)
+
             bone_sections[bone["section"]].append(
                 {"name": f"{bone['name']}_amount",
                  "id": bone["id"],
                  "type": "selectfield",
-                 "values": forms['general']['bone_amount']['values']
+                 "values": [{"name": i[0], "value": i[1]} for i in forms['general']['bone_amount']['values']]
                  })
 
         # build forms from choices.py
         all_forms = {}
         for step in forms:
+
+
             for objects in forms[step]:
                 key_values = []
-                if forms[step][objects]['values']:
-                    for item in forms[step][objects]['values']:
-                        name, value = item
-                        if item is tuple:
-                            key_values.append({"name": name, "value": value})
-                            forms[step][objects]['values'] = key_values
+
+                if "values" in forms[step][objects]:
+                    forms[step][objects]['values'] = [{"name": i[0], "value": i[1]} for i in forms[step][objects]['values']]
                 if step != "general":
                     all_forms[step] = forms[step]
 
@@ -192,6 +191,8 @@ class FormularConfig(viewsets.ViewSet):
         filter_by_key = self.request.query_params.get('filter_by_key')
         if filter_by_key is not None:
             all_forms = all_forms.get(filter_by_key)
+
+
 
         return Response(
             all_forms

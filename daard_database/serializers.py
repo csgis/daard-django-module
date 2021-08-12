@@ -49,6 +49,8 @@ class DiseaseSerializer(serializers.ModelSerializer):
 # Disease Case
 class DiseaseCaseSerializer(serializers.ModelSerializer):
     owner = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    inventory = serializers.JSONField() # change is here
+    bone_relations = serializers.JSONField() # change is here
     #disease = serializers.StringRelatedField()
 
     class Meta:
@@ -84,18 +86,16 @@ class BoneSerializer(serializers.ModelSerializer):
 
     @classmethod
     def get_label(self, object):
-        """getter method to add field retrieved_time"""
         return object.name
 
     @classmethod
     def get_name(self, object):
-        """getter method to add field retrieved_time"""
         return slugify(object.name)
 
     class Meta:
         model = Bone
         # exclude = ['lft','rght',]
-        fields = ['id','name', 'label', 'options', 'section']
+        fields = ['id','name', 'label', 'options', 'section','svgid']
 
 
 # BONE PROXY
@@ -103,7 +103,7 @@ class CustomBoneSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Bone
-        fields = ('id', 'name', 'section')
+        fields = ('id', 'name', 'section','')
 
 
 class BoneChangeBoneProxySerializer(serializers.ModelSerializer):

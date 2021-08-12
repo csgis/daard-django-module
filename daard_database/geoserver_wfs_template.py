@@ -73,7 +73,7 @@ update_body = '''
          <wfs:Property>
           <wfs:Name>archaeological_individualid</wfs:Name>
           <wfs:Value>{archaeological_individualid}</wfs:Value>
-        </wfs:Property>       
+        </wfs:Property>
         <wfs:Property>
           <wfs:Name>archaeological_funery_context</wfs:Name>
           <wfs:Value>{archaeological_funery_context}</wfs:Value>
@@ -93,11 +93,11 @@ update_body = '''
         <wfs:Property>
           <wfs:Name>storage_condition</wfs:Name>
           <wfs:Value>{storage_condition}</wfs:Value>
-        </wfs:Property>        
+        </wfs:Property>
         <wfs:Property>
           <wfs:Name>chronology</wfs:Name>
           <wfs:Value>{chronology}</wfs:Value>
-        </wfs:Property>        
+        </wfs:Property>
          <wfs:Property>
           <wfs:Name>chronology_freetext</wfs:Name>
           <wfs:Value>{chronology_freetext}</wfs:Value>
@@ -121,7 +121,7 @@ update_body = '''
          <wfs:Property>
           <wfs:Name>publication_link</wfs:Name>
           <wfs:Value>{publication_link}</wfs:Value>
-        </wfs:Property>         
+        </wfs:Property>
         <wfs:Property>
           <wfs:Name>c_no_o_bones</wfs:Name>
           <wfs:Value>{c_no_o_bones}</wfs:Value>
@@ -129,15 +129,19 @@ update_body = '''
         <wfs:Property>
           <wfs:Name>c_bones</wfs:Name>
           <wfs:Value>{c_bones}</wfs:Value>
-        </wfs:Property>     
+        </wfs:Property>
         <wfs:Property>
           <wfs:Name>c_b_t_bc_rel</wfs:Name>
           <wfs:Value>{c_b_t_bc_rel}</wfs:Value>
-        </wfs:Property>  
+        </wfs:Property>
         <wfs:Property>
           <wfs:Name>c_technic</wfs:Name>
           <wfs:Value>{c_technic}</wfs:Value>
-        </wfs:Property> 
+        </wfs:Property>
+        <wfs:Property>
+          <wfs:Name>svgid</wfs:Name>
+          <wfs:Value>BBB</wfs:Value>
+        </wfs:Property>
         <wfs:Property>
             <wfs:Name>the_geom</wfs:Name>
                  <wfs:Value>
@@ -187,11 +191,12 @@ create_body = '''
         <geonode:dna_analyses>{dna_analyses}</geonode:dna_analyses>
         <geonode:dna_analyses_link>{dna_analyses_link}</geonode:dna_analyses_link>
         <geonode:published>{published}</geonode:published>
-        <geonode:publication_link>{publication_link}</geonode:publication_link>   
-        <geonode:c_no_o_bones>{c_no_o_bones}</geonode:c_no_o_bones>   
-        <geonode:c_bones>{c_bones}</geonode:c_bones>           
-        <geonode:c_b_t_bc_rel>{c_b_t_bc_rel}</geonode:c_b_t_bc_rel>   
-        <geonode:c_technic>{c_technic}</geonode:c_technic>   
+        <geonode:publication_link>{publication_link}</geonode:publication_link>
+        <geonode:c_no_o_bones>{c_no_o_bones}</geonode:c_no_o_bones>
+        <geonode:c_bones>{c_bones}</geonode:c_bones>
+        <geonode:c_b_t_bc_rel>{c_b_t_bc_rel}</geonode:c_b_t_bc_rel>
+        <geonode:c_technic>{c_technic}</geonode:c_technic>
+        <geonode:svgid>AA</geonode:svgid>
         <geonode:the_geom>
             <gml:Point srsDimension="2" srsName="EPSG:4326">
                 <gml:pos>{position}</gml:pos>

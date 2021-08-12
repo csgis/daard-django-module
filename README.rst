@@ -11,16 +11,18 @@ Quick start
 
 1. Add "daard_database" to your INSTALLED_APPS setting like this::
 
-    INSTALLED_APPS = [
-        ...
-        # daard
-        'categories',
-        'categories.editor',
+    GEOPOSITION_BACKEND = 'leaflet'
+    GEOPOSITION_MAP_OPTIONS = {
+        'minZoom': 3,
+        'maxZoom': 15,
+    }
+
+    INSTALLED_APPS += (
         'easy_select2',
         'daard_database',
         'geoposition',
         'import_export',
-    ]
+    )
 
 2. Include the polls URLconf in your project urls.py like this::
 
@@ -37,6 +39,5 @@ Quick start
 # load initial data
 
 ```
-./manage.py loaddata /usr/src/daard-database/fixtures/Bone.json 
+./manage.py loaddata /usr/src/daard-database/fixtures/Bone.json
 ```
-

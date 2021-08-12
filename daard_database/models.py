@@ -39,6 +39,7 @@ class Bone(MPTTModel):
                 ('left_lower_limb', 'Left lower limb'))
     section = models.CharField(max_length=255, choices=sections)
     name = models.CharField(max_length=255)
+    svgid = models.CharField(max_length=255, null=True, blank=True)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='options', db_index=True,
                             on_delete=models.CASCADE)
 

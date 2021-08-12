@@ -9,20 +9,30 @@ import logging
 from .send_notification import notify_daard_user
 from geonode.people.models import Profile
 from .geoserver_wfs_template import wfs_insert_tpl, wfs_update_tpl, wfs_delete_tpl
-from .helpers import count_bones, get_bone_names, format_bone_relations, get_technics
-logger = logging.getLogger(__name__)
+from .helpers import count_bones, get_bone_names, format_bone_relations, get_technics, get_svgids
+logger = logging.getLogger("geonode")
 
-geoserver_url = f"{settings.GEOSERVER_WEB_UI_LOCATION}ows"
+geoserver_local_url = "http://geoserver:8080/geoserver/ows"
+geoserver_settings_url = settings.GEOSERVER_WEB_UI_LOCATION
 geoserver_user = settings.OGC_SERVER_DEFAULT_USER
 geoserver_user_password = settings.OGC_SERVER_DEFAULT_PASSWORD
-layername = os.getenv('DAARD_LAYERNAME',"geonode:daard_database_dev") # TODO Set in vars
+layername = os.getenv('DAARD_LAYERNAME',"geonode:daard_database_dev")
+
+if ("localhost" in geoserver_settings_url):
+    geoserver_url = geoserver_local_url
+else:
+    geoserver_url = f"{geoserver_settings_url}ows"
+
 
 def http_client(geoserver_payload):
     try:
+        # logger.info(geoserver_payload)
         geoserver_response = requests.post(geoserver_url, data=geoserver_payload.encode('utf-8'), auth=(
             geoserver_user, geoserver_user_password))
+        logger.info(geoserver_response.content)
         return geoserver_response.content
-    except requests.exceptions.RequestException as e:  # This is the correct syntax
+    except requests.exceptions.RequestException as e:
+        error
         raise SystemExit(e)
 
 @receiver(post_save, sender=DiseaseCase)
@@ -37,6 +47,7 @@ def add_or_edit_map_feature(sender, instance, created, **kwargs):
     instance.c_b_t_bc_rel = format_bone_relations(instance)
     instance.c_technic = get_technics(instance)
     instance.disease_name = str(instance.disease)
+    instance.svgid = get_svgids(instance)
     instance.position = str(instance.position.longitude)+" "+str(instance.position.latitude)
     owner_email = [instance.owner.email, ]
 
