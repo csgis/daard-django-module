@@ -168,7 +168,7 @@ class FormularConfig(viewsets.ViewSet):
                 {"name": f"{bone['name']}_amount",
                  "id": bone["id"],
                  "type": "selectfield",
-                 "options": [{"name": i[0], "value": i[1]} for i in forms['general']['bone_amount']['values']]
+                 "options": [{"name":">75%","value":">75%"},{"name":"<75%","value":"<75%"},{"name":"absent","value":"ABSENT"},{"name":"unknown","value":"UNKNOWN"}]
                  })
 
         # build forms from choices.py
