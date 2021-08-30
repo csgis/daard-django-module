@@ -175,8 +175,6 @@ class FormularConfig(viewsets.ViewSet):
         # build forms from choices.py
         all_forms = {}
         for step in forms:
-
-
             for objects in forms[step]:
                 key_values = []
 
