@@ -153,7 +153,6 @@ class FormularConfig(viewsets.ViewSet):
         bone_serializer = BoneSerializer(bones, many=True)
         all_bones = bone_serializer.data
         bone_sections = {}
-        bone_options = [{"name": i[0], "value": i[1]} for i in forms['general']['bone_amount']['values']]
 
         for bone in all_bones:
             bone_sections[bone["section"]] = []
@@ -169,12 +168,14 @@ class FormularConfig(viewsets.ViewSet):
                 {"name": f"{bone['name']}_amount",
                  "id": bone["id"],
                  "type": "selectfield",
-                 "options": bone_options
+                 "options": [{"name":">75%","value":">75%"},{"name":"<75%","value":"<75%"},{"name":"absent","value":"ABSENT"},{"name":"unknown","value":"UNKNOWN"}]
                  })
 
         # build forms from choices.py
         all_forms = {}
         for step in forms:
+
+
             for objects in forms[step]:
                 key_values = []
 
