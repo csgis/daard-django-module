@@ -167,15 +167,19 @@ class FormularConfig(viewsets.ViewSet):
             bone_sections[bone["section"]].append(
                 {"name": f"{bone['name']}_amount",
                  "id": bone["id"],
-                 "type": "selectfield",
-                 "options": [{"name":">75%","value":">75%"},{"name":"<75%","value":"<75%"},{"name":"absent","value":"ABSENT"},{"name":"unknown","value":"UNKNOWN"}]
+                 "section": bone["section"],
+                 "type": "",
+                 "options": [
+                     {"name":">75%","value":">75%"},
+                     {"name":"<75%","value":"<75%"},
+                     {"name":"absent","value":"ABSENT"},
+                     {"name":"unknown","value":"UNKNOWN"}
+                 ]
                  })
 
         # build forms from choices.py
         all_forms = {}
         for step in forms:
-
-
             for objects in forms[step]:
                 key_values = []
 
@@ -192,8 +196,6 @@ class FormularConfig(viewsets.ViewSet):
         filter_by_key = self.request.query_params.get('filter_by_key')
         if filter_by_key is not None:
             all_forms = all_forms.get(filter_by_key)
-
-
 
         return Response(
             all_forms
