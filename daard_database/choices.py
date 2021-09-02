@@ -123,7 +123,7 @@ forms = {
         "origin": {
             "name": "origin",
             "label": "Origin",
-            "type": "„radiogroup",
+            "type": "radiogroup",
             "help_text": "",
             "values": "",
             "objects": {
