@@ -71,7 +71,7 @@ class ChildrenBoneSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bone
         # exclude = ['lft', 'rght', 'id']
-        fields = ['name', 'value']
+        fields = ['name','value','svgid','section']
 
     @classmethod
     def get_value(self, object):
@@ -95,7 +95,7 @@ class BoneSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bone
         # exclude = ['lft','rght',]
-        fields = ['id','name', 'label', 'options', 'section','svgid']
+        fields = ['id','name','label','options','section','svgid']
 
 
 # BONE PROXY

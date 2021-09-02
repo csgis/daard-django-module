@@ -221,6 +221,9 @@ class SiteServiceAPI(viewsets.ViewSet):
 
         external_api_response_json = external_api_response.json()
         if task == "site":
+            if not external_api_response_json["result"]:
+                return Response(external_api_response_json, status=external_api_response.status_code)
+
             site = external_api_response_json["result"][0]
             prefName = site["prefName"]
 
@@ -253,10 +256,12 @@ class ChronologyServiceAPI(viewsets.ViewSet):
 
         if q is None:
             return Response({'body': '?q=<term> needed for search'}, status=status.HTTP_400_BAD_REQUEST)
-        return_arr = {"values": []}
-        external_api_response = requests.get(f'https://chronontology.dainst.org/data/period?q={q}')
+        return_arr = {"values": set()}
+        external_api_response = requests.get(f'https://chronontology.dainst.org/data/period?q={q}&size=500')
         external_api_response_json = external_api_response.json()
         for res in external_api_response_json["results"]:
-            english_terms = ", ".join(res["resource"]["names"]["en"])
-            return_arr["values"].append(english_terms)
+            if "en" in res["resource"]["names"]:
+                english_terms = ", ".join(res["resource"]["names"]["en"])
+                return_arr["values"].add(english_terms)
+        return_arr["values"] = sorted(return_arr["values"])
         return Response(return_arr, status=external_api_response.status_code)

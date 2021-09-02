@@ -3,7 +3,7 @@ forms = {
     "general": {
         "bone_amount": {
             "name": "bone_amount",
-            "label": "BONE AMOUNT",
+            "label": "Bone amount",
             "hidden_from_api": True,
             "mandatory": True,
             "type": "selectfield",
@@ -18,7 +18,7 @@ forms = {
     "disease": {
         "subadults": {
             "name": "subadults",
-            "label": "SUBADULTS",
+            "label": "Subadults",
             "mandatory": False,
             "type": "checkbox",
             "help_text": "Disease affects subadults?",
@@ -27,7 +27,7 @@ forms = {
 
         "adults": {
             "name": "adults",
-            "label": "ADULTS",
+            "label": "Adults",
             "mandatory": False,
             "type": "checkbox",
             "help_text": "Disease affects adults?",
@@ -35,7 +35,7 @@ forms = {
         },
         "disease": {
             "name": "disease",
-            "label": "DISEASE",
+            "label": "Disease",
             "mandatory": True,
             "type": "rest-selectfield",
             "url": "/api/disease-search/",
@@ -46,7 +46,7 @@ forms = {
         },
         "age_class": {
             "name": "age_class",
-            "label": "AGE CLASS",
+            "label": "Age class",
             "mandatory": True,
             "type": "selectfield",
             "help_text": "Please choose exactly one value",
@@ -79,7 +79,7 @@ forms = {
         },
         "age_freetext": {
             "name": "age_freetext",
-            "label": "AGE FREETEXT",
+            "label": "Age freetext",
             "mandatory": False,
             "type": "textfield",
             "help_text": "Age class as freetext?",
@@ -88,7 +88,7 @@ forms = {
         },
         "sex": {
             "name": "sex",
-            "label": "SEX",
+            "label": "Sex",
             "mandatory": True,
             "type": "selectfield",
             "help_text": "Please choose exactly one value",
@@ -114,15 +114,15 @@ forms = {
     "site": {
         "reference_images": {
             "name": "reference_images",
-            "label": "REFERENCE IMAGES",
+            "label": "Reference images",
             "mandatory": False,
-            "type": "inputfield",
+            "type": "textfield",
             "help_text": "Link to iDAI.objects",
             "values": []
         },
         "origin": {
             "name": "origin",
-            "label": "ORIGIN",
+            "label": "Origin",
             "type": "„radiogroup",
             "help_text": "",
             "values": "",
@@ -149,7 +149,7 @@ forms = {
             "name": "archaeological_site",
             "label": "Site",
             "mandatory": False,
-            "type": "rest-inputfield",
+            "type": "rest-textfield",
             "url": "/api/gazetteer-sites/",
             "params": "?q=<term>&task=<suggestion>|<site>",
             "help_text": "Search for gazetteer Information",
@@ -158,7 +158,7 @@ forms = {
         },
         "position": {
             "name": "position",
-            "label": "position",
+            "label": "Position",
             "mandatory": False,
             "type": "hiddenfield",
             "help_text": "The position as string 'lat,long'",
@@ -166,25 +166,25 @@ forms = {
         },
         "archaeological_tombid": {
             "name": "archaeological_tombid",
-            "label": "TOMB ID",
+            "label": "Tomb-ID",
             "mandatory": False,
-            "type": "inputfield",
+            "type": "textfield",
             "help_text": "The Tomb ID",
             "note": "visible if origin.objects.archaeological = checked;",
             "values": []
         },
         "archaeological_individualid": {
             "name": "archaeological_individualid",
-            "label": "INDIVIDUAL ID",
+            "label": "Individual-ID",
             "mandatory": False,
-            "type": "inputfield",
+            "type": "textfield",
             "help_text": "The INDIVIDUAL ID",
             "note": "visible if origin.objects.archaeological = checked;",
             "values": []
         },
         "archaeological_funery_context": {
             "name": "archaeological_funery_context",
-            "label": "FUNERY CONTEXT",
+            "label": "Funery context",
             "mandatory": True,
             "type": "selectfield",
             "help_text": "Please choose exactly one value",
@@ -195,7 +195,7 @@ forms = {
         },
         "archaeological_burial_type": {
             "name": "archaeological_burial_type",
-            "label": "FUNERY CONTEXT",
+            "label": "Burial type",
             "mandatory": True,
             "type": "selectfield",
             "help_text": "Please choose exactly one value",
@@ -207,7 +207,7 @@ forms = {
         },
         "storage_place": {
             "name": "storage_place",
-            "label": "STORAGE PLACE",
+            "label": "Storage place",
             "mandatory": True,
             "type": "selectfield",
             "help_text": "Please choose exactly one value",
@@ -226,16 +226,16 @@ forms = {
         },
         "storage_place_freetext": {
             "name": "storage_place_freetext",
-            "label": "STORAGE PLACE FREETEXT",
+            "label": "Storage place freetext",
             "mandatory": False,
-            "type": "inputfield",
+            "type": "textfield",
             "help_text": "The INDIVIDUAL ID",
             "note": "visible if storage_place_checkbox = checked;",
             "values": []
         },
         "storage_condition": {
-            "name": "storage_place_freetext",
-            "label": "STORAGE CONDITION",
+            "name": "storage_condition",
+            "label": "Storage condition",
             "mandatory": True,
             "type": "selectfield",
             "help_text": "Please choose exactly one value",
@@ -247,9 +247,9 @@ forms = {
         },
         "chronology": {
             "name": "chronology",
-            "label": "CHRONOLOGY",
+            "label": "Chronology",
             "mandatory": False,
-            "type": "rest-inputfield",
+            "type": "rest-textfield",
             "url": "/api/chronology-periods/",
             "params": "?q=<term>",
             "help_text": "Search for chronology Information",
@@ -265,9 +265,9 @@ forms = {
         },
         "chronology_freetext": {
             "name": "chronology_freetext",
-            "label": "",
+            "label": "Chronology freetext",
             "mandatory": False,
-            "type": "inputfield",
+            "type": "textarea",
             "help_text": "Add additional information",
             "note": "visible if chronology_checkbox = checked;",
             "values": []
@@ -278,7 +278,7 @@ forms = {
     "publication": {
         "dating_method": {
             "name": "dating_method",
-            "label": "DATING METHOD",
+            "label": "Dating method",
             "mandatory": True,
             "type": "selectfield",
             "help_text": "Please choose exactly one value",
@@ -304,7 +304,7 @@ forms = {
         },
         "dna_analyses": {
             "name": "dna_analyses",
-            "label": "DNA ANALYSES",
+            "label": "Dna analyses",
             "mandatory": True,
             "type": "selectfield",
             "help_text": "Please choose exactly one value",
@@ -315,35 +315,28 @@ forms = {
         },
         "dna_analyses_link": {
             "name": "dna_analyses_link",
-            "label": "DNA ANALYSES LINK",
+            "label": "Dna analyses link",
             "mandatory": False,
-            "type": "inputfield",
+            "type": "textfield",
             "help_text": "Link to reference",
             "values": []
         },
-        "publication": {
-            "type": "group",
-            "name": "publication",
-            "label": "PUBLICATION",
-            "values": [],
-            "objects": {
-                "published": {
-                    "name": "published",
-                    "label": "Published",
-                    "mandatory": False,
-                    "type": "checkbox",
-                    "help_text": "",
-                    "values": ""
-                },
-                "publication_link": {
-                    "name": "publication_link",
-                    "mandatory": True,
-                    "type": "inputfield",
-                    "note": "only visible if PUBLICATION_CHECKBOX is checked",
-                    "help_text": "Link to reference",
-                    "values": []
-                },
-            }
+        "published": {
+            "name": "published",
+            "label": "Published",
+            "mandatory": False,
+            "type": "checkbox",
+            "help_text": "",
+            "values": ""
+        },
+        "publication_link": {
+            "name": "publication_link",
+            "label": "Publication link",
+            "mandatory": False,
+            "type": "textfield",
+            "note": "only visible if PUBLICATION_CHECKBOX is checked",
+            "help_text": "Link to reference",
+            "values": []
         }
 
     }
