@@ -168,7 +168,7 @@ class FormularConfig(viewsets.ViewSet):
                 {"name": f"{bone['name']}_amount",
                  "id": bone["id"],
                  "section": bone["section"],
-                 "type": "",
+                 "type": "selectfield",
                  "options": [
                      {"name":">75%","value":">75%"},
                      {"name":"<75%","value":"<75%"},
