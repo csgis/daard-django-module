@@ -103,7 +103,7 @@ class CustomBoneSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Bone
-        fields = ('id', 'name', 'section','')
+        fields = ('id', 'name', 'section')
 
 
 class BoneChangeBoneProxySerializer(serializers.ModelSerializer):
