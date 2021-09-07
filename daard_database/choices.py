@@ -125,6 +125,7 @@ forms = {
             "label": "Origin",
             "type": "radiogroup",
             "help_text": "",
+            "mandatory": True,
             "values": "",
             "objects": {
                 "archaeological": {
@@ -148,7 +149,7 @@ forms = {
         "archaeological_site": {
             "name": "archaeological_site",
             "label": "Site",
-            "mandatory": False,
+            "mandatory": True,
             "type": "rest-textfield",
             "url": "/api/gazetteer-sites/",
             "params": "?q=<term>&task=<suggestion>|<site>",
@@ -159,7 +160,7 @@ forms = {
         "position": {
             "name": "position",
             "label": "Position",
-            "mandatory": False,
+            "mandatory": True,
             "type": "hiddenfield",
             "help_text": "The position as string 'lat,long'",
             "values": []
