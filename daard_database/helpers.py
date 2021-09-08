@@ -49,7 +49,7 @@ def get_technics(instance):
     bone_relations = getattr(instance, "bone_relations", {})
     technic = []
     for key in bone_relations.keys():
-        t = bone_relations[key].get("technik")
+        t = bone_relations[key].get("technic")
         if (t is not None):
             technic.append(t)
     technic = set(technic)

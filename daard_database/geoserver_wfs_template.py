@@ -140,7 +140,7 @@ update_body = '''
         </wfs:Property>
         <wfs:Property>
           <wfs:Name>svgid</wfs:Name>
-          <wfs:Value>BBB</wfs:Value>
+          <wfs:Value>{svgid}</wfs:Value>
         </wfs:Property>
         <wfs:Property>
             <wfs:Name>the_geom</wfs:Name>
@@ -196,7 +196,7 @@ create_body = '''
         <geonode:c_bones>{c_bones}</geonode:c_bones>
         <geonode:c_b_t_bc_rel>{c_b_t_bc_rel}</geonode:c_b_t_bc_rel>
         <geonode:c_technic>{c_technic}</geonode:c_technic>
-        <geonode:svgid>AA</geonode:svgid>
+        <geonode:svgid>{svgid}}</geonode:svgid>
         <geonode:the_geom>
             <gml:Point srsDimension="2" srsName="EPSG:4326">
                 <gml:pos>{position}</gml:pos>
