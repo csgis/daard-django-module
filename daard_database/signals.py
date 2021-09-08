@@ -29,10 +29,11 @@ def http_client(geoserver_payload):
         # logger.info(geoserver_payload)
         geoserver_response = requests.post(geoserver_url, data=geoserver_payload.encode('utf-8'), auth=(
             geoserver_user, geoserver_user_password))
-        logger.info(geoserver_response.content)
+        if not geoserver_response.ok:
+            logger.error(geoserver_response.content)
+
         return geoserver_response.content
     except requests.exceptions.RequestException as e:
-        error
         raise SystemExit(e)
 
 @receiver(post_save, sender=DiseaseCase)
