@@ -32,6 +32,11 @@ def http_client(geoserver_payload):
         if not geoserver_response.ok:
             logger.error(geoserver_response.content)
 
+        print(geoserver_payload)
+        print("-------------------------")
+        print(geoserver_response.content)
+        print("-------------------------")
+
         return geoserver_response.content
     except requests.exceptions.RequestException as e:
         raise SystemExit(e)
