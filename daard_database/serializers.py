@@ -67,6 +67,7 @@ class DiseaseCaseSerializer(serializers.ModelSerializer):
 class ChildrenBoneSerializer(serializers.ModelSerializer):
 
     value = serializers.SerializerMethodField()
+    name = serializers.SerializerMethodField()
 
     class Meta:
         model = Bone
@@ -78,6 +79,10 @@ class ChildrenBoneSerializer(serializers.ModelSerializer):
         """getter method to add field retrieved_time"""
         return slugify(object.name)
 
+    @classmethod
+    def get_name(self, object):
+        """getter method to add field retrieved_time"""
+        return object.id
 
 class BoneSerializer(serializers.ModelSerializer):
     options = ChildrenBoneSerializer(many=True)
