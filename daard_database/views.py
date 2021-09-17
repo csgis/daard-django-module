@@ -12,6 +12,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django.views.generic import TemplateView
 import logging
 logger = logging.getLogger("geonode")
+from slugify import slugify
 
 
 class BonesImageView(TemplateView):
@@ -130,7 +131,7 @@ class ChangeSearchViewSet(viewsets.ViewSet):
                 if str(current_bone["id"]) in search_bone:
                     all_technics[disease["technic"]["name"]][current_bone["id"]] = {
                         "id": current_bone["id"],
-                        "name": current_bone["name"],
+                        "name": slugify(current_bone["name"]),
                         "name_complete": f'{current_bone["name"]} ({current_bone["section"]})',
                         "section": current_bone["section"],
                         "values": []
