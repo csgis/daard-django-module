@@ -134,7 +134,7 @@ class ChangeSearchViewSet(viewsets.ViewSet):
                         "name": slugify(current_bone["name"]),
                         "name_complete": f'{current_bone["name"]} ({current_bone["section"]})',
                         "section": current_bone["section"],
-                        "values": []
+                        "options": []
                     }
 
         # add bone changes to bones
@@ -142,8 +142,13 @@ class ChangeSearchViewSet(viewsets.ViewSet):
             disease_as_dict = dict(disease)
             for current_bone in disease_as_dict["bone"]:
                 if str(current_bone["id"]) in search_bone:
-                    all_technics[disease["technic"]["name"]][current_bone["id"]]["values"].append(disease["bone_change"])
-        return Response(all_technics)
+                    all_technics[disease["technic"]["name"]][current_bone["id"]]["options"].append(disease["bone_change"])
+
+        if (any(technic for technic in all_technics.values())):
+            return Response(all_technics)
+        else:
+            return Response({})
+
 
 
 class FormularConfig(viewsets.ViewSet):
