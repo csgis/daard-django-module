@@ -14,7 +14,6 @@ import logging
 logger = logging.getLogger("geonode")
 from slugify import slugify
 
-
 class BonesImageView(TemplateView):
     template_name = 'daard_bones.html'
 
@@ -107,6 +106,8 @@ class ChangeSearchViewSet(viewsets.ViewSet):
     def list(self, request):
         # url parameter
         q = self.request.query_params.get('q')
+        if not q.isdecimal():
+            return Response({})
         search_bone = self.request.query_params.get('bone_ids')
         if q is None or search_bone is None:
             return Response({'body': '?q=<disease_name>&bone_ids=<1,2,3> needed for search'},
@@ -115,7 +116,7 @@ class ChangeSearchViewSet(viewsets.ViewSet):
         search_bone = list(filter(bool, search_bone))
 
         # model and serializer
-        bone_changes = BoneChangeBoneProxy.objects.filter(anomalies__name=q)
+        bone_changes = BoneChangeBoneProxy.objects.filter(anomalies__id=q)
         bone_changes_serializer = BoneChangeBoneProxySerializer(bone_changes, many=True)
         bone_change_relations = bone_changes_serializer.data
 
