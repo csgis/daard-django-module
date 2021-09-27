@@ -114,7 +114,7 @@ class DiseaseCase(models.Model):
     dna_analyses_link = models.CharField(max_length=400, blank=True, null=True)
 
     published = models.BooleanField(default=False)
-    publication_link = models.CharField(max_length=400, null=True)
+    publication_link = models.CharField(max_length=400, blank=True, null=True)
 
     # position
     position = GeopositionField(null=False, blank=True)
