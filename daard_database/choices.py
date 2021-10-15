@@ -162,7 +162,7 @@ forms = {
             "label": "Position",
             "mandatory": True,
             "type": "hiddenfield",
-            "help_text": "The position as string 'lat,long'",
+            "help_text": "The position as string 'lat,long'. This field will be filled in automatically.",
             "values": []
         },
         "archaeological_tombid": {
@@ -258,10 +258,10 @@ forms = {
         },
         "chronology_checkbox": {
             "name": "chronology_checkbox",
-            "label": "Add additional Information?",
+            "label": "",
             "mandatory": False,
             "type": "checkbox",
-            "help_text": "",
+            "help_text": "Add additional Information?",
             "values": ""
         },
         "chronology_freetext": {
@@ -324,7 +324,7 @@ forms = {
         },
         "published": {
             "name": "published",
-            "label": "Published",
+            "label": "Already published?",
             "mandatory": False,
             "type": "checkbox",
             "help_text": "",
