@@ -146,6 +146,7 @@ class ChangeSearchViewSet(viewsets.ViewSet):
                     all_technics[disease["technic"]["name"]][current_bone["id"]]["options"].append(disease["bone_change"])
 
         if (any(technic for technic in all_technics.values())):
+            all_technics = {k: v for (k, v) in all_technics.items() if v}
             return Response(all_technics)
         else:
             return Response({})
