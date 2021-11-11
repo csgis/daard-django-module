@@ -33,6 +33,8 @@ def format_bone_relations(instance):
 
     for key in inventory.keys():
         item_name = inventory[key]["label"]
+
+        # refactor: use dict comprehension
         inventory[key].pop('svgid', None)
         inventory[key].pop('label', None)
         inventory[key].pop('id', None)
