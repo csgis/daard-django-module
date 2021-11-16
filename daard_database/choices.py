@@ -41,7 +41,7 @@ forms = {
             "url": "/api/disease-search/",
             "params": "?search_age=<subadults|adults>&fields=id,name,<adults|subadults>",
             "note": "<adults,subadults> are checked options from fields ADULTS & SUBADULTS",
-            "help_text": "Please choose exactly one value",
+            "help_text": "Check Adults/Subadults to populate this field",
             "values": ""
         },
         "age_class": {
@@ -305,7 +305,7 @@ forms = {
         },
         "dna_analyses": {
             "name": "dna_analyses",
-            "label": "Dna analyses",
+            "label": "DNA analyses",
             "mandatory": True,
             "type": "selectfield",
             "help_text": "Please choose exactly one value",
@@ -316,7 +316,7 @@ forms = {
         },
         "dna_analyses_link": {
             "name": "dna_analyses_link",
-            "label": "Dna analyses link",
+            "label": "DNA analyses link",
             "mandatory": False,
             "type": "textfield",
             "help_text": "Link to reference",
