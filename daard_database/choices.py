@@ -62,8 +62,8 @@ forms = {
         },
         "age": {
             "name": "age",
-            "label": "AGE",
-            "mandatory": False,
+            "label": "Age",
+            "mandatory": True,
             "type": "selectfield",
             "help_text": "Please choose exactly one value",
             "values": [('unknown', 'Unknown',),
