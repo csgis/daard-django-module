@@ -40,7 +40,8 @@ def format_bone_relations(instance):
         inventory[key].pop('section', None)
         inventory[key].pop('name', None)
         new_dict[item_name] = inventory[key]
-        new_dict[item_name]["changes"] = bone_relations[key].get("changes", "")
+        if key in bone_relations:
+            new_dict[item_name]["changes"] = bone_relations[key].get("changes", "")
 
     c_b_t_bc_rel = ''.join([f'{key} : {value}' for key, value in new_dict.items()])
     c_b_t_bc_rel = c_b_t_bc_rel.replace("<", "less than ")
