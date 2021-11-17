@@ -17,7 +17,6 @@ def get_bone_names(instance):
     return bone_names
 
 def get_svgids(instance):
-
     inventory = getattr(instance, "inventory", {})
     if type(inventory) == str:
         inventory = json.loads(inventory)
