@@ -266,7 +266,7 @@ class ChronologyServiceAPI(viewsets.ViewSet):
             return Response({'body': '?q=<term> needed for search'}, status=status.HTTP_400_BAD_REQUEST)
         return_arr = {"values": set()}
         #external_api_response = requests.get(f'https://chronontology.dainst.org/data/period?q={q}&size=500')
-        external_api_response = requests.get(f"https://chronontology.dainst.org/data/period/?facet=resource.provenance&facet=resource.types&facet=regions.de&q={q}&from=0&size=500')
+        external_api_response = requests.get(f"https://chronontology.dainst.org/data/period/?facet=resource.provenance&facet=resource.types&facet=regions.de&q={q}&from=0&size=500")
         external_api_response_json = external_api_response.json()
         for res in external_api_response_json["results"]:
             if "en" in res["resource"]["names"]:
