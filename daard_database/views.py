@@ -106,12 +106,15 @@ class ChangeSearchViewSet(viewsets.ViewSet):
     def list(self, request):
         # url parameter
         q = self.request.query_params.get('q')
-        if not q.isdecimal():
-            return Response({})
+
         search_bone = self.request.query_params.get('bone_ids')
         if q is None or search_bone is None:
             return Response({'body': '?q=<disease_name>&bone_ids=<1,2,3> needed for search'},
                             status=status.HTTP_400_BAD_REQUEST)
+
+        if not q.isdecimal():
+            return Response({})
+
         search_bone = search_bone.split(',')
         search_bone = list(filter(bool, search_bone))
 
