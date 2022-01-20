@@ -7,7 +7,7 @@ forms = {
             "hidden_from_api": True,
             "mandatory": True,
             "type": "selectfield",
-            "help_text": "Please choose exactly one value",
+            "help_text": "Please choose one value",
             "values": [('>75%', '>75%',),
                        ('<75%', '<75%',),
                        ('absent', 'ABSENT',),
@@ -18,7 +18,7 @@ forms = {
     "disease": {
         "subadults": {
             "name": "subadults",
-            "label": "Subadults",
+            "label": "Subadult",
             "mandatory": False,
             "type": "checkbox",
             "help_text": "Disease affects subadults?",
@@ -27,7 +27,7 @@ forms = {
 
         "adults": {
             "name": "adults",
-            "label": "Adults",
+            "label": "Adult",
             "mandatory": False,
             "type": "checkbox",
             "help_text": "Disease affects adults?",
@@ -41,7 +41,7 @@ forms = {
             "url": "/api/disease-search/",
             "params": "?search_age=<subadults|adults>&fields=id,name,<adults|subadults>",
             "note": "<adults,subadults> are checked options from fields ADULTS & SUBADULTS",
-            "help_text": "Check Adults/Subadults to populate this field",
+            "help_text": "Please choose one value",
             "values": ""
         },
         "age_class": {
@@ -49,7 +49,7 @@ forms = {
             "label": "Age class",
             "mandatory": True,
             "type": "selectfield",
-            "help_text": "Please choose exactly one value",
+            "help_text": "Please choose one value",
             "values": [('Foetus', 'Foetus',),
                        ('0–3', '0 – 3',),
                        ('4–6', '4 – 6',),
@@ -63,9 +63,9 @@ forms = {
         "age": {
             "name": "age",
             "label": "Age",
-            "mandatory": True,
+            "mandatory": False,
             "type": "selectfield",
-            "help_text": "Please choose exactly one value",
+            "help_text": "Insert narrower age",
             "values": [('unknown', 'Unknown',),
                        ('does_not_apply', 'Does not apply',)]
         },
@@ -91,7 +91,7 @@ forms = {
             "label": "Sex",
             "mandatory": True,
             "type": "selectfield",
-            "help_text": "Please choose exactly one value",
+            "help_text": "Please choose one value",
             "values": [('f', 'F',),
                        ('f?', 'F?',),
                        ('unknown', 'UNKNOWN',),
@@ -117,7 +117,7 @@ forms = {
             "label": "Reference images",
             "mandatory": False,
             "type": "textfield",
-            "help_text": "Link to iDAI.objects",
+            "help_text": "Please choose one value",
             "values": []
         },
         "origin": {
@@ -170,7 +170,7 @@ forms = {
             "label": "Tomb-ID",
             "mandatory": False,
             "type": "textfield",
-            "help_text": "The Tomb ID",
+            "help_text": "Please choose one value",
             "note": "visible if origin.objects.archaeological = checked;",
             "values": []
         },
@@ -179,7 +179,7 @@ forms = {
             "label": "Individual-ID",
             "mandatory": False,
             "type": "textfield",
-            "help_text": "The INDIVIDUAL ID",
+            "help_text": "Please choose one value",
             "note": "visible if origin.objects.archaeological = checked;",
             "values": []
         },
@@ -188,7 +188,7 @@ forms = {
             "label": "Funery context",
             "mandatory": True,
             "type": "selectfield",
-            "help_text": "Please choose exactly one value",
+            "help_text": "Please choose one value",
             "note": "visible if origin.objects.archaeological = checked;",
             "values": [('primary', 'Primary',),
                        ('secondary', 'Secondary',),
@@ -199,7 +199,7 @@ forms = {
             "label": "Burial type",
             "mandatory": True,
             "type": "selectfield",
-            "help_text": "Please choose exactly one value",
+            "help_text": "Please choose one value",
             "note": "visible if origin.objects.archaeological = checked;",
             "values": [('single', 'Single',),
                        ('double', 'Double',),
@@ -211,7 +211,7 @@ forms = {
             "label": "Storage place",
             "mandatory": True,
             "type": "selectfield",
-            "help_text": "Please choose exactly one value",
+            "help_text": "Please choose one value",
             "values": [('institution_1', 'Institution 1',),
                        ('institution_2', 'Institution 2',),
                        ('institution_3', 'Institution 3',),
@@ -239,7 +239,7 @@ forms = {
             "label": "Storage condition",
             "mandatory": True,
             "type": "selectfield",
-            "help_text": "Please choose exactly one value",
+            "help_text": "Please choose one value",
             "values": [('exhibition', 'Exhibition',),
                        ('accessible_for_study', 'Accessible for study',),
                        ('not_accessible_for_study', 'Not accessible for study',),
@@ -253,7 +253,7 @@ forms = {
             "type": "rest-textfield",
             "url": "/api/chronology-periods/",
             "params": "?q=<term>",
-            "help_text": "Search for chronology Information",
+            "help_text": "Please choose one value",
             "values": []
         },
         "chronology_checkbox": {
@@ -282,7 +282,7 @@ forms = {
             "label": "Dating method",
             "mandatory": True,
             "type": "selectfield",
-            "help_text": "Please choose exactly one value",
+            "help_text": "Please choose one value",
             "values": [('human_bone', 'Human bone',),
                        ('animal_bone', 'Animal bone',),
                        ('horn', 'Horn',),
@@ -308,7 +308,7 @@ forms = {
             "label": "DNA analyses",
             "mandatory": True,
             "type": "selectfield",
-            "help_text": "Please choose exactly one value",
+            "help_text": "Please choose one value",
             "values": [('successful', 'Successful',),
                        ('unsuccessful', 'Unsuccessful',),
                        ('absent', 'Absent',),

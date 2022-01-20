@@ -148,6 +148,13 @@ class ChangeSearchViewSet(viewsets.ViewSet):
                 if str(current_bone["id"]) in search_bone:
                     all_technics[disease["technic"]["name"]][current_bone["id"]]["options"].append(disease["bone_change"])
 
+        # patch unknown and absent for all options of records
+        for tech in all_technics:
+            for opt in all_technics[tech].values():
+                opt["options"].insert(0, {"id": 10001, "name": "unknown"})
+                opt["options"].insert(0, {"id": 10000, "name": "absent"})
+
+
         if (any(technic for technic in all_technics.values())):
             all_technics = {k: v for (k, v) in all_technics.items() if v}
             return Response(all_technics)
