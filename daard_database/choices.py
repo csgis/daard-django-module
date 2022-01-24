@@ -338,6 +338,15 @@ forms = {
             "note": "only visible if PUBLICATION_CHECKBOX is checked",
             "help_text": "Link to reference",
             "values": []
+        },
+        "doi": {
+            "name": "doi",
+            "label": "DOI",
+            "mandatory": False,
+            "type": "textfield",
+            "note": "",
+            "help_text": "Digital Object Identifier if available",
+            "values": []
         }
 
     }

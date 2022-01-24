@@ -115,6 +115,7 @@ class DiseaseCase(models.Model):
 
     published = models.BooleanField(default=False)
     publication_link = models.CharField(max_length=400, blank=True, null=True)
+    doi = models.CharField(max_length=400, blank=True, null=True)
 
     # position
     position = GeopositionField(null=False, blank=True)
