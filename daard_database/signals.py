@@ -32,10 +32,10 @@ def http_client(geoserver_payload):
         if not geoserver_response.ok:
             logger.error(geoserver_response.content)
 
-        #print(geoserver_payload)
-        #print("-------------------------")
-        #print(geoserver_response.content)
-        #print("-------------------------")
+        logger.info(geoserver_payload)
+        logger.info("-------------------------")
+        logger.info(geoserver_response.content)
+        logger.info("-------------------------")
 
         return geoserver_response.content
     except requests.exceptions.RequestException as e:
@@ -63,7 +63,9 @@ def add_or_edit_map_feature(sender, instance, created, **kwargs):
 
     # Email notification
     if created:
-        daard_all_editor__profiles = Profile.objects.filter(groups__name="daard_editors")
+        # daard_all_editor__profiles = Profile.objects.filter(groups__name="daard_editors")
+        daard_all_editor__profiles = os.getenv('DAARD_EDITORS', ["toni.schoenbuchner@csgis.de"])
+        logger.info(daard_all_editor__profiles)
         editor_recipients = list(i for i in daard_all_editor__profiles.values_list('email', flat=True) if bool(i))
         notify_daard_user(receiver=editor_recipients,
                           template='./email/admin_notice_created.txt',
@@ -76,6 +78,10 @@ def add_or_edit_map_feature(sender, instance, created, **kwargs):
                           title='Your DAARD Database entry')
     else:
         if instance.is_approved:
+            daard_all_editor__profiles = os.getenv('DAARD_EDITORS', ["toni.schoenbuchner@csgis.de"])
+            logger.info(daard_all_editor__profiles)
+            logger.info(owner_email)
+
             notify_daard_user(receiver=owner_email,
                               template='./email/user_resource_published.txt',
                               instance=instance,
