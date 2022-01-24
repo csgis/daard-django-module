@@ -52,7 +52,7 @@ def get_technics(instance):
     bone_relations = getattr(instance, "bone_relations", {})
     technic = []
     for key in bone_relations.keys():
-        changes_key = bone_relations[key].get("changes")
+        changes_key = bone_relations[key].get("_changes")
         if (changes_key is not None):
           for change_item in changes_key:
               item = change_item.get("technic", None)
