@@ -249,7 +249,7 @@ forms = {
         "chronology": {
             "name": "chronology",
             "label": "Chronology",
-            "mandatory": False,
+            "mandatory": True,
             "type": "rest-textfield",
             "url": "/api/chronology-periods/",
             "params": "?q=<term>",
