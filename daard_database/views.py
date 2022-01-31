@@ -17,9 +17,6 @@ from slugify import slugify
 class BonesImageView(TemplateView):
     template_name = 'daard_bones.html'
 
-class HelpView(TemplateView):
-    template_name = 'daard_help.html'
-
 # Disease Case
 class DiseaseCaseViewset(viewsets.ModelViewSet):
     serializer_class = DiseaseCaseSerializer

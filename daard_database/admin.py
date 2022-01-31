@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import DiseaseCase, DiseaseLibrary, BoneChange, Bone, Technic, BoneChangeBoneProxy, BoneRelation, InstitutList
+from .models import DiseaseCase, DiseaseLibrary, BoneChange, Bone, Technic, BoneChangeBoneProxy, BoneRelation, \
+    InstitutList, Helper
 from mptt.admin import DraggableMPTTAdmin
 from import_export.admin import ImportExportModelAdmin
 
@@ -56,6 +57,10 @@ class BoneChangeAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 
+class HelperAdmin(admin.ModelAdmin):
+    model = Helper
+    search_fields = ['name']
+
 class InstitutListAdmin(admin.ModelAdmin):
     model = InstitutList
     search_fields = ['name']
@@ -106,6 +111,7 @@ class DiseaseCaseAdmin(admin.ModelAdmin):
 admin.site.register(Technic, TechnicAdmin)
 admin.site.register(Bone, BoneAdmin)
 admin.site.register(BoneChange, BoneChangeAdmin)
+admin.site.register(Helper, HelperAdmin)
 admin.site.register(InstitutList, InstitutListAdmin)
 admin.site.register(DiseaseLibrary, DiseaseAdmin)
 # admin.site.register(FormConfig)

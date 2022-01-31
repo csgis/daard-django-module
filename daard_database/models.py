@@ -5,7 +5,19 @@ from geoposition.fields import GeopositionField
 import uuid
 from jsonfield import JSONField
 from django.conf import settings
+from .storage import OverwriteStorage
 
+
+class Helper(models.Model):
+    title = models.CharField(max_length=80)
+    pdf = models.FileField(upload_to='pdfs/', help_text="Name must be daard_help.pdf",
+                           storage=OverwriteStorage())
+
+    class Meta:
+        ordering = ['title']
+
+    def __str__(self):
+        return f"{self.title}"
 
 class DiseaseLibrary(models.Model):
     name = models.CharField(max_length=255)
