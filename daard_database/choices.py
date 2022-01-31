@@ -63,7 +63,7 @@ forms = {
         "age": {
             "name": "age",
             "label": "Age",
-            "mandatory": False,
+            "mandatory": True,
             "type": "selectfield",
             "help_text": "Insert narrower age",
             "values": [('unknown', 'Unknown',),
