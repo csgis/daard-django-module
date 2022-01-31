@@ -1,7 +1,7 @@
 from .serializers import DiseaseLibrary, BoneChangeBoneProxySerializer, \
     BoneSerializer, DiseaseCaseSerializer, DiseaseSerializer
 from django.db.models import Q
-from .models import DiseaseCase, BoneChangeBoneProxy, Bone
+from .models import DiseaseCase, BoneChangeBoneProxy, Bone, InstitutList
 from rest_framework.response import Response
 import requests
 from rest_framework import status
@@ -172,6 +172,10 @@ class FormularConfig(viewsets.ViewSet):
         # Read Bones from Model
         bones = Bone.objects.filter(parent=None).prefetch_related("options").all()
         bone_serializer = BoneSerializer(bones, many=True)
+
+        instituts = InstitutList.objects.values().order_by('position')
+        print(instituts)
+
         all_bones = bone_serializer.data
         bone_sections = {}
 
@@ -212,6 +216,13 @@ class FormularConfig(viewsets.ViewSet):
 
         # all_forms["inventory"] = all_bones
         all_forms["inventory"] = bone_sections
+
+        # Set storage place values
+        institut_dict = []
+        for institut in instituts:
+            institut_dict.append({"name": institut['name'], "value": institut['name']})
+
+        all_forms["site"]["storage_place"]["options"] = institut_dict
 
         # allow reduction of output based on key
         filter_by_key = self.request.query_params.get('filter_by_key')

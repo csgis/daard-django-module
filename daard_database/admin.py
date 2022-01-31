@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import DiseaseCase, DiseaseLibrary, BoneChange, Bone, Technic, BoneChangeBoneProxy, BoneRelation
+from .models import DiseaseCase, DiseaseLibrary, BoneChange, Bone, Technic, BoneChangeBoneProxy, BoneRelation, InstitutList
 from mptt.admin import DraggableMPTTAdmin
 from import_export.admin import ImportExportModelAdmin
 
@@ -56,6 +56,12 @@ class BoneChangeAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 
+class InstitutListAdmin(admin.ModelAdmin):
+    model = InstitutList
+    search_fields = ['name']
+    list_display = ('name', 'position',)
+    ordering = ('position',)
+
 class DiseaseCaseAdmin(admin.ModelAdmin):
     model = DiseaseCase
     list_display = ('disease', 'is_approved',)
@@ -100,6 +106,7 @@ class DiseaseCaseAdmin(admin.ModelAdmin):
 admin.site.register(Technic, TechnicAdmin)
 admin.site.register(Bone, BoneAdmin)
 admin.site.register(BoneChange, BoneChangeAdmin)
+admin.site.register(InstitutList, InstitutListAdmin)
 admin.site.register(DiseaseLibrary, DiseaseAdmin)
 # admin.site.register(FormConfig)
 admin.site.register(DiseaseCase, DiseaseCaseAdmin)

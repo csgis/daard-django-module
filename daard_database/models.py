@@ -29,6 +29,12 @@ class BoneChange(models.Model):
     def __str__(self):
         return self.name
 
+class InstitutList(models.Model):
+    name = models.CharField(max_length=255)
+    position = models.CharField(max_length=5)
+
+    def __str__(self):
+        return self.name
 
 class Bone(MPTTModel):
     sections = (('cranial_district', 'Cranial district'),
@@ -104,17 +110,15 @@ class DiseaseCase(models.Model):
     archaeological_burial_type = models.CharField(max_length=400, blank=True, null=True, choices=forms['site']['archaeological_burial_type']['values'])
     storage_place = models.CharField(max_length=400, choices=forms['site']['storage_place']['values'])
     storage_place_freetext = models.CharField(max_length=400, blank=True, null=True)
-    storage_condition = models.CharField(max_length=400, choices=forms['site']['storage_condition']['values'])
     chronology = models.CharField(max_length=400, blank=True, null=True)
     chronology_freetext = models.CharField(max_length=400, blank=True)
+    dating_method = models.CharField(max_length=400, choices=forms['site']['dating_method']['values'])
 
     # step 5
-    dating_method = models.CharField(max_length=400, choices=forms['publication']['dating_method']['values'])
     dna_analyses = models.CharField(max_length=400, choices=forms['publication']['dna_analyses']['values'])
     dna_analyses_link = models.CharField(max_length=400, blank=True, null=True)
 
     published = models.BooleanField(default=False)
-    publication_link = models.CharField(max_length=400, blank=True, null=True)
     doi = models.CharField(max_length=400, blank=True, null=True)
     references = models.TextField(blank=True, null=True)
     comment = models.TextField(blank=True, null=True)

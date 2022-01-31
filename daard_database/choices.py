@@ -234,18 +234,6 @@ forms = {
             "note": "visible if storage_place_checkbox = checked;",
             "values": []
         },
-        "storage_condition": {
-            "name": "storage_condition",
-            "label": "Storage condition",
-            "mandatory": True,
-            "type": "selectfield",
-            "help_text": "Please choose one value",
-            "values": [('exhibition', 'Exhibition',),
-                       ('accessible_for_study', 'Accessible for study',),
-                       ('not_accessible_for_study', 'Not accessible for study',),
-                       ('does_not_apply', 'Does not apply',),
-                       ('unknown', 'UNKNOWN',)]
-        },
         "chronology": {
             "name": "chronology",
             "label": "Chronology",
@@ -256,30 +244,9 @@ forms = {
             "help_text": "Please choose one value",
             "values": []
         },
-        "chronology_checkbox": {
-            "name": "chronology_checkbox",
-            "label": "",
-            "mandatory": False,
-            "type": "checkbox",
-            "help_text": "Add additional Information?",
-            "values": ""
-        },
-        "chronology_freetext": {
-            "name": "chronology_freetext",
-            "label": "Chronology freetext",
-            "mandatory": False,
-            "type": "textarea",
-            "help_text": "Add additional information",
-            "note": "visible if chronology_checkbox = checked;",
-            "values": []
-        },
-    },
-
-    # step 5
-    "publication": {
         "dating_method": {
             "name": "dating_method",
-            "label": "Dating method",
+            "label": "Dating object",
             "mandatory": True,
             "type": "selectfield",
             "help_text": "Please choose one value",
@@ -303,6 +270,27 @@ forms = {
                        ('numismatic', 'Numismatic',),
                        ]
         },
+        "chronology_checkbox": {
+            "name": "chronology_checkbox",
+            "label": "",
+            "mandatory": False,
+            "type": "checkbox",
+            "help_text": "Add additional Information?",
+            "values": ""
+        },
+        "chronology_freetext": {
+            "name": "chronology_freetext",
+            "label": "Chronology freetext",
+            "mandatory": False,
+            "type": "textarea",
+            "help_text": "Add additional information",
+            "note": "visible if chronology_checkbox = checked;",
+            "values": []
+        },
+    },
+
+    # step 5
+    "publication": {
         "dna_analyses": {
             "name": "dna_analyses",
             "label": "DNA analyses",
@@ -329,15 +317,6 @@ forms = {
             "type": "checkbox",
             "help_text": "",
             "values": ""
-        },
-        "publication_link": {
-            "name": "publication_link",
-            "label": "Publication link",
-            "mandatory": False,
-            "type": "textfield",
-            "note": "only visible if PUBLICATION_CHECKBOX is checked",
-            "help_text": "Link to reference",
-            "values": []
         },
         "doi": {
             "name": "doi",
