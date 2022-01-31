@@ -49,8 +49,10 @@ class DiseaseSerializer(serializers.ModelSerializer):
 # Disease Case
 class DiseaseCaseSerializer(serializers.ModelSerializer):
     owner = serializers.HiddenField(default=serializers.CurrentUserDefault())
-    inventory = serializers.JSONField() # change is here
-    bone_relations = serializers.JSONField() # change is here
+    inventory = serializers.JSONField()
+    storage_place = serializers.JSONField()
+    dating_method = serializers.JSONField()
+    bone_relations = serializers.JSONField()
     #disease = serializers.StringRelatedField()
 
     class Meta:
