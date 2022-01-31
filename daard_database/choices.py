@@ -349,8 +349,8 @@ forms = {
             "values": []
         },
         "references": {
-            "name": "doi",
-            "label": "DOI",
+            "name": "references",
+            "label": "References",
             "mandatory": False,
             "type": "textfield",
             "note": "only visible if PUBLICATION_CHECKBOX is checked",
