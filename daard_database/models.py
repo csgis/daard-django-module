@@ -108,7 +108,7 @@ class DiseaseCase(models.Model):
     archaeological_individualid = models.CharField(max_length=400, blank=True, null=True)
     archaeological_funery_context = models.CharField(max_length=400, blank=True, null=True, choices=forms['site']['archaeological_funery_context']['values'])
     archaeological_burial_type = models.CharField(max_length=400, blank=True, null=True, choices=forms['site']['archaeological_burial_type']['values'])
-    storage_place = models.CharField(max_length=400, choices=forms['site']['storage_place']['values'])
+    storage_place = models.CharField(max_length=1200, choices=forms['site']['storage_place']['values'])
     storage_place_freetext = models.CharField(max_length=400, blank=True, null=True)
     chronology = models.CharField(max_length=400, blank=True, null=True)
     chronology_freetext = models.CharField(max_length=400, blank=True)
