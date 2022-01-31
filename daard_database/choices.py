@@ -343,9 +343,18 @@ forms = {
             "name": "doi",
             "label": "DOI",
             "mandatory": False,
-            "type": "textfield",
-            "note": "",
+            "type": "textarea",
+            "note": "only visible if PUBLICATION_CHECKBOX is checked",
             "help_text": "Digital Object Identifier if available",
+            "values": []
+        },
+        "references": {
+            "name": "doi",
+            "label": "DOI",
+            "mandatory": False,
+            "type": "textfield",
+            "note": "only visible if PUBLICATION_CHECKBOX is checked",
+            "help_text": "Further references",
             "values": []
         }
 
