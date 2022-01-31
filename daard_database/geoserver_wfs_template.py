@@ -91,10 +91,6 @@ update_body = '''
           <wfs:Value>{storage_place_freetext}</wfs:Value>
         </wfs:Property>
         <wfs:Property>
-          <wfs:Name>storage_condition</wfs:Name>
-          <wfs:Value>{storage_condition}</wfs:Value>
-        </wfs:Property>
-        <wfs:Property>
           <wfs:Name>chronology</wfs:Name>
           <wfs:Value>{chronology}</wfs:Value>
         </wfs:Property>
@@ -120,7 +116,7 @@ update_body = '''
         </wfs:Property>
          <wfs:Property>
           <wfs:Name>publication_link</wfs:Name>
-          <wfs:Value>{publication_link}</wfs:Value>
+          <wfs:Value>{doi}</wfs:Value>
         </wfs:Property>
         <wfs:Property>
           <wfs:Name>c_no_o_bones</wfs:Name>
@@ -183,7 +179,6 @@ create_body = '''
         <geonode:archaeological_burial_type>{archaeological_burial_type}</geonode:archaeological_burial_type>
         <geonode:storage_place>{storage_place}</geonode:storage_place>
         <geonode:storage_place_freetext>{storage_place_freetext}</geonode:storage_place_freetext>
-        <geonode:storage_condition>{storage_condition}</geonode:storage_condition>
         <geonode:chronology>{chronology}</geonode:chronology>
         <geonode:chronology_freetext>{chronology_freetext}</geonode:chronology_freetext>
         <geonode:chronology_freetext>{chronology_freetext}</geonode:chronology_freetext>
@@ -191,7 +186,7 @@ create_body = '''
         <geonode:dna_analyses>{dna_analyses}</geonode:dna_analyses>
         <geonode:dna_analyses_link>{dna_analyses_link}</geonode:dna_analyses_link>
         <geonode:published>{published}</geonode:published>
-        <geonode:publication_link>{publication_link}</geonode:publication_link>
+        <geonode:publication_link>{doi}</geonode:publication_link>
         <geonode:c_no_o_bones>{c_no_o_bones}</geonode:c_no_o_bones>
         <geonode:c_bones>{c_bones}</geonode:c_bones>
         <geonode:c_b_t_bc_rel>{c_b_t_bc_rel}</geonode:c_b_t_bc_rel>
