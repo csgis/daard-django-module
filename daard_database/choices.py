@@ -322,7 +322,7 @@ forms = {
             "name": "doi",
             "label": "DOI",
             "mandatory": False,
-            "type": "textarea",
+            "type": "textfield",
             "note": "only visible if PUBLICATION_CHECKBOX is checked",
             "help_text": "Digital Object Identifier if available",
             "values": []
@@ -331,7 +331,7 @@ forms = {
             "name": "references",
             "label": "References",
             "mandatory": False,
-            "type": "textfield",
+            "type": "textarea",
             "note": "only visible if PUBLICATION_CHECKBOX is checked",
             "help_text": "Further references",
             "values": []
