@@ -58,15 +58,15 @@ def add_or_edit_map_feature(sender, instance, created, **kwargs):
     owner_email = [instance.owner.email, ]
 
     # Update geoserver
-    geoserver_payload = payload_template.format(**instance.__dict__)
+    geoserver_payload = payload_template.format(**instance.__dict_)
     geoserver_response = http_client(geoserver_payload=geoserver_payload)
 
     # Email notification
     if created:
         # daard_all_editor__profiles = Profile.objects.filter(groups__name="daard_editors")
-        daard_all_editor__profiles = os.getenv('DAARD_EDITORS', ["toni.schoenbuchner@csgis.de"])
+        editor_recipients = os.getenv('DAARD_EDITORS', ["toni.schoenbuchner@csgis.de"])
         logger.info(daard_all_editor__profiles)
-        editor_recipients = list(i for i in daard_all_editor__profiles.values_list('email', flat=True) if bool(i))
+        #editor_recipients = list(i for i in daard_all_editor__profiles.values_list('email', flat=True) if bool(i))
         notify_daard_user(receiver=editor_recipients,
                           template='./email/admin_notice_created.txt',
                           instance=instance,
