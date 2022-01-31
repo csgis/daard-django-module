@@ -58,7 +58,7 @@ def add_or_edit_map_feature(sender, instance, created, **kwargs):
     owner_email = [instance.owner.email, ]
 
     # Update geoserver
-    geoserver_payload = payload_template.format(**instance.__dict_)
+    geoserver_payload = payload_template.format(**instance.__dict__)
     geoserver_response = http_client(geoserver_payload=geoserver_payload)
 
     # Email notification
