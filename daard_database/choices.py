@@ -117,7 +117,7 @@ forms = {
             "label": "Reference images",
             "mandatory": False,
             "type": "textfield",
-            "help_text": "Please choose one value",
+            "help_text": "If you are interested to upload pictures, please contact the editors.",
             "values": []
         },
         "origin": {
