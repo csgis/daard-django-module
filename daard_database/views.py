@@ -217,7 +217,7 @@ class FormularConfig(viewsets.ViewSet):
         # Set storage place values
         institut_dict = []
         for institut in instituts:
-            institut_dict.append({"name": institut['name'], "value": institut['name']})
+            institut_dict.append({"name": institut['name'], "value": institut['id']})
 
         all_forms["site"]["storage_place"]["options"] = institut_dict
 
