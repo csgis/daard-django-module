@@ -53,7 +53,8 @@ class DiseaseCaseSerializer(serializers.ModelSerializer):
     storage_place = serializers.JSONField()
     dating_method = serializers.JSONField()
     bone_relations = serializers.JSONField()
-    #disease = serializers.StringRelatedField()
+    storage_place = serializers.JSONField()
+    dating_method = serializers.JSONField()
 
     class Meta:
         model = DiseaseCase
