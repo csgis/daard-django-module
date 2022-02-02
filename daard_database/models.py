@@ -120,11 +120,11 @@ class DiseaseCase(models.Model):
     archaeological_individualid = models.CharField(max_length=400, blank=True, null=True)
     archaeological_funery_context = models.CharField(max_length=400, blank=True, null=True, choices=forms['site']['archaeological_funery_context']['values'])
     archaeological_burial_type = models.CharField(max_length=400, blank=True, null=True, choices=forms['site']['archaeological_burial_type']['values'])
-    storage_place = JSONField(default={}, blank=True, null=True)
+    storage_place = JSONField(default=list, blank=True, null=True)
     storage_place_freetext = models.CharField(max_length=400, blank=True, null=True)
     chronology = models.CharField(max_length=400, blank=True, null=True)
     chronology_freetext = models.CharField(max_length=400, blank=True)
-    dating_method = JSONField(default={}, blank=True, null=True)
+    dating_method = JSONField(default=list, blank=True, null=True)
 
     # step 5
     dna_analyses = models.CharField(max_length=400, choices=forms['publication']['dna_analyses']['values'])
