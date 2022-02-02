@@ -211,7 +211,7 @@ forms = {
             "label": "Storage place",
             "mandatory": True,
             "type": "selectfield",
-            "help_text": "Please choose one value",
+            "help_text": "You can choose more than one value",
             "values": [('institution_1', 'Institution 1',),
                        ('institution_2', 'Institution 2',),
                        ('institution_3', 'Institution 3',),
@@ -241,7 +241,7 @@ forms = {
             "type": "rest-textfield",
             "url": "/api/chronology-periods/",
             "params": "?q=<term>",
-            "help_text": "Please choose one value",
+            "help_text": "Please choose one value. The value marked in blue is selected.",
             "values": []
         },
         "dating_method": {
@@ -249,7 +249,7 @@ forms = {
             "label": "Dating object",
             "mandatory": True,
             "type": "selectfield",
-            "help_text": "Please choose one value",
+            "help_text": "You can choose more than one value",
             "values": [('human_bone', 'Human bone',),
                        ('animal_bone', 'Animal bone',),
                        ('horn', 'Horn',),
