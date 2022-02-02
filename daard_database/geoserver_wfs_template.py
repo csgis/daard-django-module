@@ -84,7 +84,7 @@ update_body = '''
         </wfs:Property>
         <wfs:Property>
           <wfs:Name>storage_place</wfs:Name>
-          <wfs:Value>{storage_place}</wfs:Value>
+          <wfs:Value>{storage_place_name}</wfs:Value>
         </wfs:Property>
         <wfs:Property>
           <wfs:Name>storage_place_freetext</wfs:Name>
@@ -181,7 +181,7 @@ create_body = '''
         <geonode:archaeological_individualid>{archaeological_individualid}</geonode:archaeological_individualid>
         <geonode:archaeological_funery_context>{archaeological_funery_context}</geonode:archaeological_funery_context>
         <geonode:archaeological_burial_type>{archaeological_burial_type}</geonode:archaeological_burial_type>
-        <geonode:storage_place>{storage_place}</geonode:storage_place>
+        <geonode:storage_place>{storage_place_name}</geonode:storage_place>
         <geonode:storage_place_freetext>{storage_place_freetext}</geonode:storage_place_freetext>
         <geonode:chronology>{chronology}</geonode:chronology>
         <geonode:chronology_freetext>{chronology_freetext}</geonode:chronology_freetext>

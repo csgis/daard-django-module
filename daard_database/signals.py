@@ -54,10 +54,11 @@ def add_or_edit_map_feature(sender, instance, created, **kwargs):
     instance.c_b_t_bc_rel = format_bone_relations(instance)
     instance.c_technic = get_technics(instance)
     instance.disease_name = str(instance.disease)
+    instance.storage_place_name = str(instance.storage_place)
     instance.sex = instance.sex.upper()
     instance.position = str(instance.position.longitude)+" "+str(instance.position.latitude)
     owner_email = [instance.owner.email, ]
-
+    print(instance.__dict__)
     # Update geoserver
     geoserver_payload = payload_template.format(**instance.__dict__)
     geoserver_response = http_client(geoserver_payload=geoserver_payload)
