@@ -114,8 +114,8 @@ update_body = '''
           <wfs:Name>published</wfs:Name>
           <wfs:Value>{published}</wfs:Value>
         </wfs:Property>
-         <wfs:Property>
-          <wfs:Name>publication_link</wfs:Name>
+        <wfs:Property>
+          <wfs:Name>doi</wfs:Name>
           <wfs:Value>{doi}</wfs:Value>
         </wfs:Property>
         <wfs:Property>
@@ -137,6 +137,10 @@ update_body = '''
         <wfs:Property>
           <wfs:Name>svgid</wfs:Name>
           <wfs:Value>{svgid}</wfs:Value>
+        </wfs:Property>
+        <wfs:Property>
+          <wfs:Name>references</wfs:Name>
+          <wfs:Value>{references}</wfs:Value>
         </wfs:Property>
         <wfs:Property>
             <wfs:Name>the_geom</wfs:Name>
@@ -186,12 +190,13 @@ create_body = '''
         <geonode:dna_analyses>{dna_analyses}</geonode:dna_analyses>
         <geonode:dna_analyses_link>{dna_analyses_link}</geonode:dna_analyses_link>
         <geonode:published>{published}</geonode:published>
-        <geonode:publication_link>{doi}</geonode:publication_link>
+        <geonode:doi>{doi}</geonode:doi>
         <geonode:c_no_o_bones>{c_no_o_bones}</geonode:c_no_o_bones>
         <geonode:c_bones>{c_bones}</geonode:c_bones>
         <geonode:c_b_t_bc_rel>{c_b_t_bc_rel}</geonode:c_b_t_bc_rel>
         <geonode:c_technic>{c_technic}</geonode:c_technic>
         <geonode:svgid>{svgid}</geonode:svgid>
+        <geonode:references>{references}</geonode:references>
         <geonode:the_geom>
             <gml:Point srsDimension="2" srsName="EPSG:4326">
                 <gml:pos>{position}</gml:pos>

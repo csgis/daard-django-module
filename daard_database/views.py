@@ -287,11 +287,24 @@ class ChronologyServiceAPI(viewsets.ViewSet):
             return Response({'body': '?q=<term> needed for search'}, status=status.HTTP_400_BAD_REQUEST)
         return_arr = {"values": set()}
         #external_api_response = requests.get(f'https://chronontology.dainst.org/data/period?q={q}&size=500')
-        external_api_response = requests.get(f"https://chronontology.dainst.org/data/period/?facet=resource.provenance&facet=resource.types&facet=regions.de&q={q}&from=0&size=500")
+
+        base_url = "https://chronontology.dainst.org/data/period/"
+        chrono_query =  f'?facet=resource.provenance' \
+                        f'&facet=resource.types' \
+                        f'&facet=regions.de' \
+                        f'&fq=resource.types%3A"material_culture"' \
+                        f'&fq=resource.provenance%3A"Chronontology"' \
+                        f'&q={q}%20AND%20!(_exists_:resource.relations.isPartOf)' \
+                        f'&from=0&size=100'
+        external_api_response = requests.get(base_url+chrono_query)
         external_api_response_json = external_api_response.json()
         for res in external_api_response_json["results"]:
+            first_region = ""
+            if "regions" in res:
+                first_region = res["regions"][0].get("en","")
+                first_region = f" ({first_region})" if first_region else ""
             if "en" in res["resource"]["names"]:
-                english_terms = ", ".join(res["resource"]["names"]["en"])
+                english_terms = res["resource"]["names"]["en"][0] + first_region
                 return_arr["values"].add(english_terms)
         return_arr["values"] = sorted(return_arr["values"])
         return Response(return_arr, status=external_api_response.status_code)
