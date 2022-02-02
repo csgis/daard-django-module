@@ -153,7 +153,7 @@ forms = {
             "type": "rest-textfield",
             "url": "/api/gazetteer-sites/",
             "params": "?q=<term>&task=<suggestion>|<site>",
-            "help_text": "Search for gazetteer Information",
+            "help_text": "Please choose one value. The selected value is marked with blue background",
             "note": "visible if origin.objects.archaeological or origin.objects.archaeological = checked; should store a link and set lat long hidden fields",
             "values": []
         },
@@ -241,7 +241,7 @@ forms = {
             "type": "rest-textfield",
             "url": "/api/chronology-periods/",
             "params": "?q=<term>",
-            "help_text": "Please choose one value. The value marked in blue is selected.",
+            "help_text": "Please choose one value. The selected value is marked with blue background.",
             "values": []
         },
         "dating_method": {
