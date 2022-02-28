@@ -294,7 +294,8 @@ class ChronologyServiceAPI(viewsets.ViewSet):
                         f'&facet=regions.de' \
                         f'&fq=resource.types%3A"material_culture"' \
                         f'&fq=resource.provenance%3A"Chronontology"' \
-                        f'&q={q}%20AND%20!(_exists_:resource.relations.isPartOf)' \
+                        f'&q={q}' \
+                        #f'%20AND%20!(_exists_:resource.relations.isPartOf)' \
                         f'&from=0&size=100'
         external_api_response = requests.get(base_url+chrono_query)
         external_api_response_json = external_api_response.json()
