@@ -287,7 +287,7 @@ class ChronologyServiceAPI(viewsets.ViewSet):
             return Response({'body': '?q=<term> needed for search'}, status=status.HTTP_400_BAD_REQUEST)
         return_arr = {"values": set()}
         #external_api_response = requests.get(f'https://chronontology.dainst.org/data/period?q={q}&size=500')
-
+        # f'&q={q}%20AND%20!(_exists_:resource.relations.isPartOf)' \
         base_url = "https://chronontology.dainst.org/data/period/"
         chrono_query =  f'?facet=resource.provenance' \
                         f'&facet=resource.types' \
@@ -295,7 +295,6 @@ class ChronologyServiceAPI(viewsets.ViewSet):
                         f'&fq=resource.types%3A"material_culture"' \
                         f'&fq=resource.provenance%3A"Chronontology"' \
                         f'&q={q}' \
-                        #f'%20AND%20!(_exists_:resource.relations.isPartOf)' \
                         f'&from=0&size=100'
         external_api_response = requests.get(base_url+chrono_query)
         external_api_response_json = external_api_response.json()
