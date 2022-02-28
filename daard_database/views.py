@@ -301,8 +301,9 @@ class ChronologyServiceAPI(viewsets.ViewSet):
         for res in external_api_response_json["results"]:
             first_region = ""
             if "regions" in res:
-                first_region = res["regions"][0].get("en","")
-                first_region = f" ({first_region})" if first_region else ""
+                if (len(res["regions"]) > 0):
+                    first_region = res["regions"][0].get("en","")
+                    first_region = f" ({first_region})" if first_region else ""
             if "en" in res["resource"]["names"]:
                 english_terms = res["resource"]["names"]["en"][0] + first_region
                 return_arr["values"].add(english_terms)
