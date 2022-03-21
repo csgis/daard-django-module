@@ -151,8 +151,8 @@ class ChangeSearchViewSet(viewsets.ViewSet):
         # patch unknown and absent for all options of records
         for tech in all_technics:
             for opt in all_technics[tech].values():
-                opt["options"].insert(0, {"id": 10001, "name": "unknown"})
-                opt["options"].insert(0, {"id": 10000, "name": "absent"})
+                opt["options"].insert(0, {"id": 10001, "name": "Unknown"})
+                opt["options"].insert(0, {"id": 10000, "name": "Absent"})
 
 
         if (any(technic for technic in all_technics.values())):
@@ -194,8 +194,8 @@ class FormularConfig(viewsets.ViewSet):
                  "options": [
                      {"name":">75%","value":">75%"},
                      {"name":"<75%","value":"<75%"},
-                     {"name":"absent","value":"ABSENT"},
-                     {"name":"unknown","value":"UNKNOWN"}
+                     {"name":"absent","value":"Absent"},
+                     {"name":"unknown","value":"Unknown"}
                  ]
                  })
 

@@ -10,8 +10,8 @@ forms = {
             "help_text": "Please choose one value",
             "values": [('>75%', '>75%',),
                        ('<75%', '<75%',),
-                       ('absent', 'ABSENT',),
-                       ('unknown', 'UNKNOWN',)]
+                       ('absent', 'Absent',),
+                       ('unknown', 'Unknown',)]
         }
     },
     # 1 step
@@ -94,7 +94,7 @@ forms = {
             "help_text": "Please choose one value",
             "values": [('f', 'F',),
                        ('f?', 'F?',),
-                       ('unknown', 'UNKNOWN',),
+                       ('unknown', 'Unknown',),
                        ('m', 'M',),
                        ('m?', 'M?',), ]
         },
@@ -192,7 +192,7 @@ forms = {
             "note": "visible if origin.objects.archaeological = checked;",
             "values": [('primary', 'Primary',),
                        ('secondary', 'Secondary',),
-                       ('unknown', 'UNKNOWN',)]
+                       ('unknown', 'Unknown',)]
         },
         "archaeological_burial_type": {
             "name": "archaeological_burial_type",
@@ -204,7 +204,7 @@ forms = {
             "values": [('single', 'Single',),
                        ('double', 'Double',),
                        ('multiple', 'Multiple',),
-                       ('unknown', 'UNKNOWN',)]
+                       ('unknown', 'Unknown',)]
         },
         "storage_place": {
             "name": "storage_place",
@@ -215,7 +215,7 @@ forms = {
             "values": [('institution_1', 'Institution 1',),
                        ('institution_2', 'Institution 2',),
                        ('institution_3', 'Institution 3',),
-                       ('unknown', 'UNKNOWN',)]
+                       ('unknown', 'Unknown',)]
         },
         "storage_place_checkbox": {
             "name": "storage_place_checkbox",
@@ -300,7 +300,7 @@ forms = {
             "values": [('successful', 'Successful',),
                        ('unsuccessful', 'Unsuccessful',),
                        ('absent', 'Absent',),
-                       ('unknown', 'UNKNOWN',)]
+                       ('unknown', 'Unknown',)]
         },
         "dna_analyses_link": {
             "name": "dna_analyses_link",
