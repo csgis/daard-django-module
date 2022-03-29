@@ -34,7 +34,8 @@ def http_client(geoserver_payload):
 
         logger.info(geoserver_payload)
         logger.info("-------------------------")
-        logger.info(geoserver_response.content)
+        #logger.info(geoserver_response.content)
+        print(geoserver_response.content)
         logger.info("-------------------------")
 
         return geoserver_response.content
@@ -57,6 +58,7 @@ def add_or_edit_map_feature(sender, instance, created, **kwargs):
     instance.storage_place_name = " ● ".join(instance.storage_place)
     instance.dating_method = " ● ".join(instance.dating_method)
     instance.sex = instance.sex.upper()
+    instance.references = instance.references.replace("&","and")
     instance.position = str(instance.position.longitude)+" "+str(instance.position.latitude)
     owner_email = [instance.owner.email, ]
     # Update geoserver
