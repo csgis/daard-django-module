@@ -46,7 +46,7 @@ class DaardStatus(TemplateView):
             found_records = len(records)
 
             # print(case.uuid)
-            siteurl = f'was not found: Visit {settings.SITEURL}de/admin/daard_database/diseasecase/{case}/change/'
+            siteurl = f'{settings.SITEURL}de/admin/daard_database/diseasecase/{case}/change/'
             case = str(case)
             if (found_records == 0):
                 context['results'].append({
