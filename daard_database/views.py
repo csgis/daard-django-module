@@ -14,8 +14,71 @@ import logging
 logger = logging.getLogger("geonode")
 from slugify import slugify
 
+# imports for daard status page
+import psycopg2
+import os
+from daard_database.models import DiseaseCase
+from django.conf import settings
+
 class BonesImageView(TemplateView):
     template_name = 'daard_bones.html'
+
+class DaardStatus(TemplateView):
+    template_name = 'daard_status.html'
+    def get_context_data(self, *args, **kwargs):
+        context = super(DaardStatus, self).get_context_data(*args, **kwargs)
+        connection = psycopg2.connect(
+            user=settings.DATABASES['datastore']['NAME'],
+            password=settings.DATABASES['datastore']['PASSWORD'],
+            host=settings.DATABASES['datastore']['HOST'],
+            port=settings.DATABASES['datastore']['PORT'],
+            database=settings.DATABASES['datastore']['NAME']
+        )
+        cursor = connection.cursor()
+        all_cases = DiseaseCase.objects.all()
+
+        c = 1
+        context['results'] = []
+        for case in all_cases:
+            q = f"select uuid from daard_database_dev where uuid='{case.uuid}'"
+            cursor.execute(q)
+            records = cursor.fetchall()
+            found_records = len(records)
+
+            # print(case.uuid)
+            siteurl = f'was not found: Visit {settings.SITEURL}de/admin/daard_database/diseasecase/{case}/change/'
+            case = str(case)
+            if (found_records == 0):
+                context['results'].append({
+                    'counter': c,
+                    'id': case,
+                    'status': 'BAD',
+                    'url': siteurl
+                })
+            elif (found_records > 0):
+                context['results'].append({
+                    'counter': c,
+                    'id': case,
+                    'status': 'GOOD',
+                    'url': siteurl
+                })
+            else:
+                context['results'].append({
+                    'counter': c,
+                    'id': case,
+                    'status': 'BAD More than once found',
+                    'url': siteurl
+                })
+
+            c = c + 1
+
+        q = f"select uuid from daard_database_dev"
+        cursor.execute(q)
+        records = cursor.fetchall()
+        context['map_records'] = len(records)
+        context['disease_records'] = len(all_cases)
+
+        return context
 
 # Disease Case
 class DiseaseCaseViewset(viewsets.ModelViewSet):
