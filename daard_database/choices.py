@@ -167,7 +167,7 @@ forms = {
         },
         "archaeological_tombid": {
             "name": "archaeological_tombid",
-            "label": "Tomb-ID",
+            "label": "Grave-ID",
             "mandatory": False,
             "type": "textfield",
             "help_text": "Please choose one value",
@@ -333,7 +333,7 @@ forms = {
             "mandatory": False,
             "type": "textarea",
             "note": "only visible if PUBLICATION_CHECKBOX is checked",
-            "help_text": "Further references",
+            "help_text": "Further reference; please use the APA referencing style",
             "values": []
         }
 
