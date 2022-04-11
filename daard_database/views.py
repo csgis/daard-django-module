@@ -43,7 +43,7 @@ class DaardStatus(TemplateView):
         c = 1
         context['results'] = []
         for case in all_cases:
-            q = f"select uuid from {layername} where uuid='{case.uuid}'"
+            q = f"select uuid from {table_name} where uuid='{case.uuid}'"
             cursor.execute(q)
             records = cursor.fetchall()
             found_records = len(records)
@@ -75,7 +75,7 @@ class DaardStatus(TemplateView):
 
             c = c + 1
 
-        q = f"select uuid from {layername}"
+        q = f"select uuid from {table_name}"
         cursor.execute(q)
         records = cursor.fetchall()
         context['map_records'] = len(records)
