@@ -20,6 +20,8 @@ import os
 from daard_database.models import DiseaseCase
 from django.conf import settings
 
+layername = os.getenv('DAARD_LAYERNAME',"geonode:daard_database_dev")
+
 class BonesImageView(TemplateView):
     template_name = 'daard_bones.html'
 
@@ -40,7 +42,7 @@ class DaardStatus(TemplateView):
         c = 1
         context['results'] = []
         for case in all_cases:
-            q = f"select uuid from daard_database_dev where uuid='{case.uuid}'"
+            q = f"select uuid from {layername} where uuid='{case.uuid}'"
             cursor.execute(q)
             records = cursor.fetchall()
             found_records = len(records)
@@ -72,7 +74,7 @@ class DaardStatus(TemplateView):
 
             c = c + 1
 
-        q = f"select uuid from daard_database_dev"
+        q = f"select uuid from {layername}"
         cursor.execute(q)
         records = cursor.fetchall()
         context['map_records'] = len(records)
