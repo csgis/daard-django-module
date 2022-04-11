@@ -241,7 +241,7 @@ forms = {
             "type": "rest-textfield",
             "url": "/api/chronology-periods/",
             "params": "?q=<term>",
-            "help_text": "Please choose one value. The selected value is marked with blue background.",
+            "help_text": "Either search for a time period OR define the time period using the 3 fields (from, to, BC/AD). Furthermore, an optional free text can be entered. ",
             "values": []
         },
         "dating_method": {
@@ -283,7 +283,7 @@ forms = {
             "label": "Chronology freetext",
             "mandatory": False,
             "type": "textarea",
-            "help_text": "Add additional information",
+            "help_text": "Add additional chronology information",
             "note": "visible if chronology_checkbox = checked;",
             "values": []
         },
