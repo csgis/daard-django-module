@@ -153,7 +153,7 @@ forms = {
             "type": "rest-textfield",
             "url": "/api/gazetteer-sites/",
             "params": "?q=<term>&task=<suggestion>|<site>",
-            "help_text": "Please choose one value. The selected value is marked with blue background. In case your city is not listed, please choose the closest.",
+            "help_text": "Please choose one value. The selected value is marked with blue background. In case your place is not listed, please choose the closest.",
             "note": "visible if origin.objects.archaeological or origin.objects.archaeological = checked; should store a link and set lat long hidden fields",
             "values": []
         },
