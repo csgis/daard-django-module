@@ -275,7 +275,7 @@ forms = {
             "label": "",
             "mandatory": False,
             "type": "checkbox",
-            "help_text": "Add additional chronology Information?",
+            "help_text": "Add additional chronology information?",
             "values": ""
         },
         "chronology_freetext": {
