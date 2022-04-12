@@ -68,7 +68,8 @@ def add_or_edit_map_feature(sender, instance, created, **kwargs):
     # Email notification
     if created:
         # daard_all_editor__profiles = Profile.objects.filter(groups__name="daard_editors")
-        editor_recipients = os.getenv('DAARD_EDITORS', ["toni.schoenbuchner@csgis.de"])
+        editor_recipients = os.getenv('DAARD_EDITORS', ["toni.schoenbuchner@csgis.de",])
+        editor_recipients = editor_recipients.split(',')
         logger.info(editor_recipients)
         #editor_recipients = list(i for i in daard_all_editor__profiles.values_list('email', flat=True) if bool(i))
         notify_daard_user(receiver=editor_recipients,
