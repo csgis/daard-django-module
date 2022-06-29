@@ -241,7 +241,7 @@ forms = {
             "type": "rest-textfield",
             "url": "/api/chronology-periods/",
             "params": "?q=<term>",
-            "help_text": "Either search for a time period OR define the time period using the 3 fields (from, to, BC/AD). Furthermore, an optional free text can be entered. ",
+            "help_text": "Either search for a time period OR define the time period using the 3 fields (from, to, BCE/CE). Furthermore, an optional free text can be entered. ",
             "values": []
         },
         "dating_method": {
