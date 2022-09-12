@@ -11,7 +11,7 @@ forms = {
             "values": [('>75%', '>75%',),
                        ('<75%', '<75%',),
                        ('absent', 'Absent',),
-                       ('unknown', 'Unknown',)]
+                       ('unknown', '% unknown',)]
         }
     },
     # 1 step

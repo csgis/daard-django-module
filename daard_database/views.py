@@ -261,7 +261,7 @@ class FormularConfig(viewsets.ViewSet):
                      {"name":">75%","value":">75%"},
                      {"name":"<75%","value":"<75%"},
                      {"name":"absent","value":"Absent"},
-                     {"name":"unknown","value":"Unknown"}
+                     {"name":"unknown","value":"% unknown"}
                  ]
                  })
 
