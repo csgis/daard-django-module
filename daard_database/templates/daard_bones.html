@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -443,13 +444,27 @@
       )
   }
 
+  color_keys = {
+    ">75%": "#484848",
+    "<75%": "#A8A8A8",
+    "unknonw": "#fd5c63",
+    "absent": "#ffffff"
+  }
+
   // highlight single
   let highlight_single_bones = bone_parameter => {
-    for(element of bone_parameter.split(",")){
-      var selected_bone = document.getElementById(element);
+    bone_parameter = JSON.parse(bone_parameter);
+    console.log(bone_parameter)
+
+    for (let key in bone_parameter) {
+      for(element of bone_parameter[key]){
+      var selected_bone = document.getElementById('bone'+element);
+
       if (selected_bone){
-        selected_bone.style.fill = "#FF0000";
+          selected_bone.style.fill = color_keys[key];
       }
+    }
+
     }
   }
 

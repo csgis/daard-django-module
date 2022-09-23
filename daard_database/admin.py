@@ -69,7 +69,7 @@ class InstitutListAdmin(admin.ModelAdmin):
 
 class DiseaseCaseAdmin(admin.ModelAdmin):
     model = DiseaseCase
-    list_display = ('disease', 'is_approved',)
+    list_display = ('disease', 'is_approved', 'site', 'owner', 'uuid')
     search_fields = ['disease']
     # inlines = [BoneRelation]
 

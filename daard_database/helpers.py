@@ -2,7 +2,8 @@ import json
 from collections import OrderedDict
 import logging
 logger = logging.getLogger("geonode")
-
+import urllib.request
+import json
 
 def count_bones(instance):
     amount_of_bones = len(getattr(instance, "inventory", 0))
@@ -19,17 +20,30 @@ def get_bone_names(instance):
 
 def get_svgids(instance):
     inventory = getattr(instance, "inventory", {})
-    if type(inventory) == str:
-        inventory = json.loads(inventory)
+    amount = {
+        ">75%": [],
+        "<75%": [],
+        "unknown": [],
+        "absent": []
+    }
 
-    svgid_names = ','.join(y.get("svgid","") for x, y in inventory.items())
-    return svgid_names
+    for item in inventory:
+        amount_name = inventory[item]['amount']
+        svg_ids = inventory[item]['svgid'] \
+            .replace('bone', '') \
+            .split(',')
 
+        for id in svg_ids:
+            if id not in amount[amount_name]:
+                amount[amount_name].append(id)
+
+        amount_json = json.dumps(amount)
+        amount_urlencode = urllib.parse.quote(amount_json)
+        return amount_urlencode
 
 def replace_all(text, dic):
     for i, j in dic.items():
         text = text.replace(i, j)
-        print(text)
     return text
 
 
@@ -48,12 +62,10 @@ def format_bone_relations(instance):
         if key in bone_relations:
             new_dict[item_name]["changes"] = bone_relations[key].get("_changes", "")
             for item in new_dict[item_name]["changes"]:
-                print(item)
                 str_bones = ', '.join(item['bone_change'])
                 str_bones = str_bones.rstrip(', ')
                 str_bones = str_bones + ";"
                 item['bone_change'] = str_bones
-            print(new_dict[item_name]["changes"])
 
     c_b_t_bc_rel = ' ● '.join([f'{key}: {value}' for key, value in new_dict.items()])
     repls = OrderedDict([('<', 'less than '),
