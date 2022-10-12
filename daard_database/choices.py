@@ -335,6 +335,15 @@ forms = {
             "note": "only visible if PUBLICATION_CHECKBOX is checked",
             "help_text": "Further reference; please use the APA referencing style",
             "values": []
+        },
+        "differential_diagnosis": {
+            "name": "differential_diagnosis",
+            "label": "Differential Diagnosis",
+            "mandatory": False,
+            "type": "textarea",
+            "note": "a custom field for Differential Diagnosis",
+            "help_text": "The Differential Diagnosis (not mandatory)",
+            "values": []
         }
 
     }

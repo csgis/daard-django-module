@@ -92,7 +92,6 @@ class DiseaseCaseViewset(viewsets.ModelViewSet):
     http_method_names = ['get', 'post', 'head']
     permission_classes = [IsAuthenticatedOrReadOnly]
 
-
 class DiseaseViewSet(viewsets.ReadOnlyModelViewSet):
     """
     This viewset automatically provides `list` and `retrieve` actions.
@@ -117,7 +116,7 @@ class DiseaseViewSet(viewsets.ReadOnlyModelViewSet):
                 q = q | Q(anomalies__bone__name__contains=bone)
             queryset = queryset.filter(q)
 
-        # Filter by Bone
+        # Filter by Technics
         # http://localhost:8000/api/disease-search/?bone__name__in=Left&technic__name__in=Micro
         if search_technics is not None:
             search_technics.strip()

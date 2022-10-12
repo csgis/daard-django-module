@@ -23,17 +23,21 @@ class DiseaseLibrary(models.Model):
     name = models.CharField(max_length=255)
     subadults = models.BooleanField(default=False, blank=True)
     adults = models.BooleanField(default=False, blank=True)
-
     def __str__(self):
         return self.name
 
+class DiseaseAlias(models.Model):
+    name = models.CharField(max_length=600)
+    disease = models.ForeignKey(DiseaseLibrary, blank=True, null=True, related_name='aliases', on_delete="CASCADE")
+
+    def __str__(self):
+        return self.name
 
 class Technic(models.Model):
     name = models.CharField(max_length=255)
 
     def __str__(self):
         return self.name
-
 
 class BoneChange(models.Model):
     name = models.CharField(max_length=255)
@@ -134,6 +138,7 @@ class DiseaseCase(models.Model):
     doi = models.CharField(max_length=400, blank=True, null=True)
     references = models.TextField(blank=True, null=True)
     comment = models.TextField(blank=True, null=True)
+    differential_diagnosis = models.TextField(blank=True, null=True)
 
     # position
     position = GeopositionField(null=False, blank=True)

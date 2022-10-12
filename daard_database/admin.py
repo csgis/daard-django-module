@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import DiseaseCase, DiseaseLibrary, BoneChange, Bone, Technic, BoneChangeBoneProxy, BoneRelation, \
-    InstitutList, Helper
+    InstitutList, Helper, DiseaseAlias
 from mptt.admin import DraggableMPTTAdmin
 from import_export.admin import ImportExportModelAdmin
 
@@ -22,10 +22,15 @@ class BoneRelation(admin.TabularInline):
     extra = 1
 
 
+class DiseaseAliasInline(admin.StackedInline):
+    model = DiseaseAlias
+    extra = 1
+    fields = ['name',]
+
 class DiseaseAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     model = DiseaseLibrary
 
-    inlines = [BoneChangeBoneProxy]
+    inlines = [DiseaseAliasInline, BoneChangeBoneProxy]
     search_fields = ('name',)
 
     # add the extrascript for turning multiple selects into a checkbox table
@@ -42,7 +47,6 @@ class DiseaseAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 class TechnicAdmin(admin.ModelAdmin):
     model = Technic
     search_fields = ['name']
-
 
 class BoneAdmin(ImportExportModelAdmin, DraggableMPTTAdmin):
     model = Bone
@@ -113,6 +117,7 @@ admin.site.register(Bone, BoneAdmin)
 admin.site.register(BoneChange, BoneChangeAdmin)
 admin.site.register(Helper, HelperAdmin)
 admin.site.register(InstitutList, InstitutListAdmin)
+#admin.site.register(DiseaseAlias, DiseaseAliasAdmin)
 admin.site.register(DiseaseLibrary, DiseaseAdmin)
 # admin.site.register(FormConfig)
 admin.site.register(DiseaseCase, DiseaseCaseAdmin)
