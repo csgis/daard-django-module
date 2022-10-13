@@ -20,8 +20,7 @@ import os
 from daard_database.models import DiseaseCase
 from django.conf import settings
 
-table_name = os.getenv('DAARD_LAYERNAME',"geonode:daard_database_dev")
-table_name = table_name.split(":")[1]
+table_name = os.getenv('DAARD_LAYERNAME',"daard_database")
 
 class BonesImageView(TemplateView):
     template_name = 'daard_bones.html'

@@ -1,7 +1,7 @@
 
 import os
 
-layername = os.getenv('DAARD_LAYERNAME', "daard_database_dev")
+layername = os.getenv('DAARD_LAYERNAME', "daard_database")
 
 update_sql = f"UPDATE public.{layername} " \
              "SET the_geom=ST_MakePoint((%s),(%s))," \

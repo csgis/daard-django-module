@@ -15,7 +15,7 @@ from .db_query import update_sql, insert_sql, sql_delete_str
 
 # set variables
 logger = logging.getLogger("geonode")
-layername = os.getenv('DAARD_LAYERNAME', "daard_database_dev")
+layername = os.getenv('DAARD_LAYERNAME', "daard_database")
 geodatabase = settings.DATABASES['datastore']['NAME']
 geodatabase_user = settings.DATABASES['datastore']['USER']
 geodatabase_password = settings.DATABASES['datastore']['PASSWORD']
