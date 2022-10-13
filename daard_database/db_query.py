@@ -1,7 +1,7 @@
 
 import os
 
-layername = os.getenv('DAARD_LAYERNAME', "daard_database")
+layername = os.getenv('DAARD_LAYERNAME', "daard_database_dev")
 
 update_sql = f"UPDATE public.{layername} " \
              "SET the_geom=ST_MakePoint((%s),(%s))," \
@@ -39,7 +39,8 @@ update_sql = f"UPDATE public.{layername} " \
              "c_b_t_bc_rel=%s," \
              "c_technic=%s," \
              "svgid=%s," \
-             "\"references\"=%s" \
+             "\"references\"=%s," \
+             "differential_diagnosis=%s" \
              " WHERE \"uuid\"=%s;"
 
 insert_sql = f"INSERT INTO public.{layername} " \
@@ -78,9 +79,11 @@ insert_sql = f"INSERT INTO public.{layername} " \
              f"c_b_t_bc_rel, " \
              f"c_technic," \
              f"svgid, " \
-             f"\"references\")" \
+             f"\"references\", " \
+             f"differential_diagnosis) " \
              f"VALUES" \
              f"(ST_MakePoint((%s),(%s)), " \
+             f"(%s), " \
              f"(%s), " \
              f"(%s), " \
              f"(%s), " \

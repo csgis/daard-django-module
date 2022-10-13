@@ -96,6 +96,7 @@ def add_or_edit_map_feature(sender, instance, created, **kwargs):
             instance.c_technic,
             instance.svgid,
             instance.references,
+            instance.differential_diagnosis,
             )
 
     sql_string = insert_sql if created else update_sql
