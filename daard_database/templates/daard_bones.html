@@ -16,6 +16,38 @@
           pointer-events: none;
           cursor: default;
         }
+
+
+        .legend {
+            position: absolute;
+            left: 181px;
+            top: 560px;
+            /* border: 1px solid #ccc; */
+            font-family: courier-new, monospace;
+            font-size: small;
+            padding: 10px;
+        }
+
+        .rect.dark {
+            background: #484848;
+            border: 1px solid black;
+        }
+
+        .rect.grey {
+            border: 1px solid black;
+            background: #A8A8A8;
+        }
+
+        .rect.pale {
+            border: 1px solid black;
+            background: #fd5c63;
+        }
+
+        .rect.white {
+            background: white;
+            border: 1px solid black;
+        }
+
     </style>
   </head>
   <body>
@@ -406,7 +438,12 @@
                     </g>
                 </g>
             </svg>
-
+    <div class="legend">
+        <div class="rect dark"></div> &gt;75% <br>
+        <div class="rect grey"></div> &lt;75% <br>
+        <div class="rect pale"></div> unknown <br>
+        <div class="rect white"></div>  absent <br>
+    </div>
 
 <script>
 
