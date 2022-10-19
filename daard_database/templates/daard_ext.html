@@ -1,0 +1,224 @@
+<!-- daard extension -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+<script src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<style>
+table.table.table-stripe {
+    font-size: 0.8rem;
+}
+
+table.table.table-stripe tr td {
+    padding: 5px 0 5px 0;
+}
+
+#compare_button{
+  position: absolute;
+  top: 70px;
+}
+
+.switch_icon{
+  font-size: 1.5rem;
+}
+
+</style>
+
+
+<!-- Button trigger offcanvas -->
+<div class="btn-group-vertical"
+  style="z-index: 99999; padding: 0; position:absolute; top: 4rem; left: 0; box-shadow: none!important;">
+  <!-- <button id="show-compare-btn" class="square-button btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
+  style="border-radius: 0;background: #2c689c;border-color: #2c689c;width: 53px;height: 53px; margin-left: -0;  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15)">
+  <i class="bi bi-arrow-left-right" style="font-size: 1.5rem;"></i>
+</button> -->
+  </div>
+
+<!-- offcanvas -->
+<div style="z-index: 99999; width: 100%" class="offcanvas offcanvas-end" data-bs-backdrop="true" tabindex="-1"
+id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <p x-data class="ps-4">
+      <input class="form-check-input"
+      type="checkbox"
+      @click="$store.compare_tool.show_table = !$store.compare_tool.show_table"
+      :checked="$store.compare_tool.show_table">
+      <label class="form-check-label">
+        Show Information Table
+      </label>
+      <input
+      type="checkbox"
+      @click="$store.compare_tool.show_skull = !$store.compare_tool.show_skull"
+      class="form-check-input ms-4" :checked="$store.compare_tool.show_skull">
+      <label class="form-check-label">
+        Show Skull
+      </label>
+    </p>
+    <h5 id="offcanvasRightLabel"></h5>
+    <button type="button" data-bs-dismiss="offcanvas" aria-label="Close" style="color: #000!important; border: none; background-color: #fff!important;"
+    class="square-button ms-close btn btn-primary">close</button>
+  </div>
+  <div class="offcanvas-body p-0" id="offcanvas-body" x-data>
+    <section class="bg-light pt-5 pb-5 shadow-sm h-100 ps-4 p4-4" style="overflow: auto">
+      <div class="container-fluid">
+
+        <div class="row">
+            <template x-data x-for="(disease, index) in $store.compare_tool.items.disease_case">
+              <div class="col-lg-4 mb-3 align-items-stretch d-flex">
+                <div class="card w-100">
+                  <div class="card-header d-flex justify-content-between align-items-center bg-white" style="font-size: 1rem">
+                    <span x-text="`${index+1}. ${disease.properties.disease}`" style="font-size: 0.8rem; font-weight: bold"></span>
+                    <button type="button" class="btn-close text-reset" @click="$store.compare_tool.delete_item_from_disease_case(disease.properties.uuid);"></button>
+                  </div>
+
+                  <div class="card-body d-flex flex-column" x-if="$store.compare_tool.items.disease_case.length > 0">
+              <table class="table table-stripe" x-show="$store.compare_tool.show_table">
+                  <tbody>
+                    <tr>
+                      <td style="width:180px">Sex</td>
+                      <td x-text="`${disease.properties.sex}`"></td>
+                    </tr>
+                    <tr>
+                      <td>Age class</td>
+                      <td x-text="`${disease.properties.age_class}`"></td>
+                    </tr>
+                    <tr>
+                      <td>Narrower age</td>
+                      <td x-text="`${disease.properties.age_freetext}`"></td>
+                    </tr>
+                    <tr>
+                      <td>Site</td>
+                      <td x-text="`${disease.properties.site}`"></td>
+                    </tr>
+                    <tr>
+                      <td>Storage place</td>
+                      <td x-text="`${disease.properties.storage_place}`"></td>
+                    </tr>
+                    <tr>
+                      <td>Time period</td>
+                      <td x-text="`${disease.properties.chronology}`"></td>
+                    </tr>
+                    <tr>
+                      <td>Narrower time period</td>
+                      <td x-text="`${disease.properties.chronology_freetext}`"></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div x-show="$store.compare_tool.show_skull" class="h-100 d-flex align-items-center justify-content-center">
+                  <iframe x-data x-show="$store.compare_tool.show_skull" style="overflow: hidden; border: 0;" :src="`../../daard/boneimage?bones=${disease.properties.svgid}`" width="280" height="700" scrolling="no" data-mce-fragment="1"></iframe>
+                </div>
+              </div>
+
+          </div>
+            </template>
+        </div>
+      </div>
+      <div x-data x-if="$store.compare_tool.items.disease_case.length == 0">
+          <p class="text-center">Sorry, no entries yet ): </p>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script>
+
+      // Catch WFS request
+      var elements = [];
+      (function() {
+      var origOpen = XMLHttpRequest.prototype.open;
+      XMLHttpRequest.prototype.open = function() {
+          this.addEventListener('load', function() {
+              if (this.responseText.includes('bone_change')){
+                  console.log("this is a daard request")
+                  //console.log(this.responseText)
+                  response = this.responseText
+                  window.daard_items = JSON.parse(response);
+              }
+
+          });
+          origOpen.apply(this, arguments);
+      };
+  })();
+
+// Init Alpine
+document.addEventListener('alpine:init', () => {
+    Alpine.store('compare_tool', {
+        items: Alpine.$persist({ disease_case: []}),
+        show_table : Alpine.$persist(true),
+        show_skull : Alpine.$persist(true),
+        update_disease_case_store(item_uuid){
+            let is_uuid_present = this.items.disease_case.find(
+              is_uuid_present =>
+              is_uuid_present.properties.uuid === item_uuid.uuid);
+            if (is_uuid_present === undefined){
+                this.items.disease_case.push(item_uuid)
+            }
+        },
+        delete_item_from_disease_case(item_uuid){
+            var result = this.items.disease_case.filter(obj => {
+             return obj.properties.uuid !== item_uuid
+            })
+            this.items.disease_case = result
+        },
+        find_in_response(items, item_uuid){
+          let result = items.features.find(obj => {
+                  return obj.properties.uuid === item_uuid
+          })
+          return result
+        }
+    })
+})
+
+// Update alpine store from button click
+function update_compare_items_from_outside(item_uuid){
+    event.target.disabled = true;
+    disease_case_from_result = Alpine.store('compare_tool').find_in_response(window.daard_items, item_uuid)
+    Alpine.store('compare_tool').update_disease_case_store(disease_case_from_result)
+    }
+
+
+
+function waitForElm(selector) {
+    return new Promise(resolve => {
+        if (document.querySelector(selector)) {
+            return resolve(document.querySelector(selector));
+        }
+
+        const observer = new MutationObserver(mutations => {
+            if (document.querySelector(selector)) {
+                resolve(document.querySelector(selector));
+                observer.disconnect();
+            }
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    });
+}
+
+
+
+waitForElm('#drawer-menu-button').then((elm) => {
+    console.log('Element is ready');
+    drawer = document.getElementById("mapstore-drawermenu")
+    var i = document.createElement('i');
+    i.classList.add('bi', 'bi-arrow-left-right', 'switch_icon')
+
+    var _button = document.createElement('button');
+    _button.setAttribute("id", "compare_button");
+    _button.setAttribute("data-bs-toggle", "offcanvas");
+    _button.setAttribute("data-bs-target", "#offcanvasRight");
+    _button.setAttribute("aria-controls", "offcanvasRight");
+
+    _button.appendChild(i);
+    _button.classList.add('square-button', 'ms-drawer-menu-button','btn', 'btn-primary');
+    drawer.appendChild(_button);
+
+});
+
+</script>
