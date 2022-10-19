@@ -115,8 +115,8 @@ id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
             </template>
         </div>
       </div>
-      <div x-data x-if="$store.compare_tool.items.disease_case.length == 0">
-          <p class="text-center">Sorry, no entries yet ): </p>
+      <div x-data  x-show="$store.compare_tool.items.disease_case.length == 0">
+          <p class="text-center">Sorry, no entries yet. </p>
       </div>
     </section>
 
@@ -220,5 +220,6 @@ waitForElm('#drawer-menu-button').then((elm) => {
     drawer.appendChild(_button);
 
 });
+
 
 </script>
