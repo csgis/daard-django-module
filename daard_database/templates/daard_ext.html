@@ -162,12 +162,12 @@ id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
 
   // Helper function to replace strings in bone relations
 function replaceInString(str){
-  str = '- '+item_uuid.properties.c_b_t_bc_rel
+  str = '- '+str
   // replace everything between square brackets
-  str = item_uuid.properties.c_b_t_bc_rel.replace(/\[(.*?)\]/gm, '')
-  str = item_uuid.properties.c_b_t_bc_rel.replaceAll('; Bone changes:', '')
-  str = item_uuid.properties.c_b_t_bc_rel.replaceAll(' ● ', '<br>- ')
-  str = item_uuid.properties.c_b_t_bc_rel.replaceAll('  ', ' ')
+  str = str.replace(/\[(.*?)\]/gm, '')
+  str = str.replaceAll('; Bone changes:', '')
+  str = str.replaceAll(' ● ', '<br>- ')
+  str = str.replaceAll('  ', ' ')
 
   return str
 }
@@ -183,7 +183,6 @@ document.addEventListener('alpine:init', () => {
               is_uuid_present =>
               is_uuid_present.properties.uuid === item_uuid.uuid);
             if (is_uuid_present === undefined){
-              console.log(item_uuid.properties.c_b_t_bc_rel )
                 item_uuid.properties.c_b_t_bc_rel = replaceInString(item_uuid.properties.c_b_t_bc_rel)
                 this.items.disease_case.push(item_uuid)
             }
