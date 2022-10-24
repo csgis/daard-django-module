@@ -110,6 +110,21 @@ span.daard-filter_label {
     font-size: 1.2rem;
 }
 
+/* search fild */
+
+input.daard-search {
+    font-size: 1.2rem;
+    transform: translateY(16px);
+    margin-left: 12px;
+    padding: 10px;
+    height: 2.4rem;
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: hidden;
+    background-color: #F8F9FA;
+}
+
 </style>
 
 
@@ -143,6 +158,7 @@ id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
       <span class="slider round"></span>
     </label><span class="ms-2 daard-filter_label">show skull</span>
 
+      <input type="text" class="daard-search" placeholder="filter by name" x-model="$store.compare_tool.search">
 
 </div>
     <h5 id="offcanvasRightLabel"></h5>
@@ -157,7 +173,7 @@ id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
       <div class="container-fluid">
 
         <div class="row">
-            <template x-data x-for="(disease, index) in $store.compare_tool.items.disease_case">
+            <template x-data x-for="(disease, index) in $store.compare_tool.search_result()">
               <div class="col-lg-4 mb-3 align-items-stretch d-flex">
                 <div class="card w-100">
                   <div class="card-header d-flex justify-content-between align-items-center bg-white" style="font-size: 1rem">
@@ -263,6 +279,7 @@ document.addEventListener('alpine:init', () => {
         items: Alpine.$persist({ disease_case: []}),
         show_table : Alpine.$persist(true),
         show_skull : Alpine.$persist(true),
+        search: "",
         update_disease_case_store(item_uuid){
             let is_uuid_present = this.items.disease_case.find(
               is_uuid_present =>
@@ -282,6 +299,15 @@ document.addEventListener('alpine:init', () => {
           let result = items.features.find(obj => {
                   return obj.properties.uuid === item_uuid
           })
+          return result
+        },
+        search_result(){
+          console.log(this.items.disease_case)
+
+          var result = this.items.disease_case.filter(obj => {
+             return obj.properties.disease.toLowerCase().includes(this.search.toLowerCase())
+            })
+
           return result
         }
     })
