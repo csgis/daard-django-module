@@ -273,6 +273,7 @@ function replaceInString(str){
   str = str.replace(/\[(.*?)\]/gm, '')
   str = str.replaceAll('; Bone changes:', '')
   str = str.replaceAll(' ● ', '<br>- ')
+  str = str.replaceAll('Amount: ', '')
   str = str.replaceAll('  ', ' ')
 
   return str
