@@ -106,7 +106,7 @@ input:checked + .slider:before {
 
 span.daard-filter_label {
     display: inline-block;
-    transform: translateY(14px);
+    transform: translateY(18px);
     font-size: 1.2rem;
 }
 
@@ -127,21 +127,21 @@ span.daard-filter_label {
 id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
   <div class="offcanvas-header">
 <!-- Rounded switch -->
-<div x-data class="ms-3">
+<div x-data class="ms-3" style="line-height: 0px;">
 
     <label class="switch">
       <input type="checkbox"
       @click="$store.compare_tool.show_table = !$store.compare_tool.show_table"
       :checked="$store.compare_tool.show_table">
       <span class="slider round"></span>
-    </label><span class="ms-2 daard-filter_label">  Show Information Table</span>
+    </label><span class="ms-3 daard-filter_label">Show table</span>
 
     <label class="switch ms-3">
       <input type="checkbox"
       @click="$store.compare_tool.show_table = !$store.compare_tool.show_skull"
       :checked="$store.compare_tool.show_skull">
       <span class="slider round"></span>
-    </label><span class="ms-2 daard-filter_label">  Show Information Table</span>
+    </label><span class="ms-3 daard-filter_label">Show skull</span>
 
 
 </div>
