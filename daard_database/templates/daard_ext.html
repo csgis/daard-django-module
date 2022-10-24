@@ -5,12 +5,17 @@
 <script src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js" integrity="sha512-SgWewGM3r8xXm8LNXt4ZHqKVKu/7eKrJ1aBCbMaX44xXXaCcIvCAvD2kj9qnC1lhyjAu04mcPiTzcc/CaACnUQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <style>
 table.table.table-stripe {
     font-size: 0.8rem;
 }
 
-table.table.table-stripe tr td {
+table.table.table-stripe tr td,
+table.table.table-stripe tr th
+ {
     padding: 5px 0 5px 0;
 }
 
@@ -56,8 +61,11 @@ id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
       </label>
     </p>
     <h5 id="offcanvasRightLabel"></h5>
-    <button type="button" data-bs-dismiss="offcanvas" aria-label="Close" style="color: #000!important; border: none; background-color: #fff!important;"
-    class="square-button ms-close btn btn-primary">close</button>
+    <div>
+    <button class="btn btn-light ms-4" id="print-pdf"><span id="boot-icon" class="bi bi-file-pdf" style="font-size: 14px; -webkit-text-stroke-width: 0.5px;"></span> Print Items</button>
+    <button type="button" data-bs-dismiss="offcanvas" aria-label="Close"
+    class="btn btn-light ms-1">close</button>
+  </div>
   </div>
   <div class="offcanvas-body p-0" id="offcanvas-body" x-data>
     <section class="bg-light pt-5 pb-5 shadow-sm h-100 ps-4 p4-4" style="overflow: auto">
@@ -72,9 +80,13 @@ id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                     <button type="button" class="btn-close text-reset" @click="$store.compare_tool.delete_item_from_disease_case(disease.properties.uuid);"></button>
                   </div>
 
-                  <div class="card-body d-flex flex-column" x-if="$store.compare_tool.items.disease_case.length > 0">
+                  <div class="card-body d-flex flex-column" x-show="$store.compare_tool.items.disease_case.length > 0">
               <table class="table table-stripe" x-show="$store.compare_tool.show_table">
                   <tbody>
+                    <tr style="display: none;">
+                      <th>Name</th>
+                      <th x-text="`${disease.properties.disease}`"></th>
+                    </tr>
                     <tr>
                       <td style="width:180px">Sex</td>
                       <td x-text="`${disease.properties.sex}`"></td>
@@ -103,6 +115,11 @@ id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                       <td>Narrower time period</td>
                       <td x-text="`${disease.properties.chronology_freetext}`"></td>
                     </tr>
+                  </tr>
+                  <tr style="display: none;">
+                    <td>Inventory</td>
+                    <td x-html="`${disease.properties.c_b_t_bc_rel}`"></td>
+                  </tr>
                   </tbody>
                 </table>
 
@@ -125,23 +142,35 @@ id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
 
 <script>
 
-      // Catch WFS request
-      var elements = [];
-      (function() {
-      var origOpen = XMLHttpRequest.prototype.open;
-      XMLHttpRequest.prototype.open = function() {
-          this.addEventListener('load', function() {
-              if (this.responseText.includes('bone_change')){
-                  console.log("this is a daard request")
-                  //console.log(this.responseText)
-                  response = this.responseText
-                  window.daard_items = JSON.parse(response);
-              }
+  // Catch WFS request
+  var elements = [];
+    (function() {
+    var origOpen = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function() {
+        this.addEventListener('load', function() {
+            if (this.responseText.includes('bone_change')){
+                console.log("this is a daard request")
+                //console.log(this.responseText)
+                response = this.responseText
+                window.daard_items = JSON.parse(response);
+            }
 
-          });
-          origOpen.apply(this, arguments);
-      };
+        });
+        origOpen.apply(this, arguments);
+    };
   })();
+
+  // Helper function to replace strings in bone relations
+function replaceInString(str){
+  str = '- '+item_uuid.properties.c_b_t_bc_rel
+  // replace everything between square brackets
+  str = item_uuid.properties.c_b_t_bc_rel.replace(/\[(.*?)\]/gm, '')
+  str = item_uuid.properties.c_b_t_bc_rel.replaceAll('; Bone changes:', '')
+  str = item_uuid.properties.c_b_t_bc_rel.replaceAll(' ● ', '<br>- ')
+  str = item_uuid.properties.c_b_t_bc_rel.replaceAll('  ', ' ')
+
+  return str
+}
 
 // Init Alpine
 document.addEventListener('alpine:init', () => {
@@ -154,6 +183,8 @@ document.addEventListener('alpine:init', () => {
               is_uuid_present =>
               is_uuid_present.properties.uuid === item_uuid.uuid);
             if (is_uuid_present === undefined){
+              console.log(item_uuid.properties.c_b_t_bc_rel )
+                item_uuid.properties.c_b_t_bc_rel = replaceInString(item_uuid.properties.c_b_t_bc_rel)
                 this.items.disease_case.push(item_uuid)
             }
         },
@@ -173,53 +204,111 @@ document.addEventListener('alpine:init', () => {
 })
 
 // Update alpine store from button click
-function update_compare_items_from_outside(item_uuid){
-    event.target.disabled = true;
-    disease_case_from_result = Alpine.store('compare_tool').find_in_response(window.daard_items, item_uuid)
-    Alpine.store('compare_tool').update_disease_case_store(disease_case_from_result)
-    }
-
-
-
-function waitForElm(selector) {
-    return new Promise(resolve => {
-        if (document.querySelector(selector)) {
-            return resolve(document.querySelector(selector));
-        }
-
-        const observer = new MutationObserver(mutations => {
-            if (document.querySelector(selector)) {
-                resolve(document.querySelector(selector));
-                observer.disconnect();
-            }
-        });
-
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-    });
+function update_compare_items_from_outside(item_uuid) {
+  event.target.disabled = true;
+  disease_case_from_result = Alpine.store("compare_tool").find_in_response(
+    window.daard_items,
+    item_uuid
+  );
+  Alpine.store("compare_tool").update_disease_case_store(
+    disease_case_from_result
+  );
 }
 
+// Promise function to wait for element
+function waitForElm(selector) {
+  return new Promise((resolve) => {
+    if (document.querySelector(selector)) {
+      return resolve(document.querySelector(selector));
+    }
 
+    const observer = new MutationObserver((mutations) => {
+      if (document.querySelector(selector)) {
+        resolve(document.querySelector(selector));
+        observer.disconnect();
+      }
+    });
 
-waitForElm('#drawer-menu-button').then((elm) => {
-    console.log('Element is ready');
-    drawer = document.getElementById("mapstore-drawermenu")
-    var i = document.createElement('i');
-    i.classList.add('bi', 'bi-arrow-left-right', 'switch_icon')
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  });
+}
 
-    var _button = document.createElement('button');
-    _button.setAttribute("id", "compare_button");
-    _button.setAttribute("data-bs-toggle", "offcanvas");
-    _button.setAttribute("data-bs-target", "#offcanvasRight");
-    _button.setAttribute("aria-controls", "offcanvasRight");
+// Create the button that opens the compare tool
+waitForElm("#drawer-menu-button").then((elm) => {
+  console.log("Element is ready");
+  drawer = document.getElementById("mapstore-drawermenu");
+  var i = document.createElement("i");
+  i.classList.add("bi", "bi-arrow-left-right", "switch_icon");
 
-    _button.appendChild(i);
-    _button.classList.add('square-button', 'ms-drawer-menu-button','btn', 'btn-primary');
-    drawer.appendChild(_button);
+  var _button = document.createElement("button");
+  _button.setAttribute("id", "compare_button");
+  _button.setAttribute("data-bs-toggle", "offcanvas");
+  _button.setAttribute("data-bs-target", "#offcanvasRight");
+  _button.setAttribute("aria-controls", "offcanvasRight");
 
+  _button.appendChild(i);
+  _button.classList.add(
+    "square-button",
+    "ms-drawer-menu-button",
+    "btn",
+    "btn-primary"
+  );
+  drawer.appendChild(_button);
 });
 
+// Print PDF Button Action
+window.jsPDF = window.jspdf.jsPDF;
+document.getElementById("print-pdf").onclick = function () {
+  make_compare_pdf();
+};
+
+// Print PDF by use of jspdf
+function make_compare_pdf() {
+  const date = new Date();
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+
+  var doc = new jsPDF();
+  doc.setFontSize(14);
+  doc.text(`Export: daard.dainst.org`, 14, 10);
+  doc.text(`Date: ${day}.${month}.${year}`, 14, 16);
+
+  doc.setFontSize(10);
+  doc.text(`This PDF shows your current selection of DAARD diseases.`, 14, 25);
+  doc.text(`Every disease case will start on a new page`, 14, 30);
+  doc.text(`Note: the skull image will not be printed.`, 14, 35);
+  src = document.getElementsByClassName("table-stripe");
+
+  for (let item of src) {
+    doc.addPage();
+    doc.autoTable({
+      html: item,
+      theme: "grid",
+      columnStyles: {
+        0: { cellWidth: 40 }
+      },
+      includeHiddenHtml: true,
+      styles: { cellPadding: 0.5, fontSize: 10, overflow: "linebreak" }
+    });
+  }
+
+  var pageCount = doc.internal.getNumberOfPages(); //Total Page Number
+  for (i = 0; i < pageCount; i++) {
+    doc.setPage(i);
+    let pageCurrent = doc.internal.getCurrentPageInfo().pageNumber; //Current Page
+    doc.setFontSize(10);
+    doc.text(
+      "page: " + pageCurrent + "/" + pageCount,
+      10,
+      doc.internal.pageSize.height - 10
+    );
+  }
+
+  doc.save("table.pdf");
+}
 
 </script>
