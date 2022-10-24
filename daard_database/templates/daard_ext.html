@@ -28,6 +28,88 @@ table.table.table-stripe tr th
   font-size: 1.5rem;
 }
 
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+span.daard-filter_label {
+    display: inline-block;
+    transform: translateY(14px);
+    font-size: 1.2rem;
+}
+
 </style>
 
 
@@ -44,22 +126,25 @@ table.table.table-stripe tr th
 <div style="z-index: 99999; width: 100%" class="offcanvas offcanvas-end" data-bs-backdrop="true" tabindex="-1"
 id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
   <div class="offcanvas-header">
-    <p x-data class="ps-4">
-      <input class="form-check-input"
-      type="checkbox"
+<!-- Rounded switch -->
+<div x-data class="ms-3">
+
+    <label class="switch">
+      <input type="checkbox"
       @click="$store.compare_tool.show_table = !$store.compare_tool.show_table"
       :checked="$store.compare_tool.show_table">
-      <label class="form-check-label">
-        Show Information Table
-      </label>
-      <input
-      type="checkbox"
-      @click="$store.compare_tool.show_skull = !$store.compare_tool.show_skull"
-      class="form-check-input ms-4" :checked="$store.compare_tool.show_skull">
-      <label class="form-check-label">
-        Show Skull
-      </label>
-    </p>
+      <span class="slider round"></span>
+    </label><span class="ms-2 daard-filter_label">  Show Information Table</span>
+
+    <label class="switch ms-3">
+      <input type="checkbox"
+      @click="$store.compare_tool.show_table = !$store.compare_tool.show_skull"
+      :checked="$store.compare_tool.show_skull">
+      <span class="slider round"></span>
+    </label><span class="ms-2 daard-filter_label">  Show Information Table</span>
+
+
+</div>
     <h5 id="offcanvasRightLabel"></h5>
     <div>
     <button class="btn btn-light ms-4" id="print-pdf"><span id="boot-icon" class="bi bi-file-pdf" style="font-size: 14px; -webkit-text-stroke-width: 0.5px;"></span> Print Items</button>
@@ -81,47 +166,47 @@ id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                   </div>
 
                   <div class="card-body d-flex flex-column" x-show="$store.compare_tool.items.disease_case.length > 0">
-              <table class="table table-stripe" x-show="$store.compare_tool.show_table">
-                  <tbody>
-                    <tr style="display: none;">
-                      <th>Name</th>
-                      <th x-text="`${disease.properties.disease}`"></th>
-                    </tr>
-                    <tr>
-                      <td style="width:180px">Sex</td>
-                      <td x-text="`${disease.properties.sex}`"></td>
-                    </tr>
-                    <tr>
-                      <td>Age class</td>
-                      <td x-text="`${disease.properties.age_class}`"></td>
-                    </tr>
-                    <tr>
-                      <td>Narrower age</td>
-                      <td x-text="`${disease.properties.age_freetext}`"></td>
-                    </tr>
-                    <tr>
-                      <td>Site</td>
-                      <td x-text="`${disease.properties.site}`"></td>
-                    </tr>
-                    <tr>
-                      <td>Storage place</td>
-                      <td x-text="`${disease.properties.storage_place}`"></td>
-                    </tr>
-                    <tr>
-                      <td>Time period</td>
-                      <td x-text="`${disease.properties.chronology}`"></td>
-                    </tr>
-                    <tr>
-                      <td>Narrower time period</td>
-                      <td x-text="`${disease.properties.chronology_freetext}`"></td>
-                    </tr>
-                  </tr>
-                  <tr style="display: none;">
-                    <td>Inventory</td>
-                    <td x-html="`${disease.properties.c_b_t_bc_rel}`"></td>
-                  </tr>
-                  </tbody>
-                </table>
+                    <table class="table table-stripe" x-show="$store.compare_tool.show_table">
+                        <tbody>
+                          <tr style="display: none;">
+                            <th>Name</th>
+                            <th x-text="`${disease.properties.disease}`"></th>
+                          </tr>
+                          <tr>
+                            <td style="width:180px">Sex</td>
+                            <td x-text="`${disease.properties.sex}`"></td>
+                          </tr>
+                          <tr>
+                            <td>Age class</td>
+                            <td x-text="`${disease.properties.age_class}`"></td>
+                          </tr>
+                          <tr>
+                            <td>Narrower age</td>
+                            <td x-text="`${disease.properties.age_freetext}`"></td>
+                          </tr>
+                          <tr>
+                            <td>Site</td>
+                            <td x-text="`${disease.properties.site}`"></td>
+                          </tr>
+                          <tr>
+                            <td>Storage place</td>
+                            <td x-text="`${disease.properties.storage_place}`"></td>
+                          </tr>
+                          <tr>
+                            <td>Time period</td>
+                            <td x-text="`${disease.properties.chronology}`"></td>
+                          </tr>
+                          <tr>
+                            <td>Narrower time period</td>
+                            <td x-text="`${disease.properties.chronology_freetext}`"></td>
+                          </tr>
+                        </tr>
+                        <tr style="display: none;">
+                          <td>Inventory</td>
+                          <td x-html="`${disease.properties.c_b_t_bc_rel}`"></td>
+                        </tr>
+                        </tbody>
+                      </table>
 
                 <div x-show="$store.compare_tool.show_skull" class="h-100 d-flex align-items-center justify-content-center">
                   <iframe x-data x-show="$store.compare_tool.show_skull" style="overflow: hidden; border: 0;" :src="`../../daard/boneimage?bones=${disease.properties.svgid}`" width="280" height="700" scrolling="no" data-mce-fragment="1"></iframe>
@@ -309,5 +394,8 @@ function make_compare_pdf() {
 
   doc.save(`DAARD_export_${day}-${month}-${year}`);
 }
+
+
+
 
 </script>
