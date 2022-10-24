@@ -272,8 +272,8 @@ function replaceInString(str){
   // replace everything between square brackets
   str = str.replace(/\[(.*?)\]/gm, '')
   str = str.replaceAll('; Bone changes:', '')
+  str = str.replaceAll('Amount:', '')
   str = str.replaceAll(' ● ', '<br>- ')
-  str = str.replaceAll('Amount: ', '')
   str = str.replaceAll('  ', ' ')
 
   return str
