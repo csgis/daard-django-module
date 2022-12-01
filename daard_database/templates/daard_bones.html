@@ -24,7 +24,7 @@
             top: 560px;
             font-family: courier-new, monospace;
             font-size: small;
-            padding: 10px;
+            padding-left: 10px;
         }
 
         .rect {
@@ -446,10 +446,10 @@
                 </g>
             </svg>
     <div class="legend">
-        <div class="rect dark"></div> &gt;75% <br>
-        <div class="rect grey"></div> &lt;75% <br>
-        <div class="rect pale"></div> unknown <br>
-        <div class="rect white"></div>  absent <br>
+        <div class="rect dark"></div> bone preservation &gt;75% <br>
+        <div class="rect grey"></div> bone preservation &lt;75% <br>
+        <div class="rect pale"></div> affected <br>
+        <div class="rect white"></div>  unknown / absent <br>
     </div>
 
 <script>
@@ -491,8 +491,8 @@
   color_keys = {
     ">75%": "#484848",
     "<75%": "#A8A8A8",
-    "unknonw": "#fd5c63",
-    "absent": "#ffffff"
+    "affected": "#fd5c63",
+    "unknown": "#ffffff"
   }
 
   // highlight single
