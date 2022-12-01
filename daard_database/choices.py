@@ -66,8 +66,7 @@ forms = {
             "mandatory": True,
             "type": "selectfield",
             "help_text": "Insert narrower age",
-            "values": [('unknown', 'Unknown',),
-                       ('does_not_apply', 'Does not apply',)]
+            "values": [('does_not_apply', 'Does not apply',)]
         },
         "age_freetext_checkbox": {
             "name": "age_freetext_checkbox",
