@@ -20,15 +20,40 @@ def get_bone_names(instance):
 
 def get_svgids(instance):
     inventory = getattr(instance, "inventory", {})
+    bone_relations = getattr(instance, "bone_relations", {})
     amount = {
-        ">75%": [],
-        "<75%": [],
-        "unknown": [],
-        "absent": []
+        ">75%": [], # above or below 75 but without bone change
+        "<75%": [], # above or below 75 but without bone change
+        "affected": [], # above or below 75 but with bone change
+        "unknown": []
     }
+
 
     for item in inventory:
         amount_name = inventory[item]['amount']
+
+        # check if bone has unknown or absent bones if no it is affected SOO
+        for relation in bone_relations[item]['bone_change']:
+            all_absent = []
+            if 'absent' == relation or 'Absent' == relation or 'Unknown' == relation or 'unknown' == relation:
+                all_absent.append(True)
+                print("not affected")
+                print(relation)
+            else:
+                all_absent.append(False)
+                print("affected")
+                print(relation)
+
+            is_affected = True if not all(all_absent) else False
+            # Catch affected changes for above or below 75%
+            if amount_name == '>75%' or amount_name == '<75%':
+                amount_name = 'affected' if is_affected else amount_name
+                # print(amount_name)
+
+            # combine absent and unknown
+            if amount_name == 'absent' or amount_name == 'Absent' or amount_name == 'Unknown':
+                amount_name = 'unknown'
+
         svg_ids = inventory[item]['svgid'] \
             .replace('bone', '') \
             .split(',')
@@ -39,7 +64,7 @@ def get_svgids(instance):
 
         amount_json = json.dumps(amount)
         amount_urlencode = urllib.parse.quote(amount_json)
-        return amount_urlencode
+    return amount_urlencode
 
 def replace_all(text, dic):
     for i, j in dic.items():
