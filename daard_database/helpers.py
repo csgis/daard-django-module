@@ -33,23 +33,24 @@ def get_svgids(instance):
         amount_name = inventory[item]['amount']
 
         # check if bone has unknown or absent bones if no it is affected SOO
-        if 'bone_change' in bone_relations[item]:
-            for relation in bone_relations[item]['bone_change']:
-                all_absent = []
-                if 'absent' == relation or 'Absent' == relation or 'Unknown' == relation or 'unknown' == relation:
-                    all_absent.append(True)
-                else:
+        if '_changes' in bone_relations[item]:
+            all_absent = []
+            for relation in bone_relations[item]['_changes']:
+                if 'absent' in relation['bone_change'] \
+                        or 'Absent' == relation['bone_change'] \
+                        or 'Unknown' in relation['bone_change'] \
+                        or 'unknown' in relation['bone_change']:
                     all_absent.append(False)
+                else:
+                    all_absent.append(True)
+        is_affected = True if any(all_absent) else False
 
-                is_affected = True if not all(all_absent) else False
-                # Catch affected changes for above or below 75%
-                if amount_name == '>75%' or amount_name == '<75%':
-                    amount_name = 'affected' if is_affected else amount_name
-                    # print(amount_name)
+        if amount_name == '>75%' or amount_name == '<75%':
+            amount_name = 'affected' if is_affected else amount_name
 
-                # combine absent and unknown
-                if amount_name == 'absent' or amount_name == 'Absent' or amount_name == 'Unknown':
-                    amount_name = 'unknown'
+        # combine absent and unknown
+        if amount_name == 'absent' or amount_name == 'Absent' or amount_name == 'Unknown':
+            amount_name = 'unknown'
 
         svg_ids = inventory[item]['svgid'] \
             .replace('bone', '') \
