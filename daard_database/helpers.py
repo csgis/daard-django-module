@@ -37,12 +37,8 @@ def get_svgids(instance):
             all_absent = []
             if 'absent' == relation or 'Absent' == relation or 'Unknown' == relation or 'unknown' == relation:
                 all_absent.append(True)
-                print("not affected")
-                print(relation)
             else:
                 all_absent.append(False)
-                print("affected")
-                print(relation)
 
             is_affected = True if not all(all_absent) else False
             # Catch affected changes for above or below 75%
