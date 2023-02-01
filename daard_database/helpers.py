@@ -43,7 +43,11 @@ def get_svgids(instance):
                     all_absent.append(False)
                 else:
                     all_absent.append(True)
-        is_affected = True if any(all_absent) else False
+        if all_absent:
+            is_affected = any(all_absent)
+        else:
+            is_affected = False
+
 
         if amount_name == '>75%' or amount_name == '<75%':
             amount_name = 'affected' if is_affected else amount_name
