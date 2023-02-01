@@ -45,7 +45,7 @@ def add_or_edit_map_feature(sender, instance, created, **kwargs):
     instance.c_bones = get_bone_names(instance)
     instance.c_b_t_bc_rel = format_bone_relations(instance)
     instance.c_technic = get_technics(instance)
-    instance.disease_name = str(instance.disease)
+    instance.disease_name = instance.disease.name
     instance.storage_place_name = " ● ".join(instance.storage_place)
     instance.dating_method = " ● ".join(instance.dating_method)
     instance.sex = instance.sex.upper()
