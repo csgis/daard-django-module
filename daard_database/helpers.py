@@ -31,8 +31,9 @@ def get_svgids(instance):
 
     for item in inventory:
         amount_name = inventory[item]['amount']
-
-        # check if bone has unknown or absent bones if no it is affected SOO
+        
+        all_absent = []
+        # check if bone has unknown or absent bones if no it is affected
         if item in bone_relations and '_changes' in bone_relations[item]:
             all_absent = []
             for relation in bone_relations[item]['_changes']:
