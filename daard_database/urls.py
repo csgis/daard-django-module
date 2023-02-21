@@ -20,10 +20,10 @@ daard_router.register('bone-change-search', views.ChangeSearchViewSet, basename=
 
 
 urlpatterns = [
-    path('daard/api/', include(daard_router.urls)),
-    path('daard/api/schema/', SpectacularAPIView.as_view(), name='schema'),
-    path('daard/api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
-    path(r'daard/boneimage', views.BonesImageView.as_view()),
-    path(r'daard/status', views.DaardStatus.as_view()),
+    path('api/', include(daard_router.urls)),
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    path(r'boneimage', views.BonesImageView.as_view()),
+    path(r'tatus', views.DaardStatus.as_view()),
 ]
 
