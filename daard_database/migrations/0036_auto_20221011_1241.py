@@ -18,6 +18,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='diseasealias',
             name='disease',
-            field=models.ForeignKey(blank=True, null=True, on_delete='CASCADE', related_name='aliases', to='daard_database.DiseaseLibrary'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=models.CASCADE, related_name='aliases', to='daard_database.DiseaseLibrary'),
         ),
     ]

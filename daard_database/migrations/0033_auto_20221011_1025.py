@@ -17,6 +17,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='diseaselibrary',
             name='disease_alias',
-            field=models.ForeignKey(blank=True, null=True, on_delete='CASCADE', related_name='aliasses', to='daard_database.DiseaseAlias'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=models.CASCADE, related_name='aliasses', to='daard_database.DiseaseAlias'),
         ),
     ]
