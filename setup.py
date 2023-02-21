@@ -27,17 +27,17 @@ setup(
         'Programming Language :: Python :: 3.7'
     ],
     install_requires=[
-        'Django>=2.0,<3.0',
+        'Django==3.2.16',
         'django-admin-select2==1.0.1',
-        'django-easy-select2==1.5.7',
+        'django-easy-select2==1.5.8',
         'django-bootstrap-select==0.1.3',
-        'django-mptt==0.12.0',
-        'djangorestframework==3.11.2',
-        'django-filter==2.4.0',
-        'drf-spectacular==0.15.1',
-        'django-geoposition-2==0.3.11',
-        'django-nested-inline==0.4.2',
-        'Markdown==3.3.4',
+        'django-mptt==0.14.0',
+        'djangorestframework==3.12.0',
+        'django-filter==22.1',
+        'drf-spectacular==0.25.1',
+        'django-geoposition-2==0.4.0',
+        'django-nested-inline==0.4.5',
+        'Markdown==3.4.1',
         'django-import-export'
     ]
 )
