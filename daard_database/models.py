@@ -28,7 +28,7 @@ class DiseaseLibrary(models.Model):
 
 class DiseaseAlias(models.Model):
     name = models.CharField(max_length=600)
-    disease = models.ForeignKey(DiseaseLibrary, blank=True, null=True, related_name='aliases', on_delete="CASCADE")
+    disease = models.ForeignKey(DiseaseLibrary, blank=True, null=True, related_name='aliases', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
