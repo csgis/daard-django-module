@@ -45,6 +45,13 @@ class BoneChange(models.Model):
     def __str__(self):
         return self.name
 
+class BoneChangeFile(models.Model):
+    bone_change = models.ForeignKey(BoneChange, related_name='files', on_delete=models.CASCADE)
+    file = models.FileField(upload_to='bone_change_images/')
+
+    def __str__(self):
+        return f"File for {self.bone_change.name}"
+
 class InstitutList(models.Model):
     name = models.CharField(max_length=255)
     position = models.CharField(max_length=5)

@@ -1,6 +1,6 @@
 
 from rest_framework import serializers
-from .models import BoneChangeBoneProxy, DiseaseLibrary, DiseaseCase, Bone, DiseaseAlias
+from .models import BoneChangeBoneProxy, DiseaseLibrary, DiseaseCase, Bone, DiseaseAlias, BoneChangeFile, BoneChange
 from django_filters import rest_framework as filters
 from slugify import slugify
 
@@ -12,14 +12,56 @@ class NewMedicineSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class BoneChangeFileSerializer(serializers.ModelSerializer):
+    file_url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = BoneChangeFile
+        fields = ['file_url']
+
+    def get_file_url(self, obj):
+        if obj.file:
+            return self.context['request'].build_absolute_uri(obj.file.url)
+        return None
+
+"""
 class BoneChangeBoneProxySerializer(serializers.ModelSerializer):
     technic = serializers.CharField(source='technic.name', read_only=True)
     bone_change = serializers.CharField(source='bone_change.name', read_only=True)
     bone = NewMedicineSerializer(read_only=True, many=True)
+    bone_change_files = BoneChangeFileSerializer(source='bone_change.files', many=True, read_only=True)
 
     class Meta:
         model = BoneChangeBoneProxy
-        fields = ['technic', 'bone_change', 'bone']
+        fields = ['technic', 'bone_change', 'bone', 'bone_change_files']
+"""
+
+
+# BONE PROXY
+class CustomBoneSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Bone
+        fields = ('id', 'name', 'section')
+
+class BoneChangeSerializer(serializers.ModelSerializer):
+    files = BoneChangeFileSerializer(many=True, read_only=True)  # Removed source='files'
+
+    class Meta:
+        model = BoneChange
+        fields = ['id', 'name', 'files']
+
+
+class BoneChangeBoneProxySerializer(serializers.ModelSerializer):
+    bone = CustomBoneSerializer(many=True)
+    bone_change = BoneChangeSerializer(read_only=True)
+
+    class Meta:
+        model = BoneChangeBoneProxy
+        depth = 1
+        # exclude = ('bone_change__id', )
+        fields = '__all__'
+
 
 class AliasSerializer(serializers.ModelSerializer):
 
@@ -112,19 +154,5 @@ class BoneSerializer(serializers.ModelSerializer):
         # exclude = ['lft','rght',]
         fields = ['id','name','label','options','section','svgid']
 
-# BONE PROXY
-class CustomBoneSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Bone
-        fields = ('id', 'name', 'section')
 
 
-class BoneChangeBoneProxySerializer(serializers.ModelSerializer):
-    bone = CustomBoneSerializer(many=True)
-
-    class Meta:
-        model = BoneChangeBoneProxy
-        depth = 1
-        # exclude = ('bone_change__id', )
-        fields = '__all__'

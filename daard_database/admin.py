@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import DiseaseCase, DiseaseLibrary, BoneChange, Bone, Technic, BoneChangeBoneProxy, BoneRelation, \
-    InstitutList, Helper, DiseaseAlias
+    InstitutList, Helper, DiseaseAlias, BoneChangeFile
 from mptt.admin import DraggableMPTTAdmin
 from import_export.admin import ImportExportModelAdmin
 
@@ -56,8 +56,13 @@ class BoneAdmin(ImportExportModelAdmin, DraggableMPTTAdmin):
     list_display = ('indented_title',)
 
 
+class BoneChangeFileInline(admin.TabularInline):
+    model = BoneChangeFile
+    extra = 1
+
 class BoneChangeAdmin(admin.ModelAdmin):
     model = BoneChange
+    inlines = [BoneChangeFileInline]
     search_fields = ['name']
 
 

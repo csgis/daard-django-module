@@ -1,7 +1,7 @@
 from .serializers import DiseaseLibrary, BoneChangeBoneProxySerializer, \
-    BoneSerializer, DiseaseCaseSerializer, DiseaseSerializer
+    BoneSerializer, DiseaseCaseSerializer, DiseaseSerializer, BoneChangeFileSerializer
 from django.db.models import Q
-from .models import DiseaseCase, BoneChangeBoneProxy, Bone, InstitutList
+from .models import DiseaseCase, BoneChangeBoneProxy, Bone, InstitutList, BoneChangeFile
 from rest_framework.response import Response
 import requests
 from rest_framework import status
@@ -19,6 +19,8 @@ import psycopg2
 import os
 from daard_database.models import DiseaseCase
 from django.conf import settings
+from collections import defaultdict
+from django.db.models import Prefetch
 
 table_name = os.getenv('DAARD_LAYERNAME',"daard_database")
 
@@ -140,7 +142,6 @@ class DiseaseViewSet(viewsets.ReadOnlyModelViewSet):
         # return the filtered queryset
         return queryset
 
-
 class BoneChangeBoneProxyViewSet(viewsets.ReadOnlyModelViewSet):
     """
     This viewset automatically provides `list` and `retrieve` actions.
@@ -166,12 +167,10 @@ class BoneChangeBoneProxyViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class ChangeSearchViewSet(viewsets.ViewSet):
-    # http://localhost:8000/api/daard/bone-change-search/?q=Dwarfismus&bone_ids=27,24
     def list(self, request):
-        # url parameter
         q = self.request.query_params.get('q')
-
         search_bone = self.request.query_params.get('bone_ids')
+
         if q is None or search_bone is None:
             return Response({'body': '?q=<disease_name>&bone_ids=<1,2,3> needed for search'},
                             status=status.HTTP_400_BAD_REQUEST)
@@ -179,52 +178,49 @@ class ChangeSearchViewSet(viewsets.ViewSet):
         if not q.isdecimal():
             return Response({})
 
-        search_bone = search_bone.split(',')
-        search_bone = list(filter(bool, search_bone))
+        search_bone_ids = list(filter(bool, search_bone.split(',')))
+        bone_changes = self.get_bone_changes(q, search_bone_ids)
+        result = self.format_response(bone_changes, search_bone_ids)
 
-        # model and serializer
-        bone_changes = BoneChangeBoneProxy.objects.filter(anomalies__id=q)
-        bone_changes_serializer = BoneChangeBoneProxySerializer(bone_changes, many=True)
-        bone_change_relations = bone_changes_serializer.data
+        return Response(result if result else {})
 
-        # fill dict with technics
-        # Todo: refactor model and for loops to be more pythonic
-        all_technics = {disease["technic"]["name"]: {} for disease in bone_change_relations}
-        # all_technics = {"Radiography": {}, "Macroscopy": {}, "Microscopy": {}}
+    def get_bone_changes(self, disease_id, bone_ids):
+        bone_files_prefetch = Prefetch('bone_change__files', queryset=BoneChangeFile.objects.all())
+        return BoneChangeBoneProxy.objects.filter(
+            anomalies__id=disease_id,
+            bone__id__in=bone_ids
+        ).prefetch_related('bone', bone_files_prefetch).distinct()
 
-        # create dict of technics and bones
-        for disease in bone_change_relations:
-            disease_as_dict = dict(disease)
-            for current_bone in disease_as_dict["bone"]:
-                if str(current_bone["id"]) in search_bone:
-                    all_technics[disease["technic"]["name"]][current_bone["id"]] = {
-                        "id": current_bone["id"],
-                        "name": slugify(current_bone["name"]),
-                        "name_complete": f'{current_bone["name"]} ({current_bone["section"]})',
-                        "section": current_bone["section"],
-                        "options": []
+    def format_response(self, bone_changes, bone_ids):
+        all_technics = defaultdict(lambda: defaultdict(lambda: {'options': []}))
+        absent_unknown = [{'id': 10000, 'name': 'Absent'}, {'id': 10001, 'name': 'Unknown'}]
+
+        for bc in bone_changes:
+            for bone in bc.bone.all():
+                if str(bone.id) in bone_ids:
+                    tech_name = bc.technic.name if bc.technic else 'Unknown'
+                    bone_data = {
+                        'id': bone.id,
+                        'name': slugify(bone.name),
+                        'name_complete': f'{bone.name} ({bone.section})',
+                        'section': bone.section
                     }
 
-        # add bone changes to bones
-        for disease in bone_change_relations:
-            disease_as_dict = dict(disease)
-            for current_bone in disease_as_dict["bone"]:
-                if str(current_bone["id"]) in search_bone:
-                    all_technics[disease["technic"]["name"]][current_bone["id"]]["options"].append(disease["bone_change"])
+                    # Create a serializer instance with context
+                    file_serializer = BoneChangeFileSerializer(bc.bone_change.files.all(), many=True,
+                                                               context={'request': self.request})
+                    file_data = [file_info for file_info in file_serializer.data]
 
-        # patch unknown and absent for all options of records
-        for tech in all_technics:
-            for opt in all_technics[tech].values():
-                opt["options"].insert(0, {"id": 10001, "name": "Unknown"})
-                opt["options"].insert(0, {"id": 10000, "name": "Absent"})
+                    bone_change_with_files = {
+                        'id': bc.bone_change.id,
+                        'name': bc.bone_change.name,
+                        'files': file_data
+                    }
 
+                    all_technics[tech_name][bone.id].update(bone_data)
+                    all_technics[tech_name][bone.id]['options'].extend([bone_change_with_files] + absent_unknown)
 
-        if (any(technic for technic in all_technics.values())):
-            all_technics = {k: v for (k, v) in all_technics.items() if v}
-            return Response(all_technics)
-        else:
-            return Response({})
-
+        return all_technics
 
 
 class FormularConfig(viewsets.ViewSet):
