@@ -113,6 +113,7 @@ class DiseaseCase(models.Model):
     age = models.CharField(max_length=200, choices=forms['disease']['age']['values'])
     age_freetext = models.CharField(max_length=200, blank=True)
     sex = models.CharField(max_length=200, choices=forms['disease']['sex']['values'])
+    sex_method = models.CharField(max_length=400, blank=True, null=True, help_text='Used method sex')
 
     # step 2
     inventory = JSONField()
@@ -135,7 +136,14 @@ class DiseaseCase(models.Model):
     storage_place_freetext = models.CharField(max_length=400, blank=True, null=True)
     chronology = models.CharField(max_length=400, blank=True, null=True)
     chronology_freetext = models.CharField(max_length=400, blank=True)
+    chronology_method = models.CharField(max_length=400, blank=True, help_text='Used method chronology')
+
     dating_method = JSONField(default=list, blank=True, null=True)
+
+    size_from = models.FloatField(null=True, blank=True, help_text="Body size in cm (e.g., 177.10)")
+    size_to = models.FloatField(null=True, blank=True, help_text="Body size in cm (e.g., 181.10)")
+    size_method = models.CharField(max_length=400, blank=True, null=True, help_text='Used method size')
+
 
     # step 5
     dna_analyses = models.CharField(max_length=400, choices=forms['publication']['dna_analyses']['values'])
