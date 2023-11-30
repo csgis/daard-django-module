@@ -73,7 +73,7 @@ forms = {
             "label": "Age freetext",
             "mandatory": False,
             "type": "textfield",
-            "help_text": "Age class as freetext?",
+            "help_text": "Age information as freetext",
             "values": "",
             "note": "Visible if AGE_FREETEXT_CHECKBOX=checked"
         },
@@ -91,7 +91,7 @@ forms = {
             "label": "Narrower age",
             "mandatory": False,
             "type": "textfield",
-            "help_text": "Narrower age class freetext",
+            "help_text": "Narrower age class as freetext",
             "values": "",
             "note": ""
         },
@@ -121,7 +121,7 @@ forms = {
             "label": "Size from",
             "mandatory": False,
             "type": "textfield",
-            "help_text": "Insert the size from",
+            "help_text": "Insert body size from f.e 176.50 (float)",
             "note": "takes input like 176.50 (float)",
             "values": []
         },
@@ -130,16 +130,16 @@ forms = {
             "label": "Size to",
             "mandatory": False,
             "type": "textfield",
-            "help_text": "Insert the size to",
+            "help_text": "Insert body size to f.e. 180.50 (float)",
             "note": "takes input like 180.50 (float)",
             "values": []
         },
         "size_freetext": {
             "name": "size_freetext",
-            "label": "Size freetext",
+            "label": "Size method",
             "mandatory": False,
             "type": "textarea",
-            "help_text": "Add size information as freetext",
+            "help_text": "Method used for size calculations",
             "note": "",
             "values": []
         }
@@ -366,7 +366,7 @@ forms = {
             "mandatory": False,
             "type": "textarea",
             "note": "",
-            "help_text": "Any comments",
+            "help_text": "Any further comments",
             "values": []
         },
         "differential_diagnosis": {
