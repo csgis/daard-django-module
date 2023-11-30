@@ -97,6 +97,15 @@ forms = {
                        ('m', 'M',),
                        ('m?', 'M?',), ]
         },
+        "sex_freetext": {
+            "name": "sex_freetext",
+            "label": "Sex freetext",
+            "mandatory": False,
+            "type": "textfield",
+            "help_text": "Notes on Sex as freetext",
+            "values": "",
+            "note": ""
+        },
     },
 
     # step 2
@@ -286,6 +295,33 @@ forms = {
             "note": "visible if chronology_checkbox = checked;",
             "values": []
         },
+        "size_from": {
+            "name": "size_from",
+            "label": "Size from",
+            "mandatory": False,
+            "type": "textfield",
+            "help_text": "Insert the size from",
+            "note": "takes input like 176.50 (float)",
+            "values": []
+        },
+        "size_to": {
+            "name": "size_to",
+            "label": "Size to",
+            "mandatory": False,
+            "type": "textfield",
+            "help_text": "Insert the size to",
+            "note": "takes input like 180.50 (float)",
+            "values": []
+        },
+        "size_freetext": {
+            "name": "size_freetext",
+            "label": "Size freetext",
+            "mandatory": False,
+            "type": "textarea",
+            "help_text": "Add size information as freetext",
+            "note": "",
+            "values": []
+        },
     },
 
     # step 5
@@ -333,6 +369,15 @@ forms = {
             "type": "textarea",
             "note": "only visible if PUBLICATION_CHECKBOX is checked",
             "help_text": "Further reference; please use the APA referencing style",
+            "values": []
+        },
+        "comment": {
+            "name": "comment",
+            "label": "Comment",
+            "mandatory": False,
+            "type": "textarea",
+            "note": "",
+            "help_text": "Any comments",
             "values": []
         },
         "differential_diagnosis": {

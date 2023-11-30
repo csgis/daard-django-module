@@ -93,6 +93,7 @@ class DiseaseCaseViewset(viewsets.ModelViewSet):
     http_method_names = ['get', 'post', 'head']
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+
 class DiseaseViewSet(viewsets.ReadOnlyModelViewSet):
     """
     This viewset automatically provides `list` and `retrieve` actions.
@@ -141,6 +142,7 @@ class DiseaseViewSet(viewsets.ReadOnlyModelViewSet):
 
         # return the filtered queryset
         return queryset
+
 
 class BoneChangeBoneProxyViewSet(viewsets.ReadOnlyModelViewSet):
     """
@@ -231,7 +233,6 @@ class FormularConfig(viewsets.ViewSet):
         bone_serializer = BoneSerializer(bones, many=True)
 
         instituts = InstitutList.objects.values().order_by('position')
-        print(instituts)
 
         all_bones = bone_serializer.data
         bone_sections = {}
@@ -241,7 +242,7 @@ class FormularConfig(viewsets.ViewSet):
 
         for bone in all_bones:
             bone = dict(bone)
-            bone["name_complete"] =  f"{bone['name']} ({bone['section']})"
+            bone["name_complete"] = f"{bone['name']} ({bone['section']})"
             bone["type"] = "selectfield" if bone["options"] else "Label"
             bone["svgid"] = bone["svgid"] if bone["svgid"] else ""
             bone_sections[bone["section"]].append(bone)

@@ -21,6 +21,12 @@ def get_bone_names(instance):
 def get_svgids(instance):
     inventory = getattr(instance, "inventory", {})
     bone_relations = getattr(instance, "bone_relations", {})
+    amount_urlencode = {}
+
+    if isinstance(bone_relations, str):
+        bone_relations = json.loads(bone_relations)
+
+
     amount = {
         ">75%": [], # above or below 75 but without bone change
         "<75%": [], # above or below 75 but without bone change
@@ -28,28 +34,27 @@ def get_svgids(instance):
         "unknown": []
     }
 
+    bone_relations_key = bone_relations.keys()
 
     for item in inventory:
+
         amount_name = inventory[item]['amount']
-        
-        all_absent = []
+        item_id = str(inventory[item]['id'])
+        is_affected = False
+
         # check if bone has unknown or absent bones if no it is affected
-        if item in bone_relations and '_changes' in bone_relations[item]:
-            all_absent = []
-            for relation in bone_relations[item]['_changes']:
-                if 'absent' in relation['bone_change'] \
-                        or 'Absent' == relation['bone_change'] \
-                        or 'Unknown' in relation['bone_change'] \
-                        or 'unknown' in relation['bone_change']:
-                    all_absent.append(False)
-                else:
-                    all_absent.append(True)
-        if all_absent:
-            is_affected = any(all_absent)
-        else:
-            is_affected = False
+        if item_id not in bone_relations_key:
+            continue
 
+        changes = bone_relations[item_id]['_changes']
+        for change in changes:
+            if 'absent' not in change['bone_change'] \
+                    and 'Absent' not in change['bone_change'] \
+                    and 'Unknown' not in change['bone_change'] \
+                    and 'unknown' not in change['bone_change']:
+                is_affected = True
 
+        # Catch affected changes for above or below 75%
         if amount_name == '>75%' or amount_name == '<75%':
             amount_name = 'affected' if is_affected else amount_name
 
@@ -62,6 +67,7 @@ def get_svgids(instance):
             .split(',')
 
         for id in svg_ids:
+
             if id not in amount[amount_name]:
                 amount[amount_name].append(id)
 

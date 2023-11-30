@@ -97,6 +97,9 @@ class BoneRelation(models.Model):
 class DiseaseCase(models.Model):
     # commons
     is_approved = models.BooleanField(default=False)
+    date_created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    date_last_updated = models.DateTimeField(auto_now=True, blank=True, null=True)
+
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         blank=True,
@@ -113,7 +116,7 @@ class DiseaseCase(models.Model):
     age = models.CharField(max_length=200, choices=forms['disease']['age']['values'])
     age_freetext = models.CharField(max_length=200, blank=True)
     sex = models.CharField(max_length=200, choices=forms['disease']['sex']['values'])
-    sex_method = models.CharField(max_length=400, blank=True, null=True, help_text='Used method sex')
+    sex_freetext = models.CharField(max_length=400, blank=True, null=True, help_text='Used method sex')
 
     # step 2
     inventory = JSONField()

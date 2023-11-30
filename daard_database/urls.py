@@ -24,6 +24,6 @@ urlpatterns = [
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
     path(r'boneimage', views.BonesImageView.as_view()),
-    path(r'tatus', views.DaardStatus.as_view()),
+    path(r'status', views.DaardStatus.as_view()),
 ]
 

@@ -44,6 +44,7 @@ class CustomBoneSerializer(serializers.ModelSerializer):
         model = Bone
         fields = ('id', 'name', 'section')
 
+
 class BoneChangeSerializer(serializers.ModelSerializer):
     files = BoneChangeFileSerializer(many=True, read_only=True)  # Removed source='files'
 
@@ -72,6 +73,7 @@ class AliasSerializer(serializers.ModelSerializer):
     def to_representation(self, value):
         return value.name
 
+
 class DiseaseSerializer(serializers.ModelSerializer):
     anomalies = BoneChangeBoneProxySerializer(many=True, read_only=True)
     aliases = AliasSerializer(read_only=True, many=True)
@@ -95,7 +97,6 @@ class DiseaseSerializer(serializers.ModelSerializer):
             for field_name in existing - allowed:
                 self.fields.pop(field_name)
 
-
 # Disease Case
 class DiseaseCaseSerializer(serializers.ModelSerializer):
     owner = serializers.HiddenField(default=serializers.CurrentUserDefault())
@@ -113,7 +114,6 @@ class DiseaseCaseSerializer(serializers.ModelSerializer):
         search_fields = ['name']
         exclude = ['is_approved', 'uuid']
         filter_backends = (filters.DjangoFilterBackend)
-
 
 # All Bones nested with children
 class ChildrenBoneSerializer(serializers.ModelSerializer):
@@ -135,6 +135,7 @@ class ChildrenBoneSerializer(serializers.ModelSerializer):
     def get_name(self, object):
         """getter method to add field retrieved_time"""
         return object.id
+
 
 class BoneSerializer(serializers.ModelSerializer):
     options = ChildrenBoneSerializer(many=True)

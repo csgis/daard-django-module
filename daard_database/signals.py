@@ -71,6 +71,7 @@ def add_or_edit_map_feature(sender, instance, created, **kwargs):
             instance.age,
             instance.age_freetext,
             instance.sex,
+            instance.sex_freetext,
             instance.bone_relations,
             instance.reference_images,
             instance.origin,
@@ -84,8 +85,12 @@ def add_or_edit_map_feature(sender, instance, created, **kwargs):
             instance.storage_place_name,
             instance.storage_place_freetext,
             instance.chronology,
+            instance.chronology_method,
             instance.chronology_freetext,
             instance.dating_method,
+            instance.size_from,
+            instance.size_to,
+            instance.size_method,
             instance.dna_analyses,
             instance.dna_analyses_link,
             instance.published,
@@ -96,42 +101,50 @@ def add_or_edit_map_feature(sender, instance, created, **kwargs):
             instance.c_technic,
             instance.svgid,
             instance.references,
+            instance.comment,
             instance.differential_diagnosis,
             )
 
+
     sql_string = insert_sql if created else update_sql
+
     if not created:
         data = data + (str(instance.uuid),)
+        print(data)
+    print("Number of placeholders in SQL:", sql_string.count("%s"))
+    print("Number of elements in data tuple:", len(data))
     cur.execute(sql_string, data)
     conn.commit()
     cur.close()
 
     if created:
-        # Email notification
-        # daard_all_editor__profiles = Profile.objects.filter(groups__name="daard_editors")
-        editor_recipients = os.getenv('DAARD_EDITORS', ["toni.schoenbuchner@csgis.de",])
-        editor_recipients = editor_recipients.split(',')
-        logger.info(editor_recipients)
-        #editor_recipients = list(i for i in daard_all_editor__profiles.values_list('email', flat=True) if bool(i))
-        notify_daard_user(receiver=editor_recipients,
-                          template='./email/admin_notice_created.txt',
-                          instance=instance,
-                          title='A new entry has been created')
-
-        notify_daard_user(receiver=owner_email,
-                          template='./email/user_notice_created.txt',
-                          instance=instance,
-                          title='Your DAARD Database entry')
-    else:
-        if instance.is_approved:
-            daard_all_editor__profiles = os.getenv('DAARD_EDITORS', ["toni.schoenbuchner@csgis.de"])
-            logger.info(daard_all_editor__profiles)
-            logger.info(owner_email)
+        if settings.EMAIL_ENABLE:
+            # Email notification
+            # daard_all_editor__profiles = Profile.objects.filter(groups__name="daard_editors")
+            editor_recipients = os.getenv('DAARD_EDITORS', ["toni.schoenbuchner@csgis.de",])
+            editor_recipients = editor_recipients.split(',')
+            logger.info(editor_recipients)
+            #editor_recipients = list(i for i in daard_all_editor__profiles.values_list('email', flat=True) if bool(i))
+            notify_daard_user(receiver=editor_recipients,
+                              template='./email/admin_notice_created.txt',
+                              instance=instance,
+                              title='A new entry has been created')
 
             notify_daard_user(receiver=owner_email,
-                              template='./email/user_resource_published.txt',
+                              template='./email/user_notice_created.txt',
                               instance=instance,
-                              title='Your entry has changed')
+                              title='Your DAARD Database entry')
+    else:
+        if settings.EMAIL_ENABLE:
+            if instance.is_approved:
+                daard_all_editor__profiles = os.getenv('DAARD_EDITORS', ["toni.schoenbuchner@csgis.de"])
+                logger.info(daard_all_editor__profiles)
+                logger.info(owner_email)
+
+                notify_daard_user(receiver=owner_email,
+                                  template='./email/user_resource_published.txt',
+                                  instance=instance,
+                                  title='Your entry has changed')
 
     conn.close()
 

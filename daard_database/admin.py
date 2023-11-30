@@ -78,7 +78,8 @@ class InstitutListAdmin(admin.ModelAdmin):
 
 class DiseaseCaseAdmin(admin.ModelAdmin):
     model = DiseaseCase
-    list_display = ('disease', 'is_approved', 'site', 'owner', 'uuid')
+    list_display = ('disease', 'is_approved', 'site', 'owner', 'uuid', 'date_created', 'date_last_updated')
+    readonly_fields = ('date_created', 'date_last_updated')
     search_fields = ['disease']
     # inlines = [BoneRelation]
 

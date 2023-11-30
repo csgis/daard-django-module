@@ -24,11 +24,7 @@ Quick start
         'import_export',
     )
 
-2. Include the polls URLconf in your project urls.py like this::
-
-    from daard_database import urls as daard_urls
-    ...
-    urlpatterns += daard_urls.urlpatterns
+2. The app includes its urls under /daard/api
 
 3. Run ``python manage.py migrate`` to create the daard_database models.
 
