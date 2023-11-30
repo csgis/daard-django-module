@@ -60,14 +60,6 @@ forms = {
                        ('50+', '50 +',),
                        ('Unknown', "Unknown"), ]
         },
-        "age": {
-            "name": "age",
-            "label": "Age",
-            "mandatory": True,
-            "type": "selectfield",
-            "help_text": "Insert narrower age",
-            "values": [('does_not_apply', 'Does not apply',)]
-        },
         "age_freetext_checkbox": {
             "name": "age_freetext_checkbox",
             "label": "",
@@ -84,6 +76,24 @@ forms = {
             "help_text": "Age class as freetext?",
             "values": "",
             "note": "Visible if AGE_FREETEXT_CHECKBOX=checked"
+        },
+        "age_estimation_method": {
+            "name": "age_estimation_method",
+            "label": "Methods age estimation",
+            "mandatory": False,
+            "type": "textfield",
+            "help_text": "Methods used for age estimation",
+            "values": "",
+            "note": ""
+        },
+        "narrower_age_class_freetext": {
+            "name": "narrower_age_class_freetext",
+            "label": "Narrower age",
+            "mandatory": False,
+            "type": "textfield",
+            "help_text": "Narrower age class freetext",
+            "values": "",
+            "note": ""
         },
         "sex": {
             "name": "sex",
@@ -102,10 +112,37 @@ forms = {
             "label": "Sex freetext",
             "mandatory": False,
             "type": "textfield",
-            "help_text": "Notes on Sex as freetext",
+            "help_text": "Sex determination method",
             "values": "",
             "note": ""
         },
+        "size_from": {
+            "name": "size_from",
+            "label": "Size from",
+            "mandatory": False,
+            "type": "textfield",
+            "help_text": "Insert the size from",
+            "note": "takes input like 176.50 (float)",
+            "values": []
+        },
+        "size_to": {
+            "name": "size_to",
+            "label": "Size to",
+            "mandatory": False,
+            "type": "textfield",
+            "help_text": "Insert the size to",
+            "note": "takes input like 180.50 (float)",
+            "values": []
+        },
+        "size_freetext": {
+            "name": "size_freetext",
+            "label": "Size freetext",
+            "mandatory": False,
+            "type": "textarea",
+            "help_text": "Add size information as freetext",
+            "note": "",
+            "values": []
+        }
     },
 
     # step 2
@@ -153,17 +190,6 @@ forms = {
                     "values": []
                 }
             }
-        },
-        "archaeological_site": {
-            "name": "archaeological_site",
-            "label": "Site",
-            "mandatory": True,
-            "type": "rest-textfield",
-            "url": "/api/gazetteer-sites/",
-            "params": "?q=<term>&task=<suggestion>|<site>",
-            "help_text": "Please choose one value. The selected value is marked with blue background. In case your place is not listed, please choose the closest.",
-            "note": "visible if origin.objects.archaeological or origin.objects.archaeological = checked; should store a link and set lat long hidden fields",
-            "values": []
         },
         "position": {
             "name": "position",
@@ -242,16 +268,6 @@ forms = {
             "note": "visible if storage_place_checkbox = checked;",
             "values": []
         },
-        "chronology": {
-            "name": "chronology",
-            "label": "Chronology",
-            "mandatory": True,
-            "type": "rest-textfield",
-            "url": "/api/chronology-periods/",
-            "params": "?q=<term>",
-            "help_text": "Either search for a time period OR define the time period using the 3 fields (from, to, BCE/CE). Furthermore, an optional free text can be entered. ",
-            "values": []
-        },
         "dating_method": {
             "name": "dating_method",
             "label": "Dating object",
@@ -294,34 +310,7 @@ forms = {
             "help_text": "Add additional chronology information as freetext",
             "note": "visible if chronology_checkbox = checked;",
             "values": []
-        },
-        "size_from": {
-            "name": "size_from",
-            "label": "Size from",
-            "mandatory": False,
-            "type": "textfield",
-            "help_text": "Insert the size from",
-            "note": "takes input like 176.50 (float)",
-            "values": []
-        },
-        "size_to": {
-            "name": "size_to",
-            "label": "Size to",
-            "mandatory": False,
-            "type": "textfield",
-            "help_text": "Insert the size to",
-            "note": "takes input like 180.50 (float)",
-            "values": []
-        },
-        "size_freetext": {
-            "name": "size_freetext",
-            "label": "Size freetext",
-            "mandatory": False,
-            "type": "textarea",
-            "help_text": "Add size information as freetext",
-            "note": "",
-            "values": []
-        },
+        }
     },
 
     # step 5

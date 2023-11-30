@@ -95,7 +95,7 @@ class DiseaseCaseAdmin(admin.ModelAdmin):
            'fields': ('disease', 'geoserver_id', 'bone')
         }),
         ('General', {
-            'fields': ('adults','subadults','age_class', 'age','age_freetext','sex','archaeological_site',
+            'fields': ('adults','subadults','age_class', 'age_freetext','sex','archaeological_site',
                        'archaeological_tombid','archaeological_individualid',
                        'archaeological_funery_context','archaeological_burial_type',
                        'collection_link',
