@@ -220,7 +220,12 @@ class ChangeSearchViewSet(viewsets.ViewSet):
                     }
 
                     all_technics[tech_name][bone.id].update(bone_data)
-                    all_technics[tech_name][bone.id]['options'].extend([bone_change_with_files] + absent_unknown)
+                    all_technics[tech_name][bone.id]['options'].extend([bone_change_with_files])
+
+        for tech in all_technics:
+            for opt in all_technics[tech].values():
+                opt["options"].insert(0, {"id": 10001, "name": "Unknown"})
+                opt["options"].insert(0, {"id": 10000, "name": "Absent"})
 
         return all_technics
 
