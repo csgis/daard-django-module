@@ -34,7 +34,7 @@ setup(
         'django-mptt==0.14.0',
         'djangorestframework~=3.0',
         'django-filter>=22.0,<24.0',
-        'drf-spectacular>=0.25,0,<0.27.0',
+        'drf-spectacular>=0.25.0,<0.27.0',
         'django-geoposition-2==0.4.0',
         'django-nested-inline==0.4.5',
         'Markdown~=3.0',
