@@ -39,7 +39,7 @@ setup(
         'django-nested-inline==0.4.5',
         'Markdown~=3.0',
         'django-import-export',
-        'jsonfield-3.1.0'
+        'django-jsonfield'
     ]
 )
 
