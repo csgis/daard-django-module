@@ -26,7 +26,6 @@ def get_svgids(instance):
     if isinstance(bone_relations, str):
         bone_relations = json.loads(bone_relations)
 
-
     amount = {
         ">75%": [], # above or below 75 but without bone change
         "<75%": [], # above or below 75 but without bone change
@@ -37,22 +36,19 @@ def get_svgids(instance):
     bone_relations_key = bone_relations.keys()
 
     for item in inventory:
-
         amount_name = inventory[item]['amount']
         item_id = str(inventory[item]['id'])
         is_affected = False
 
         # check if bone has unknown or absent bones if no it is affected
-        if item_id not in bone_relations_key:
-            continue
-
-        changes = bone_relations[item_id]['_changes']
-        for change in changes:
-            if 'absent' not in change['bone_change'] \
-                    and 'Absent' not in change['bone_change'] \
-                    and 'Unknown' not in change['bone_change'] \
-                    and 'unknown' not in change['bone_change']:
-                is_affected = True
+        if item_id in bone_relations_key:
+            changes = bone_relations[item_id]['_changes']
+            for change in changes:
+                # Check if there are other words besides the specified keywords
+                if any(keyword not in ['absent', 'Absent', 'Unknown', 'unknown'] for keyword in change['bone_change']):
+                    # If other words are found, set is_affected to True and exit the loop
+                    is_affected = True
+                    break
 
         # Catch affected changes for above or below 75%
         if amount_name == '>75%' or amount_name == '<75%':
@@ -67,13 +63,13 @@ def get_svgids(instance):
             .split(',')
 
         for id in svg_ids:
-
             if id not in amount[amount_name]:
                 amount[amount_name].append(id)
 
         amount_json = json.dumps(amount)
         amount_urlencode = urllib.parse.quote(amount_json)
     return amount_urlencode
+
 
 def replace_all(text, dic):
     for i, j in dic.items():
