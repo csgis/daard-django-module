@@ -281,6 +281,14 @@ forms = {
             "note": "visible if storage_place_checkbox = checked;",
             "values": []
         },
+        "chronology": {
+            "name": "chronology",
+            "label": "Chronology",
+            "mandatory": True,
+            "type": "textfield",
+            "help_text": "Define the time period using the 3 fields (from, to, BCE/CE). Furthermore, an optional free text can be entered. ",
+            "options": []
+        },
         "dating_method": {
             "name": "dating_method",
             "label": "Dating object",
