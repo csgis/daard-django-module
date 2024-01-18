@@ -126,8 +126,8 @@ forms = {
             "label": "Size from",
             "mandatory": False,
             "type": "textfield",
-            "help_text": "Insert body size from f.e 176.50 (float)",
-            "note": "takes input like 176.50 (float)",
+            "help_text": "Insert body sizes from f.e 176.50",
+            "note": "takes input like 176.50",
             "values": []
         },
         "size_to": {
@@ -135,8 +135,8 @@ forms = {
             "label": "Size to",
             "mandatory": False,
             "type": "textfield",
-            "help_text": "Insert body size to f.e. 180.50 (float)",
-            "note": "takes input like 180.50 (float)",
+            "help_text": "Insert body sizes f.e. 180.50",
+            "note": "takes input like 180.50",
             "values": []
         },
         "size_freetext": {
