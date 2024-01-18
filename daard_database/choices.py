@@ -204,6 +204,14 @@ forms = {
             "help_text": "The position as string 'lat,long'. This field will be filled in automatically.",
             "values": []
         },
+        "site": {
+            "name": "site",
+            "label": "City, Country",
+            "mandatory": True,
+            "type": "textfield",
+            "help_text": "City and Country",
+            "values": []
+        },
         "archaeological_tombid": {
             "name": "archaeological_tombid",
             "label": "Grave-ID",
