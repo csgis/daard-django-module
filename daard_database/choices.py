@@ -198,7 +198,7 @@ forms = {
         },
         "position": {
             "name": "position",
-            "label": "Position",
+            "label": "Position (Click on map)",
             "mandatory": True,
             "type": "hiddenfield",
             "help_text": "The position as string 'lat,long'. This field will be filled in automatically.",
