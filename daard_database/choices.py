@@ -75,7 +75,7 @@ forms = {
         },
         "age_freetext": {
             "name": "age_freetext",
-            "label": "Age freetext",
+            "label": "Narrower age class",
             "mandatory": False,
             "type": "textfield",
             "help_text": "Age information as freetext",
