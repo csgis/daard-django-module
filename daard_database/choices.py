@@ -232,14 +232,15 @@ forms = {
         },
         "archaeological_funery_context": {
             "name": "archaeological_funery_context",
-            "label": "Funery context",
+            "label": "Funerary context",
             "mandatory": True,
             "type": "selectfield",
             "help_text": "Please choose one value",
             "note": "visible if origin.objects.archaeological = checked;",
             "values": [('primary', 'Primary',),
                        ('secondary', 'Secondary',),
-                       ('unknown', 'Unknown',)]
+                       ('unknown', 'Unknown',),
+                       ('commingled', 'Commingled',)]
         },
         "archaeological_burial_type": {
             "name": "archaeological_burial_type",
