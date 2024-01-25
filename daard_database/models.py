@@ -132,8 +132,8 @@ class DiseaseCase(models.Model):
     reference_images = models.CharField(max_length=600, blank=True, null=True)
     origin = models.CharField(max_length=400)
     site = models.CharField(max_length=800, blank=True, null=True)
-    gazId = models.CharField(max_length=200, blank=True, null=True)
-    gaz_link = models.CharField(max_length=400, blank=True, null=True)
+    gazId = models.CharField(max_length=200, blank=True, null=True, help_text='NOT IN USE ANYMORE')
+    gaz_link = models.CharField(max_length=400, blank=True, null=True, help_text='NOT IN USE ANYMORE')
 
     archaeological_tombid = models.CharField(max_length=400, blank=True, null=True)
     archaeological_individualid = models.CharField(max_length=400, blank=True, null=True)
