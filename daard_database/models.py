@@ -121,7 +121,7 @@ class DiseaseCase(models.Model):
     sex_freetext = models.CharField(max_length=400, blank=True, null=True, help_text='Method used for sex determination')
     size_from = models.FloatField(null=True, blank=True, help_text="Body size in cm (e.g., 177.10)")
     size_to = models.FloatField(null=True, blank=True, help_text="Body size in cm (e.g., 181.10)")
-    size_method = models.CharField(max_length=400, blank=True, null=True, help_text='Used method size')
+    size_freetext = models.CharField(max_length=400, blank=True, null=True, help_text='Used method size')
 
     # step 2
     inventory = JSONField()

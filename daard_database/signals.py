@@ -89,7 +89,7 @@ def add_or_edit_map_feature(sender, instance, created, **kwargs):
             instance.dating_method,
             instance.size_from,
             instance.size_to,
-            instance.size_method,
+            instance.size_freetext,
             instance.dna_analyses,
             instance.dna_analyses_link,
             instance.published,
