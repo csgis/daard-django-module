@@ -113,9 +113,8 @@ class DiseaseCase(models.Model):
     subadults = models.BooleanField(default=False)
     disease = models.ForeignKey('DiseaseLibrary', on_delete=models.CASCADE, related_name='anomalies_case')
     age_class = models.CharField(max_length=200, choices=forms['disease']['age_class']['values'])
-    age_freetext = models.CharField(max_length=200, blank=True)
+    age_freetext = models.CharField(max_length=200, blank=True, help_text='Narrower age class freetext')
     age_estimation_method = models.CharField(max_length=400, blank=True, help_text='Used method age')
-    narrower_age_class_freetext = models.CharField(max_length=400, blank=True, help_text='Narrower age class freetext')
 
     sex = models.CharField(max_length=200, choices=forms['disease']['sex']['values'])
     sex_freetext = models.CharField(max_length=400, blank=True, null=True, help_text='Method used for sex determination')

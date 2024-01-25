@@ -91,15 +91,6 @@ forms = {
             "values": "",
             "note": ""
         },
-        "narrower_age_class_freetext": {
-            "name": "narrower_age_class_freetext",
-            "label": "Narrower age",
-            "mandatory": False,
-            "type": "textfield",
-            "help_text": "Narrower age class as freetext",
-            "values": "",
-            "note": ""
-        },
         "sex": {
             "name": "sex",
             "label": "Sex",
