@@ -122,7 +122,7 @@ forms = {
             "label": "Body height to",
             "mandatory": False,
             "type": "textfield",
-            "help_text": "Insert body sizes f.e. 180.50",
+            "help_text": "Insert body height f.e. 180.50",
             "note": "takes input like 180.50",
             "values": []
         },
