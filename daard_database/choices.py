@@ -18,10 +18,10 @@ forms = {
     "disease": {
         "subadults": {
             "name": "subadults",
-            "label": "Subadult",
+            "label": "non-adults",
             "mandatory": False,
             "type": "checkbox",
-            "help_text": "Disease affects subadults?",
+            "help_text": "Disease affects non-adults?",
             "values": ""
         },
 
@@ -80,7 +80,7 @@ forms = {
         },
         "age_estimation_method": {
             "name": "age_estimation_method",
-            "label": "Methods age estimation",
+            "label": "Methods for age estimation",
             "mandatory": False,
             "type": "textfield",
             "help_text": "Methods used for age estimation",
@@ -101,16 +101,16 @@ forms = {
         },
         "sex_freetext": {
             "name": "sex_freetext",
-            "label": "Sex freetext",
+            "label": "Methods for sex determination",
             "mandatory": False,
             "type": "textfield",
-            "help_text": "Sex determination method",
+            "help_text": "Methods used for sex determination",
             "values": "",
             "note": ""
         },
         "size_from": {
             "name": "size_from",
-            "label": "Size from",
+            "label": "Body height from",
             "mandatory": False,
             "type": "textfield",
             "help_text": "Insert body sizes from f.e 176.50",
@@ -119,7 +119,7 @@ forms = {
         },
         "size_to": {
             "name": "size_to",
-            "label": "Size to",
+            "label": "Body height to",
             "mandatory": False,
             "type": "textfield",
             "help_text": "Insert body sizes f.e. 180.50",
@@ -128,10 +128,10 @@ forms = {
         },
         "size_freetext": {
             "name": "size_freetext",
-            "label": "Size method",
+            "label": "Methods for  body height calculation",
             "mandatory": False,
             "type": "textarea",
-            "help_text": "Method used for size calculations",
+            "help_text": "Method used for body height calculations",
             "note": "",
             "values": []
         }
@@ -345,7 +345,7 @@ forms = {
         },
         "published": {
             "name": "published",
-            "label": "Already published?",
+            "label": "Disease case already published?",
             "mandatory": False,
             "type": "checkbox",
             "help_text": "",

@@ -107,6 +107,13 @@ class DiseaseCaseSerializer(serializers.ModelSerializer):
     storage_place = serializers.JSONField()
     dating_method = serializers.JSONField()
 
+    def to_internal_value(self, data):
+        # Replace empty string with None for 'size_from' and 'size_to'
+        for field in ['size_from', 'size_to']:
+            if field in data and data[field] == "":
+                data[field] = None
+        return super(DiseaseCaseSerializer, self).to_internal_value(data)
+
     class Meta:
         model = DiseaseCase
         # fields = '__all__'
