@@ -51,10 +51,7 @@ def add_or_edit_map_feature(sender, instance, created, **kwargs):
     instance.sex = instance.sex.upper()
     instance.position = str(instance.position.longitude)+" "+str(instance.position.latitude)
     instance.bone_relations = json.dumps(instance.bone_relations)
-    if instance.size_from is not None and instance.size_from != 0:
-        instance.size_from = f"{instance.size_from} cm"
-    if instance.size_to is not None and instance.size_to != 0:
-        instance.size_to = f"{instance.size_to} cm"
+
     x, y = instance.position.split()
     x = float(x)
     y = float(y)
