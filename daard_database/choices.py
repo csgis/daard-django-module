@@ -50,7 +50,7 @@ forms = {
             "mandatory": True,
             "type": "selectfield",
             "help_text": "Please choose one value",
-            "values": [('Foetus (until birth)', 'Foetus (until birth)',),
+            "values": [('Fetus (until birth)', 'Fetus (until birth)',),
                        ('Infans (0 – 3 years)', 'Infans (0 – 3 years)',),
                        ('Infans (4 – 6 years)', 'Infans (4 – 6 years)',),
                        ('Infans (7 – 12 years)', 'Infans (7 – 12 years)',),
