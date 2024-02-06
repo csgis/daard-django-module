@@ -224,8 +224,9 @@ class ChangeSearchViewSet(viewsets.ViewSet):
 
         for tech in all_technics:
             for opt in all_technics[tech].values():
-                opt["options"].insert(0, {"id": 10001, "name": "Unknown"})
-                opt["options"].insert(0, {"id": 10000, "name": "Absent"})
+                opt["options"].insert(0, {"id": 10001, "name": "Unknown", "files": []})
+                opt["options"].insert(0, {"id": 10000, "name": "Absent", "files": []})
+                opt["options"].insert(0, {"id": 10002, "name": "Not applied", "files": []})
 
         return all_technics
 
