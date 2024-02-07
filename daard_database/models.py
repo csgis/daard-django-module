@@ -23,6 +23,7 @@ class DiseaseLibrary(models.Model):
     name = models.CharField(max_length=255)
     subadults = models.BooleanField(default=False, blank=True)
     adults = models.BooleanField(default=False, blank=True)
+    
     def __str__(self):
         return self.name
 

@@ -80,40 +80,41 @@ def replace_all(text, dic):
 def format_bone_relations(instance):
     inventory = getattr(instance, "inventory", {})
     bone_relations = getattr(instance, "bone_relations", {})
-    new_dict = {}
-    for key in inventory.keys():
-        item_name = inventory[key]["label"]
 
-        pops = ['svgid', 'label', 'id', 'section', 'name']
-        for to_replace in pops:
-            inventory[key].pop(to_replace, None)
-
-        new_dict[item_name] = inventory[key]
+    html_output = '<div class="bone-relations">'
+    
+    for key, item in inventory.items():
+        item_name = f'{item["label"]} ({item["section"].replace("_", " ")})'
+        amount = item.get("amount", "Unknown amount")
+        
+        # Start item container with item name
+        html_output += f'<div class="bone-item"><span class="item-name">{item_name}:</span>'
+        
+        # Create a list for amount
+        html_output += '<ul class="item-details">'
+        # Add amount as a list item
+        html_output += f'<li>Amount: {amount}</li>'
+        
+        # Process changes if available
         if key in bone_relations:
-            new_dict[item_name]["changes"] = bone_relations[key].get("_changes", "")
-            for item in new_dict[item_name]["changes"]:
-                str_bones = ', '.join(item['bone_change'])
-                str_bones = str_bones.rstrip(', ')
-                str_bones = str_bones + ";"
-                item['bone_change'] = str_bones
+            changes = bone_relations[key].get("_changes", "")
+            if changes:
+                for change in changes:
+                    technic = change.get('technic', 'Unknown')
+                    # Add technic as a list item with a sublist for bone changes
+                    html_output += f'<li>Technic: {technic}<ul class="bone-changes">'
+                    bone_changes = ', '.join(change['bone_change']).rstrip(', ')
+                    # Add each bone change within the technic's sublist
+                    html_output += f'<li>Bone change: {bone_changes}</li></ul></li>'
+        
+        # Close list and item container
+        html_output += '</ul></div>'
+    
+    # Close main container
+    html_output += '</div>'
+    
+    return html_output
 
-    c_b_t_bc_rel = ' ● '.join([f'{key}: {value}' for key, value in new_dict.items()])
-    repls = OrderedDict([('<', 'less than '),
-                         ('>', 'more than '),
-                         ('{', ''),
-                         ('}', ''),
-                         ('amount', 'Amount'),
-                         ('technic', 'Technic'),
-                         ('bone_change', 'Bone change'),
-                         ("'", ''),
-                         (', Bone change', '; Bone change'),
-                         (';]', ']'),
-                         (';,', ';'),
-                         (', changes:', '; Bone changes:'),
-                         ]
-                        )
-
-    return replace_all(c_b_t_bc_rel, repls)
 
 def get_technics(instance):
     bone_relations = getattr(instance, "bone_relations", {})
