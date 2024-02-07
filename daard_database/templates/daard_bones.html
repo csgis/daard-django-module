@@ -581,7 +581,7 @@ let highlight_single_bones = bone_parameter => {
 
     for (let key in bone_parameter) {
         for(element of bone_parameter[key]){
-            var selected_bones = document.querySelectorAll('[id^="bone' + element + '"]');
+            var selected_bones = document.querySelectorAll('[id="bone' + element + '"]');
 
             selected_bones.forEach(selected_bone => {
                 if (selected_bone){
