@@ -103,9 +103,15 @@ def format_bone_relations(instance):
                     technic = change.get('technic', 'Unknown')
                     # Add technic as a list item with a sublist for bone changes
                     html_output += f'<li>Technic: {technic}<ul class="bone-changes">'
-                    bone_changes = ', '.join(change['bone_change']).rstrip(', ')
-                    # Add each bone change within the technic's sublist
-                    html_output += f'<li>Bone change: {bone_changes}</li></ul></li>'
+                    
+                    bone_changes = change['bone_change']
+                    if bone_changes == ['Not applied']:  # Check if bone_changes only contains 'Not applied'
+                        # Directly add 'Not applied' without 'Bone change' prefix
+                        html_output += f'<li>Not applied</li></ul></li>'
+                    else:
+                        bone_changes_text = ', '.join(bone_changes).rstrip(', ')
+                        # Add each bone change within the technic's sublist
+                        html_output += f'<li>Bone change: {bone_changes_text}</li></ul></li>'
         
         # Close list and item container
         html_output += '</ul></div>'
