@@ -102,7 +102,7 @@ def format_bone_relations(instance):
                 for change in changes:
                     technic = change.get('technic', 'Unknown')
                     # Add technic as a list item with a sublist for bone changes
-                    html_output += f'<li>Technic: {technic}<ul class="bone-changes">'
+                    html_output += f'<li>Technique: {technic}<ul class="bone-changes">'
                     
                     bone_changes = change['bone_change']
                     if bone_changes == ['Not applied']:  # Check if bone_changes only contains 'Not applied'
