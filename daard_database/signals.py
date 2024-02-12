@@ -49,7 +49,7 @@ def add_or_edit_map_feature(sender, instance, created, **kwargs):
     instance.storage_place_name = ", ".join(instance.storage_place)
     instance.dating_method = ", ".join(instance.dating_method)
     instance.sex = instance.sex.upper()
-    instance.position = str(instance.position.latitude)+" "+str(instance.position.longitude)
+    instance.position = str(instance.position.longitude)+" "+str(instance.position.latitude)
     instance.bone_relations = json.dumps(instance.bone_relations)
 
     x, y = instance.position.split()
