@@ -332,7 +332,7 @@ forms = {
             "label": "DNA analyses",
             "mandatory": True,
             "type": "selectfield",
-            "help_text": "successful = with result; <br>unsuccessful = no result; absent = not conducted; unknown = application uncertain",
+            "help_text": "successful = with result<br>unsuccessful = no result<br>absent = not conducted<br>unknown = application uncertain",
             "values": [('successful', 'Successful',),
                        ('unsuccessful', 'Unsuccessful',),
                        ('absent', 'Absent',),
