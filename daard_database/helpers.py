@@ -84,7 +84,12 @@ def format_bone_relations(instance):
     html_output = '<div class="bone-relations">'
     
     for key, item in inventory.items():
-        item_name = f'{item["label"]} ({item["section"].replace("_", " ")})'
+        label = item["label"]
+        if (label == "Deciduous teeth" or label == "Permanent teeth"):
+            item_name = f'{item["id"]} ({label})'
+        else:
+            item_name = f'{label} ({item["section"].replace("_", " ")})'
+
         amount = item.get("amount", "Unknown amount")
         
         # Start item container with item name
