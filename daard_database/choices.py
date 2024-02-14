@@ -58,6 +58,8 @@ forms = {
                        ('Early Adult (21 – 35 years)', 'Early Adult (21 – 35 years)',),
                        ('Late Adult (36 – 50 years)', 'Late Adult (36 – 50 years)',),
                        ('Senile (50 + years)', 'Senile (50 + years)',),
+                       ('Adult', "Adult"), 
+                       ('Non-Adult', "Non-Adult"), 
                        ('unknown', "unknown"), 
                        ]
         },
@@ -95,7 +97,7 @@ forms = {
             "help_text": "Please choose one value",
             "values": [('f', 'F',),
                        ('f?', 'F?',),
-                       ('unknown', 'Unknown',),
+                       ('unknown', 'unknown',),
                        ('m', 'M',),
                        ('m?', 'M?',), ]
         },
@@ -274,7 +276,7 @@ forms = {
             "label": "Chronology",
             "mandatory": True,
             "type": "textfield",
-            "help_text": "Define the time period using the 3 fields (from, to, BCE/CE). Furthermore, an optional free text can be entered. ",
+            "help_text": "Set the time period with 'from' and 'to‘ (BCE/CE.) as numbers or use '-' if unknown. Use 'Chronology freetext' for additional details.",
             "options": []
         },
         "dating_method": {
@@ -301,6 +303,7 @@ forms = {
                        ('texts', 'Texts',),
                        ('epigraphic_sources', 'Epigraphic sources',),
                        ('numismatic', 'Numismatic',),
+                       ('unknown', 'unknown',),
                        ]
         },
         "chronology_checkbox": {
@@ -316,7 +319,7 @@ forms = {
             "label": "Chronology freetext",
             "mandatory": False,
             "type": "textarea",
-            "help_text": "Add additional chronology information as freetext",
+            "help_text": "Add additional chronology information as freetext (e.g.'Neolithic' or 'Early Modern Times').",
             "note": "visible if chronology_checkbox = checked;",
             "values": []
         }

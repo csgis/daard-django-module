@@ -36,7 +36,7 @@ def get_svgids(instance):
     bone_relations_key = bone_relations.keys()
 
     for item in inventory:
-        amount_name = inventory[item]['amount']
+        amount_name = inventory[item]['amount'].lower()
         item_id = str(inventory[item]['id'])
         is_affected = False
 
@@ -45,7 +45,7 @@ def get_svgids(instance):
             changes = bone_relations[item_id]['_changes']
             for change in changes:
                 # Check if there are other words besides the specified keywords
-                if any(keyword not in ['absent', 'Absent', 'Unknown', 'unknown'] for keyword in change['bone_change']):
+                if any(keyword.lower() not in ['absent', 'unknown'] for keyword in change['bone_change']):
                     # If other words are found, set is_affected to True and exit the loop
                     is_affected = True
                     break
@@ -55,7 +55,7 @@ def get_svgids(instance):
             amount_name = 'affected' if is_affected else amount_name
 
         # combine absent and unknown
-        if amount_name == 'absent' or amount_name == 'Absent' or amount_name == 'Unknown':
+        if amount_name in ['absent', 'unknown']:
             amount_name = 'unknown'
 
         svg_ids = inventory[item]['svgid'] \
