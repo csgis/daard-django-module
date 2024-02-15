@@ -117,3 +117,31 @@ $(document).ready(function() {
     });
 
 });
+
+$(document).ready(function() {
+    // Select the textarea by its id
+    var $textarea = $('#id_inventory');
+    
+    // Parse the JSON string within the textarea
+    var json = JSON.parse($textarea.val());
+    
+    // Stringify the JSON with indentation (4 spaces as an example)
+    var formattedJson = JSON.stringify(json, null, 4);
+    
+    // Set the formatted JSON string back to the textarea
+    $textarea.val(formattedJson);
+});
+
+$(document).ready(function() {
+    // Select the textarea by its id
+    var $textarea = $('#id_bone_relations');
+    
+    // Parse the JSON string within the textarea
+    var json = JSON.parse($textarea.val());
+    
+    // Stringify the JSON with indentation (4 spaces as an example)
+    var formattedJson = JSON.stringify(json, null, 4);
+    
+    // Set the formatted JSON string back to the textarea
+    $textarea.val(formattedJson);
+});
