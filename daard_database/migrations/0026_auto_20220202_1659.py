@@ -1,4 +1,5 @@
 from django.db import migrations, models
+from django.db.migrations.operations.special import RunSQL
 
 class Migration(migrations.Migration):
 
@@ -7,21 +8,8 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunSQL(
-            """
-            UPDATE daard_database_diseasecase
-            SET storage_place = jsonb_build_object('value', storage_place::text)
-            WHERE storage_place IS NOT NULL;
-            """,
-            """
-            UPDATE daard_database_diseasecase
-            SET storage_place = ('{"value":' || storage_place::text || '}')::jsonb
-            WHERE storage_place IS NOT NULL;
-            """
-        ),
-        migrations.AlterField(
-            model_name='diseasecase',
-            name='storage_place',
-            field=models.JSONField(default=dict),
+        RunSQL(
+            "ALTER TABLE daard_database_diseasecase ALTER COLUMN storage_place TYPE jsonb USING storage_place::text::jsonb",
+            reverse_sql="ALTER TABLE daard_database_diseasecase ALTER COLUMN storage_place TYPE integer USING storage_place::text::integer"
         ),
     ]
