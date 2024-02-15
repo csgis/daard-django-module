@@ -1,5 +1,7 @@
-from django.db import migrations, models
-from django.db.migrations.operations.special import RunSQL
+from django.db import migrations
+
+def no_op(apps, schema_editor):
+    pass  # This is a no-op function
 
 class Migration(migrations.Migration):
 
@@ -8,8 +10,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        RunSQL(
-            "ALTER TABLE daard_database_diseasecase ALTER COLUMN storage_place TYPE jsonb USING storage_place::text::jsonb",
-            reverse_sql="ALTER TABLE daard_database_diseasecase ALTER COLUMN storage_place TYPE integer USING storage_place::text::integer"
-        ),
+        migrations.RunPython(no_op, reverse_code=no_op),
     ]
