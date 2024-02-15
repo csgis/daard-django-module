@@ -16,9 +16,4 @@ class Migration(migrations.Migration):
             name='dating_method',
             field=jsonfield.fields.JSONField(blank=True, default=list, null=True),
         ),
-        migrations.AlterField(
-            model_name='diseasecase',
-            name='storage_place',
-            field=jsonfield.fields.JSONField(blank=True, default=list, null=True),
-        ),
     ]
