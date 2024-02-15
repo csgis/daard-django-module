@@ -85,8 +85,22 @@ def format_bone_relations(instance):
     
     for key, item in inventory.items():
         label = item["label"]
-        if (label == "Deciduous teeth" or label == "Permanent teeth"):
-            item_name = f'{item["id"]} ({label})'
+        if label in ("Deciduous teeth", "Permanent teeth"):
+            # Safely try to get the bone_change object by item["id"]
+            bone_change = bone_relations.get(str(item["id"]))
+            if bone_change:
+                try:
+                    # Extract the first digits from the bone_change label safely
+                    digits_label = bone_change.get("label", "")
+                    digits = digits_label.split(" ")[0] if digits_label else "Unknown ID"
+                    item_name = f'{digits} ({label})'
+                except Exception as e:
+                    # In case of an error, fallback to using "Unknown ID"
+                    print(f"Error extracting digits from bone_change label: {e}")
+                    item_name = f'Unknown ID ({label})'
+            else:
+                # Fallback to item["id"] if bone_change is not found
+                item_name = f'{item["id"]} ({label})'
         else:
             item_name = f'{label} ({item["section"].replace("_", " ")})'
 
