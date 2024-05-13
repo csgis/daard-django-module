@@ -31,7 +31,7 @@ setup(
         'django-admin-select2==1.0.1',
         'django-easy-select2==1.5.8',
         'django-bootstrap-select==0.1.3',
-        'django-mptt==0.14.0',
+        'django-mptt>=0.14.0',
         'djangorestframework~=3.0',
         'django-filter>=22.0,<24.0',
         'drf-spectacular>=0.25.0,<0.27.0',
